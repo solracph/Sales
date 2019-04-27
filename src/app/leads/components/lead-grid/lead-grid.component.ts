@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output , OnChanges, EventEmitter} from '@angular/core';
 import { Lead } from '../../models/lead.model';
 import { MatTableDataSource } from '@angular/material';
+import { LeadGridService } from '../../services/lead-grid.service';
 
 @Component({
   selector: 'app-lead-grid',
@@ -14,7 +15,7 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   public dataSource: MatTableDataSource<Lead>;
 
-  constructor() { }
+  constructor(public leadGridService: LeadGridService) { }
 
   ngOnInit() { }
 
@@ -27,6 +28,6 @@ export class LeadGridComponent implements OnInit , OnChanges {
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.leadGridService.applyFilterToDataSource(filterValue,this.dataSource);
   }
 }

@@ -10,15 +10,18 @@ import { ListEffects } from './effects/lists.effects';
 import { LeadEffects } from './effects/leads.effects';
 import { LeadListsService } from './services/lead-lists.service';
 import { LeadService } from './services/lead.service';
+import { LeadGridService } from './services/lead-grid.service';
 import { LeadFormComponent } from './components/lead-form/lead-form.component';
 import { LeadGridComponent } from './components/lead-grid/lead-grid.component';
 import { SharedModule } from '../shared/shared.module';
+import { LeadDetailsComponent } from './containers/lead-details/lead-details.component';
 
 @NgModule({
   declarations: [
     LeadsComponent,
     LeadFormComponent,
-    LeadGridComponent
+    LeadGridComponent,
+    LeadDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   providers:[
     LeadListsService,
-    LeadService
+    LeadService,
+    LeadGridService
   ]
 })
 export class LeadsModule { }

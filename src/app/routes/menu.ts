@@ -8,7 +8,7 @@ const Home = {
 const Leads = {
     text: 'Leads',
     link: '/leads',
-    icon: 'icon-home'
+    icon: 'icon-user-following'
 };
 
 const Material = {

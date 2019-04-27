@@ -1,4 +1,96 @@
-<div>{{sources | json}}</div>
-<div>{{reasons | json}}</div>
-<div>{{plans | json}}</div>
-<div>{{outcomes | json}}</div>
+<div class="md-card">
+        <div class="md-card-heading">
+            <div class="md-card-title">Lead detais</div>
+        </div>
+        <div class="md-card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <input class="mda-form-control" [(ngModel)]="lead.firstName" name="firstName" required="" tabindex="0" />
+                        <label>First Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <input class="mda-form-control" [(ngModel)]="lead.lastName" name="lastName" required="" tabindex="0"  />
+                        <label>Last Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <input class="mda-form-control" [(ngModel)]="lead.email" name="email" required="" tabindex="0"  />
+                        <label>Email</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <input class="mda-form-control" [(ngModel)]="lead.dob" name="dob" required="" tabindex="0"  />
+                        <label>BOB</label>
+                        <!--<mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <input class="mda-form-control" [(ngModel)]="lead.mbi" name="mbi" required="" tabindex="0"  />
+                        <label>MBI</label>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="mda-form-group">
+                        <input class="mda-form-control" [(ngModel)]="lead.address" name="address" tabindex="0"  />
+                        <label>Address</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <mat-form-field>
+                            <mat-label>Reason</mat-label>
+                            <mat-select [(ngModel)]="lead.reason">
+                                <mat-option *ngFor="let reason of reasons" [value]="reason.id" >
+                                    {{ reason.description }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <mat-form-field>
+                            <mat-label>Current Plan</mat-label>
+                            <mat-select [(ngModel)]="lead.currentPlan">
+                                <mat-option *ngFor="let plan of plans" [value]="plan.id" >{{ plan.description }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <mat-form-field>
+                            <mat-label>Outcome</mat-label>
+                            <mat-select [(ngModel)]="lead.outcome">
+                                <mat-option *ngFor="let outcome of outcomes" [value]="outcome.id" >{{ outcome.description }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mda-form-group">
+                        <mat-form-field >
+                            <mat-label>Source</mat-label>
+                            <mat-select [(ngModel)]="lead.source">
+                                <mat-option *ngFor="let source of sources" [value]="source.id" >{{ source.description }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

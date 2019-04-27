@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Source, Reason, Plan, Outcome } from '../../models';
+import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 
 @Component({
   selector: 'app-lead-form',
@@ -8,6 +8,7 @@ import { Source, Reason, Plan, Outcome } from '../../models';
 })
 export class LeadFormComponent implements OnInit {
 
+  @Input() lead: Lead;
   @Input() sources : Source[];
   @Input() reasons : Reason[];
   @Input() plans : Plan[];
