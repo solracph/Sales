@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "description": "outcome-1"
+    },
+    {
+        "id": 2,
+        "description": "outcome-2"
+    },
+    {
+        "id": 3,
+        "description": "outcome-3"
+    },
+    {
+        "id": 4,
+        "description": "outcome-4"
+    },
+    {
+        "id": 5,
+        "description": "outcome-5"
+    },
+    {
+        "id": 6,
+        "description": "outcome-6"
+    }
+]
