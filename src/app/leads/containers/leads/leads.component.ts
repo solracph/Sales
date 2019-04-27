@@ -5,7 +5,7 @@ import * as fromList from '../../reducers/lists.reducer';
 import * as fromListSelectors from '../../selectors/list.selectors';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
 import { LoadAllLists } from '../../actions/lists.actions';
-import { LoadLeads } from '../../actions/leads.actions';
+import { LoadLeads, SelectLead } from '../../actions/leads.actions';
 import { Observable } from 'rxjs';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 
@@ -17,11 +17,12 @@ import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 export class LeadsComponent implements OnInit {
   
   public leads$ : Observable<Lead[]>;
+
   public sources$: Observable<Source[]>;
   public reasons$: Observable<Reason[]>;
   public plans$:  Observable<Plan[]>;
   public outcomes$: Observable<Outcome[]>;
-
+ 
 
   constructor(private store: Store<fromLeads.State>) {
 
@@ -32,6 +33,10 @@ export class LeadsComponent implements OnInit {
     this.plans$ = this.store.pipe(select(fromListSelectors.getPlans));
     this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
     
+  }
+
+  onLeadSelection(lead: Lead){
+    this.store.dispatch(new SelectLead({ id: lead.id}));
   }
 
   ngOnInit() {

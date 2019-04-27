@@ -23,7 +23,7 @@ export class LoadLeadsFail implements Action {
 
 export class SelectLead implements Action {
     readonly type = SELECT_LEAD;
-    constructor(public payload: { id: string }) { }
+    constructor(public payload: { id: number }) { }
 }
 
 export type Actions = 

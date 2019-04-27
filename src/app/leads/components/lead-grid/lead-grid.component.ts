@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges} from '@angular/core';
+import { Component, OnInit, Input, Output , OnChanges, EventEmitter} from '@angular/core';
 import { Lead } from '../../models/lead.model';
 import { MatTableDataSource } from '@angular/material';
 
@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material';
 export class LeadGridComponent implements OnInit , OnChanges {
 
   @Input() leads : Lead[];
+  @Output() leadSelected: EventEmitter<Lead> = new EventEmitter();
 
   public dataSource: MatTableDataSource<Lead>;
 
@@ -19,6 +20,10 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   ngOnChanges(changes){
     this.dataSource = new MatTableDataSource(changes.leads.currentValue);
+  }
+
+  onLeadSelection(lead: Lead){
+    this.leadSelected.emit(lead);
   }
 
   applyFilter(filterValue: string) {

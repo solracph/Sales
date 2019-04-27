@@ -48,7 +48,7 @@
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="['firstName','lastName', 'dob', 'mbi', 'email', 'address']"></tr>
-              <tr mat-row *matRowDef="let row; columns: ['firstName','lastName', 'dob', 'mbi', 'email', 'address'];"></tr>
+              <tr mat-row (click)="onLeadSelection(row)" *matRowDef="let row; columns: ['firstName','lastName', 'dob', 'mbi', 'email', 'address'];"></tr>
             </table>
           </div>
       </div>

@@ -5,4 +5,4 @@
     [outcomes]="outcomes$ | async"
 ></app-lead-form>-->
 
-<app-lead-grid [leads]="leads$ | async"></app-lead-grid>
+<app-lead-grid [leads]="leads$ | async" (leadSelected)="onLeadSelection($event)"></app-lead-grid>
