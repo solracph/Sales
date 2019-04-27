@@ -5,6 +5,12 @@ const Home = {
     icon: 'icon-home'
 };
 
+const Leads = {
+    text: 'Leads',
+    link: '/leads',
+    icon: 'icon-home'
+};
+
 const Material = {
     text: "Material",
     link: "/material",
@@ -51,6 +57,7 @@ const headingMain = {
 
 export const menu = [
     headingMain,
+    Leads,
     Home,
     Material
 ];

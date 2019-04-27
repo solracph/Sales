@@ -15,12 +15,12 @@ export class LeadEffects {
     ) { }
 
     @Effect()
-    getUsers$ = this.actions$.pipe(
-      ofType<fromLead.LoadsLeads>(fromLead.LOAD_LEADS),
-      switchMap(() => this.leadService.gteLeads()
+    getLeads$ = this.actions$.pipe(
+      ofType<fromLead.LoadLeads>(fromLead.LOAD_LEADS),
+      switchMap(() => this.leadService.getLeads()
         .pipe(
-          map((leads: Lead[]) => new fromLead.LoadsLeadsSuccess(leads)),
-          catchError(error => of(new fromLead.LoadsLeadsFail(error)))
+          map((leads: Lead[]) => new fromLead.LoadLeadsSuccess(leads)),
+          catchError(error => of(new fromLead.LoadLeadsFail(error)))
         )
       ),
     );

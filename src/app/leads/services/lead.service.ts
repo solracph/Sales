@@ -9,7 +9,7 @@ export class LeadService {
 
   constructor(private _http: HttpClient) { }
 
-  gteLeads(): Observable<Lead[]> {
+  getLeads(): Observable<Lead[]> {
     return this._http.get<any>(`${environment.apiUrl}leads.json`);
   }
 

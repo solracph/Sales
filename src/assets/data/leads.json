@@ -1,0 +1,28 @@
+[
+    {
+        "id" : 1,
+        "firstName": "Ana",
+        "lastName": "Allison",
+        "source": 1,
+        "outcome": 2,
+        "email": "anaallison@gmail.com",
+        "address": "325 Majorca Ave Coral Gables",
+        "reason": 3,
+        "currentPlan": 1,
+        "mbi": "MBI01",
+        "dob": "02/06/1989"
+    },
+    {
+        "id" : 2,
+        "firstName": "Bella",
+        "lastName": "Kearney",
+        "source": 2,
+        "outcome": 1,
+        "email": "kearney_bella@gmail.com",
+        "address": "4754 W Flagler St, Coral Gables, FL 33134",
+        "reason": 1,
+        "currentPlan": 1,
+        "mbi": "MBI02",
+        "dob": "06/07/1979"
+    }
+]

@@ -7,16 +7,16 @@ export const LOAD_LEADS_FAIL =  "[Leads] LOAD LEADS FAIL"
 
 export const SELECT_LEAD =  "[Leads] SELECT LEAD"
 
-export class LoadsLeads implements Action {
+export class LoadLeads implements Action {
     readonly type = LOAD_LEADS;
 }
 
-export class LoadsLeadsSuccess implements Action {
+export class LoadLeadsSuccess implements Action {
     readonly type = LOAD_LEADS_SUCCESS;
     constructor(public payload: Lead[]) { }
 }
 
-export class LoadsLeadsFail implements Action {
+export class LoadLeadsFail implements Action {
     readonly type = LOAD_LEADS_FAIL;
     constructor(public payload: any) { }
 }
@@ -27,7 +27,7 @@ export class SelectLead implements Action {
 }
 
 export type Actions = 
-LoadsLeads 
-| LoadsLeadsSuccess 
-| LoadsLeadsFail
+LoadLeads 
+| LoadLeadsSuccess 
+| LoadLeadsFail
 | SelectLead;
