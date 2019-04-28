@@ -1,5 +1,10 @@
+import { LeadState } from "./lead-state.enum";
+
 export interface Lead {
-    id: number,
+    leadId: string,
+    versionId: string,
+    state: LeadState,
+
     firstName: string;
     lastName: string;
     source: string;

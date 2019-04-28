@@ -24,4 +24,15 @@ export class LeadEffects {
         )
       ),
     );
+
+    @Effect()
+    getLeadVersions$ = this.actions$.pipe(
+      ofType<fromLead.LoadLeadVersions>(fromLead.LOAD_LEAD_VERSIONS),
+      switchMap((action) => this.leadService.getLeadVersions(action.payload.leadId)
+        .pipe(
+          map((leads: Lead[]) => new fromLead.LoadLeadVersionsSuccess(leads)),
+          catchError(error => of(new fromLead.LoadLeadVersionsFail(error)))
+        )
+      ),
+    );
 }

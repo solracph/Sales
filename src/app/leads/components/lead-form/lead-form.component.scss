@@ -2,3 +2,36 @@
     color: #000000;
     font-weight: 600;
 }
+
+.mda-form-control.disabled, .mda-form-control[disabled]{
+    opacity: 1;
+}
+
+/deep/ .mat-select-disabled .mat-select-value {
+    color: rgba(0,0,0,.87) !important;
+}
+
+/deep/ .mat-form-field-appearance-legacy .mat-form-field-label{
+    color: rgba(0,0,0,.87) !important;
+}
+
+/deep/ .mat-select-disabled .mat-select-arrow{
+    visibility :hidden ;
+}
+
+/deep/ .mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{
+    background-color: rgb(221, 230, 233) !important;
+}
+/deep/ .mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{
+    background-image: none;
+}
+.state-label{
+    font-size: 14px;
+    font-style: oblique;
+    color: #9e9e9e;
+}
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}

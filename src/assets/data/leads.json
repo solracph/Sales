@@ -1,6 +1,8 @@
 [
     {
-        "id" : 1,
+        "leadId" : "1ef3cabe-ebbb-49b8-b6df-047593041c50",
+        "versionId" : "db2072a0-8aad-4ee7-b62a-53916a92b379",
+        "state": 1,
         "firstName": "Ana",
         "lastName": "Allison",
         "source": 1,
@@ -13,7 +15,9 @@
         "dob": "02/06/1989"
     },
     {
-        "id" : 2,
+        "leadId" : "f2a84d94-42a0-4f8d-abb9-c44a76ab2f8d",
+        "versionId" : "de259f14-290a-48a3-b61c-3d69aca4b9c9",
+        "state": 1,
         "firstName": "Bella",
         "lastName": "Kearney",
         "source": 2,

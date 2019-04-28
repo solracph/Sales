@@ -1,16 +1,16 @@
-import {  Actions, LOAD_LEADS, LOAD_LEADS_SUCCESS, LOAD_LEADS_FAIL, SELECT_LEAD } from '../actions/leads.actions';
+import * as feomLead from '../actions/leads.actions';
 import { Lead } from '../models';
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 //#region State definition
 export interface State extends EntityState<Lead> {
-    selected: number,
+    selected: string,
     loading: boolean,
     error: any
 }
 
 export const adapter: EntityAdapter<Lead> = createEntityAdapter({
-	selectId: (loc: Lead) => loc.id,
+	selectId: (loc: Lead) => loc.versionId,
     sortComparer: false,
 });
 
@@ -23,17 +23,46 @@ export const initialState: State = adapter.getInitialState({
 
 export const reducer = (
     state = initialState,
-    action: Actions
+    action: feomLead.Actions
 ): State => {
     switch (action.type) {
-        case LOAD_LEADS:
-            return { ...state, loading: true }
-        case LOAD_LEADS_SUCCESS:
-            return { ...adapter.addAll( action.payload, state ), loading: false }
-        case LOAD_LEADS_FAIL:
-            return { ...state, error: action.payload, loading: false }
-        case SELECT_LEAD:
-            return { ...state, selected: action.payload.id}
+        case feomLead.LOAD_LEADS:
+            return { 
+                ...state, 
+                loading: true 
+            }
+        case feomLead.LOAD_LEADS_SUCCESS:
+            return { 
+                ...adapter.addAll( action.payload, state ), 
+                loading: false
+             }
+        case feomLead.LOAD_LEADS_FAIL:
+            return { 
+                ...state, 
+                error: action.payload, loading: false 
+            }
+            
+        case feomLead.LOAD_LEAD_VERSIONS:
+            return { 
+                ...state, 
+                loading: true 
+            }
+        case feomLead.LOAD_LEAD_VERSIONS_SUCCESS:
+            return { 
+                ...adapter.addMany( action.payload, state ), 
+                loading: false
+            }
+        case feomLead.LOAD_LEAD_VERSIONS_FAIL:
+            return { 
+                ...state, 
+                loading: false 
+            }
+
+        case feomLead.SELECT_LEAD:
+            return { 
+                ...state, 
+                selected: action.payload.id
+            }
         default:
             return state;
     }

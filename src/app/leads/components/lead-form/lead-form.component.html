@@ -1,49 +1,44 @@
 <div class="md-card">
         <div class="md-card-heading">
-            <div class="md-card-title">Lead detais</div>
+            <div class="md-card-title">Lead detais <span *ngIf="state == 2" class="state-label">(editing)</span></div>
         </div>
         <div class="md-card-body">
             <div class="row">
                 <div class="col-md-3">
                     <div class="mda-form-group">
-                        <input class="mda-form-control" [(ngModel)]="lead.firstName" name="firstName" required="" tabindex="0" />
+                        <input class="mda-form-control" [(ngModel)]="lead.firstName" name="firstName" required="" tabindex="0"  [attr.disabled]="lead.state == leadState.version ? '' : null"/>
                         <label>First Name</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mda-form-group">
-                        <input class="mda-form-control" [(ngModel)]="lead.lastName" name="lastName" required="" tabindex="0"  />
+                        <input class="mda-form-control" [(ngModel)]="lead.lastName" name="lastName" required="" tabindex="0"  [attr.disabled]="lead.state == leadState.version ? '' : null"/>
                         <label>Last Name</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mda-form-group">
-                        <input class="mda-form-control" [(ngModel)]="lead.email" name="email" required="" tabindex="0"  />
+                        <input class="mda-form-control" [(ngModel)]="lead.email" name="email" required="" tabindex="0"  [attr.disabled]="lead.state == leadState.version ? '' : null"/>
                         <label>Email</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mda-form-group">
-                        <input class="mda-form-control" [(ngModel)]="lead.dob" name="dob" required="" tabindex="0"  />
+                        <input class="mda-form-control" [(ngModel)]="lead.dob" name="dob" required="" tabindex="0"  [attr.disabled]="lead.state == leadState.version ? '' : null"/>
                         <label>BOB</label>
-                        <!--<mat-form-field>
-                            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>-->
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="mda-form-group">
-                        <input class="mda-form-control" [(ngModel)]="lead.mbi" name="mbi" required="" tabindex="0"  />
+                        <input class="mda-form-control" [(ngModel)]="lead.mbi" name="mbi" required="" tabindex="0"  [attr.disabled]="lead.state == leadState.version ? '' : null"/>
                         <label>MBI</label>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="mda-form-group">
-                        <input class="mda-form-control" [(ngModel)]="lead.address" name="address" tabindex="0"  />
+                        <input class="mda-form-control" [(ngModel)]="lead.address" name="address" tabindex="0"  [attr.disabled]="lead.state == leadState.version ? '' : null"/>
                         <label>Address</label>
                     </div>
                 </div>
@@ -53,7 +48,7 @@
                     <div class="mda-form-group">
                         <mat-form-field>
                             <mat-label>Reason</mat-label>
-                            <mat-select [(ngModel)]="lead.reason">
+                            <mat-select [(ngModel)]="lead.reason" [disabled]="lead.state == leadState.version">
                                 <mat-option *ngFor="let reason of reasons" [value]="reason.id" >
                                     {{ reason.description }}
                                 </mat-option>
@@ -65,7 +60,7 @@
                     <div class="mda-form-group">
                         <mat-form-field>
                             <mat-label>Current Plan</mat-label>
-                            <mat-select [(ngModel)]="lead.currentPlan">
+                            <mat-select [(ngModel)]="lead.currentPlan" [disabled]="lead.state == leadState.version">
                                 <mat-option *ngFor="let plan of plans" [value]="plan.id" >{{ plan.description }}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -75,7 +70,7 @@
                     <div class="mda-form-group">
                         <mat-form-field>
                             <mat-label>Outcome</mat-label>
-                            <mat-select [(ngModel)]="lead.outcome">
+                            <mat-select [(ngModel)]="lead.outcome" [disabled]="lead.state == leadState.version">
                                 <mat-option *ngFor="let outcome of outcomes" [value]="outcome.id" >{{ outcome.description }}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -85,10 +80,21 @@
                     <div class="mda-form-group">
                         <mat-form-field >
                             <mat-label>Source</mat-label>
-                            <mat-select [(ngModel)]="lead.source">
+                            <mat-select [(ngModel)]="lead.source" [disabled]="lead.state == leadState.version">
                                 <mat-option *ngFor="let source of sources" [value]="source.id" >{{ source.description }}</mat-option>
                             </mat-select>
                         </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="button-row">
+                        <button class="mb-1 mr-1 btn btn-danger" type="button" (click)="cancel()" *ngIf="lead.state != leadState.version">Cancel</button>
+                        <button class="mb-1 mr-1 btn btn-labeled btn-success" type="button" (click)="save()" *ngIf="lead.state != 3">
+                            <span class="btn-label"><i class="fa fa-check"></i></span>
+                            Save
+                        </button>
                     </div>
                 </div>
             </div>

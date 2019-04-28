@@ -4,8 +4,8 @@ import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import { LoadLeads, SelectLead } from '../../actions/leads.actions';
-import {Lead } from '../../models';
+import { LoadLeads} from '../../actions/leads.actions';
+import { Lead } from '../../models';
 
 @Component({
   selector: 'app-leads',
@@ -20,12 +20,11 @@ export class LeadsComponent implements OnInit {
       private store: Store<fromLeads.State>,
       private routes: Router
     ) {
-    this.leads$ = this.store.pipe(select(fromLeadsSelectors.getAllLeads));
+    this.leads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads));
   }
 
   onLeadSelection(lead: Lead){
-    this.store.dispatch(new SelectLead({ id: lead.id}));
-    this.routes.navigate(['/leads/details']);
+    this.routes.navigate(['/leads/details',lead.versionId]);
   }
 
   ngOnInit() {
