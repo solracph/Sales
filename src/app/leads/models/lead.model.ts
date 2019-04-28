@@ -4,7 +4,6 @@ export interface Lead {
     leadId: string,
     versionId: string,
     state: LeadState,
-
     firstName: string;
     lastName: string;
     source: string;
@@ -14,5 +13,6 @@ export interface Lead {
     reason: string;
     currentPlan: string;
     mbi: string;
-    dob: string;
+    dob: Date;
+    versionDate: Date
 }

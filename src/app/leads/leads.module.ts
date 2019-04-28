@@ -15,13 +15,15 @@ import { LeadFormComponent } from './components/lead-form/lead-form.component';
 import { LeadGridComponent } from './components/lead-grid/lead-grid.component';
 import { SharedModule } from '../shared/shared.module';
 import { LeadDetailsComponent } from './containers/lead-details/lead-details.component';
+import { LeadVersionsListComponent } from './components/lead-versions-list/lead-versions-list.component';
 
 @NgModule({
   declarations: [
     LeadsComponent,
     LeadFormComponent,
     LeadGridComponent,
-    LeadDetailsComponent
+    LeadDetailsComponent,
+    LeadVersionsListComponent
   ],
   imports: [
     CommonModule,

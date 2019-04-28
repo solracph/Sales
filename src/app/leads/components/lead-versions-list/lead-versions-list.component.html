@@ -1,0 +1,13 @@
+<mat-list>
+    <mat-list-item  
+        *ngFor="let version of versions" 
+        (click)="onLeadSelection(version)" 
+        class="lead-version-mat-list-item">
+
+        <mat-icon mat-list-icon>calendar_today</mat-icon>
+        <h1 class="item-label" mat-line>Version Date:</h1>
+        <p mat-line> {{version.versionDate }} </p>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>
+

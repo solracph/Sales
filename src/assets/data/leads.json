@@ -12,7 +12,8 @@
         "reason": 3,
         "currentPlan": 1,
         "mbi": "MBI01",
-        "dob": "02/06/1989"
+        "dob": "02/06/1989",
+        "versionDate": "04/10/2019 3:00 PM"
     },
     {
         "leadId" : "f2a84d94-42a0-4f8d-abb9-c44a76ab2f8d",
@@ -27,6 +28,7 @@
         "reason": 1,
         "currentPlan": 1,
         "mbi": "MBI02",
-        "dob": "06/07/1979"
+        "dob": "06/07/1979",
+        "versionDate": "04/28/2019 2:00 PM"
     }
 ]
