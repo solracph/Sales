@@ -35,7 +35,7 @@ export class LoadLeadVersions implements Action {
 
 export class LoadLeadVersionsSuccess implements Action {
     readonly type = LOAD_LEAD_VERSIONS_SUCCESS;
-    constructor(public payload: Lead[]) { }
+    constructor(public payload: { leadId: string, leads: Lead[] }) { }
 }
 
 export class LoadLeadVersionsFail implements Action {

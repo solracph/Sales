@@ -49,7 +49,7 @@ export const reducer = (
             }
         case feomLead.LOAD_LEAD_VERSIONS_SUCCESS:
             return { 
-                ...adapter.addMany( action.payload, state ), 
+                ...adapter.addMany( action.payload.leads, state ), 
                 loading: false
             }
         case feomLead.LOAD_LEAD_VERSIONS_FAIL:
