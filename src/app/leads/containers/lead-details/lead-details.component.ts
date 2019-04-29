@@ -18,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LeadDetailsComponent implements OnInit {
   
-  public lead$ : Observable<Lead>;
+  public selectedLead$ : Observable<Lead>;
   public versions$ : Observable<Lead[]>;
   public state$ : Observable<LeadState>;
   public sources$: Observable<Source[]>;
@@ -48,7 +48,7 @@ export class LeadDetailsComponent implements OnInit {
     this.store.dispatch(new LoadLeadVersions({ leadId }));
     this.store.dispatch(new LoadAllLists());
 
-    this.lead$ = this.store.pipe(select(fromLeadsSelectors.getSelectedLead));
+    this.selectedLead$ = this.store.pipe(select(fromLeadsSelectors.getSelectedLead));
     this.versions$ = this.store.pipe(select(fromLeadsSelectors.getAllLeadVersions, { leadId }));
     this.sources$ = this.store.pipe(select(fromListSelectors.getSources));
     this.reasons$ = this.store.pipe(select(fromListSelectors.getReasons));

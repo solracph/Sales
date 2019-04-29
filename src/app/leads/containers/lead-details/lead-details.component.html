@@ -9,6 +9,7 @@
                     <div class="col-md-12">
                         <ng-container *ngIf="versions$ | async; let versions;">
                             <app-lead-versions-list 
+                                [selected]="selectedLead$ | async"
                                 [versions]="versions" 
                                 (leadSelected)="onLeadSelection($event)">
                             </app-lead-versions-list>
@@ -19,9 +20,9 @@
         </div>
     </div>
     <div class="col-md-10">
-        <ng-container *ngIf="lead$ | async; let lead;">
+        <ng-container *ngIf="selectedLead$ | async; let selectedLead;">
             <app-lead-form 
-                [lead]="lead"
+                [lead]="selectedLead"
                 [sources]="sources$ | async"
                 [reasons]="reasons$ | async"
                 [plans]="plans$ | async"
