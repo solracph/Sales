@@ -18,12 +18,10 @@ export class LeadVersionsListComponent implements OnInit {
   ngOnInit() {
   }
 
-  getSelectedClass(version: Lead){
-    return version.versionId == this.selected.versionId ? "selected-version" : "";
-  }
-  onLeadSelection(lead: Lead){
-    this.leadSelected.emit(lead);
-  }
-
-
+  getSelectedClass = (version: Lead)=> 
+    version.versionId == (this.selected && this.selected.versionId)
+      ? "selected-version" 
+      : "";
+  
+  onLeadSelection = (lead: Lead) => this.leadSelected.emit(lead);
 }
