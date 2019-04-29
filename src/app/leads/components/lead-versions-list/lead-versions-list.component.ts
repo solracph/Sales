@@ -6,7 +6,6 @@ import { SelectLead } from '../../actions/leads.actions';
   selector: 'app-lead-versions-list',
   templateUrl: './lead-versions-list.component.html',
   styleUrls: ['./lead-versions-list.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class LeadVersionsListComponent implements OnInit {
 
