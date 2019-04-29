@@ -4,26 +4,31 @@
             <div class="md-card-heading">
                 <div class="md-card-title">Versions</div>
             </div>
-            <div class="md-card-body">
-                <div class="row">
+            <div class="md-card-body p-0">
+                <div class="row no-gutter m-0">
                     <div class="col-md-12">
-                        <app-lead-versions-list [versions]="versions$ | async" (leadSelected)="onLeadSelection($event)"></app-lead-versions-list>
-                        <!--<app-lead-grid [leads]="versions$ | async" (leadSelected)="onLeadSelection($event)"></app-lead-grid>-->
+                        <ng-container *ngIf="versions$ | async; let versions;">
+                            <app-lead-versions-list 
+                                [versions]="versions" 
+                                (leadSelected)="onLeadSelection($event)">
+                            </app-lead-versions-list>
+                        </ng-container>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-10">
-        <app-lead-form 
-            [lead]="lead$ | async"
-            [sources]="sources$ | async"
-            [reasons]="reasons$ | async"
-            [plans]="plans$ | async"
-            [outcomes]="outcomes$ | async"
-        
-            (leadStateChanged)="onLeadStateChange($event)"
-        ></app-lead-form>
+        <ng-container *ngIf="lead$ | async; let lead;">
+            <app-lead-form 
+                [lead]="lead"
+                [sources]="sources$ | async"
+                [reasons]="reasons$ | async"
+                [plans]="plans$ | async"
+                [outcomes]="outcomes$ | async"
+                (leadStateChanged)="onLeadStateChange($event)"
+            ></app-lead-form>
+        </ng-container>
     </div>
 </div>
 

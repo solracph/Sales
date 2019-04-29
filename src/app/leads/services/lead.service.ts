@@ -11,12 +11,12 @@ export class LeadService {
   constructor(private _http: HttpClient) { }
 
   getLeads(): Observable<Lead[]> {
-    return this._http.get<any>(`${environment.apiUrl}leads.json`);
+    return this._http.get<Lead[]>(`${environment.apiUrl}leads.json`);
   }
 
   getLeadVersions(LeadId: string): Observable<Lead[]> {
     //TODO This is only for one version for now :)
-    return this._http.get<any>(`${environment.apiUrl}versions.json`);
+    return this._http.get<Lead[]>(`${environment.apiUrl}versions.json`);
   }
 
 

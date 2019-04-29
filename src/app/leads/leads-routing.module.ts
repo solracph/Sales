@@ -5,7 +5,7 @@ import { LeadDetailsComponent } from './containers/lead-details/lead-details.com
 
 const routes: Routes = [
   { path: '', component: LeadsComponent },
-  { path: 'details/:id', component: LeadDetailsComponent }
+  { path: 'details/:leadId', component: LeadDetailsComponent }
 ];
 
 @NgModule({

@@ -58,11 +58,13 @@ export const reducer = (
                 loading: false 
             }
 
-        case feomLead.SELECT_LEAD:
+        case feomLead.SELECT_LEAD:{
+            //debugger;
             return { 
                 ...state, 
                 selected: action.payload.id
             }
+        }
         default:
             return state;
     }

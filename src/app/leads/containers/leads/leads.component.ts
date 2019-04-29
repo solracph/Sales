@@ -24,7 +24,7 @@ export class LeadsComponent implements OnInit {
   }
 
   onLeadSelection(lead: Lead){
-    this.routes.navigate(['/leads/details',lead.versionId]);
+    this.routes.navigate(['/leads/details', lead.leadId]);
   }
 
   ngOnInit() {

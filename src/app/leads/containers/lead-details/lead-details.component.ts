@@ -9,7 +9,7 @@ import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-lead-details',
@@ -25,40 +25,42 @@ export class LeadDetailsComponent implements OnInit {
   public reasons$: Observable<Reason[]>;
   public plans$:  Observable<Plan[]>;
   public outcomes$: Observable<Outcome[]>;
-  public selectLeadSubscription: Subscription;
-  public loadLeadVersionsSubscription: Subscription;
+  public _subsc: Subscription = new Subscription();
   
   constructor(
     private store: Store<fromLeads.State>,
     private route: ActivatedRoute
   ) { 
-    this.selectLeadSubscription = route.params
-      .pipe(map(params => new SelectLead({ id: params.id })))
-      .subscribe(store);
-
-    this.loadLeadVersionsSubscription = route.params
-      .pipe(map(params => new LoadLeadVersions({ leadId: params.id })))
-      .subscribe(store);
-      
-    this.lead$ = this.store.pipe(select(fromLeadsSelectors.getSelectedLead));
-    this.versions$ = this.store.pipe(select(fromLeadsSelectors.getAllLeadVersions));
-    this.sources$ = this.store.pipe(select(fromListSelectors.getSources));
-    this.reasons$ = this.store.pipe(select(fromListSelectors.getReasons));
-    this.plans$ = this.store.pipe(select(fromListSelectors.getPlans));
-    this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
     
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadAllLists());
+    this._subsc.add(
+      this.route.params
+      .subscribe((params) => {
+        this.initialLoad(params['leadId']);
+      })
+    );
   }
  
+  private initialLoad(leadId) {
+    // debugger;
+    this.store.dispatch(new LoadLeadVersions({ leadId }));
+    this.store.dispatch(new LoadAllLists());
+
+    this.lead$ = this.store.pipe(select(fromLeadsSelectors.getSelectedLead));
+    this.versions$ = this.store.pipe(select(fromLeadsSelectors.getAllLeadVersions, { leadId }));
+    this.sources$ = this.store.pipe(select(fromListSelectors.getSources));
+    this.reasons$ = this.store.pipe(select(fromListSelectors.getReasons));
+    this.plans$ = this.store.pipe(select(fromListSelectors.getPlans));
+    this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
+  }
+
   onLeadSelection(lead: Lead){
     this.store.dispatch(new SelectLead({ id: lead.versionId }));
   }
 
   ngOnDestroy(){
-    this.selectLeadSubscription.unsubscribe();
-    this.loadLeadVersionsSubscription.unsubscribe();
+    this._subsc.unsubscribe();
   }
 }
