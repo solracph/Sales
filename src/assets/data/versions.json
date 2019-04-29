@@ -13,7 +13,12 @@
         "currentPlan": 1,
         "mbi": "MBI01",
         "dob": "02/06/1989",
-        "versionDate": "04/28/2019 3:50 PM"
+        "versionDate": "04/28/2019 3:50 PM",
+        "event": {
+            "date": "2/20/2019 4:00 PM",
+            "loacation": "325 Majorca Ave Coral Gables Apt 5",
+            "notes": "Successful appointment"
+        }
     },
     {
         "leadId" : "1ef3cabe-ebbb-49b8-b6df-047593041c50",
@@ -29,6 +34,11 @@
         "currentPlan": 1,
         "mbi": "MBI01",
         "dob": "02/06/1989",
-        "versionDate": "04/10/2019 3:00 PM"
+        "versionDate": "04/10/2019 3:00 PM",
+        "event": {
+            "date": "2/29/2019 5:00 PM",
+            "loacation": "325 Majorca Ave Coral Gables Apt 5",
+            "note": "Successful appointment"
+        }
     }
 ]

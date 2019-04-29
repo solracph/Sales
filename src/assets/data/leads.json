@@ -6,14 +6,20 @@
         "firstName": "Ana",
         "lastName": "Allison",
         "source": 1,
-        "outcome": 2,
+        "outcome": 1,
         "email": "anaallison@gmail.com",
+        "phoneNumber": "7862789898",
         "address": "325 Majorca Ave Coral Gables",
         "reason": 3,
         "currentPlan": 1,
         "mbi": "MBI01",
         "dob": "02/06/1989",
-        "versionDate": "04/10/2019 3:00 PM"
+        "versionDate": "04/10/2019 3:00 PM",
+        "event": {
+            "date": "2/15/2019 4:00 PM",
+            "loacation": "325 Majorca Ave Coral Gables",
+            "note": "Successful follow up"
+        }
     },
     {
         "leadId" : "f2a84d94-42a0-4f8d-abb9-c44a76ab2f8d",
@@ -23,12 +29,18 @@
         "lastName": "Kearney",
         "source": 2,
         "outcome": 1,
+        "phoneNumber": "3056548789",
         "email": "kearney_bella@gmail.com",
         "address": "4754 W Flagler St, Coral Gables, FL 33134",
         "reason": 1,
         "currentPlan": 1,
         "mbi": "MBI02",
         "dob": "06/07/1979",
-        "versionDate": "04/28/2019 2:00 PM"
+        "versionDate": "04/28/2019 2:00 PM",
+        "event": {
+            "date": "2/10/2019 1:00 PM",
+            "loacation": "4754 W Flagler St, Coral Gables, FL 33134",
+            "note": "Unsuccessful  follow up"
+        }
     }
 ]
