@@ -1,44 +1,41 @@
-<div class="row">
+<div class="row no-gutters lead-versions main-row">
     <div class="col-md-2">
-        <div class="md-card lead-version-mat-card" >
+      
+        <div class="md-card">
             <div class="md-card-heading">
                 <div class="md-card-title">Versions</div>
             </div>
             <mat-divider></mat-divider>
-            <div class="md-card-body p-0">
-                <div class="row no-gutter m-0">
-                    <div class="col-md-12">
-                        <ng-container *ngIf="versions$ | async; let versions;">
-                            <app-lead-versions-list 
-                                [selected]="selectedLead$ | async"
-                                [versions]="versions" 
-                                (leadSelected)="onLeadSelection($event)">
-                            </app-lead-versions-list>
-                        </ng-container>
-                    </div>
-                </div>
-            </div>
+            
+            <ng-container *ngIf="versions$ | async; let versions;">
+                <app-lead-versions-list 
+                    [selected]="selectedLead$ | async"
+                    [versions]="versions" 
+                    (leadSelected)="onLeadSelection($event)">
+                </app-lead-versions-list>
+            </ng-container>
         </div>
+        
     </div>
     <div class="col-md-10"  *ngIf="selectedLead$ | async; let selectedLead;">
-            <ng-container *ngIf="selectedLead.state != 3">
-                <app-lead-form 
-                    [lead]="selectedLead"
-                    [sources]="sources$ | async"
-                    [reasons]="reasons$ | async"
-                    [plans]="plans$ | async"
-                    [outcomes]="outcomes$ | async"
-                ></app-lead-form>
-            </ng-container>
-            <ng-container *ngIf="selectedLead.state == 3">
-                <app-lead-view
-                    [lead]="selectedLead"
-                    [sources]="sources$ | async"
-                    [reasons]="reasons$ | async"
-                    [plans]="plans$ | async"
-                    [outcomes]="outcomes$ | async"
-                ></app-lead-view>
-            </ng-container>
+        <ng-container *ngIf="selectedLead.state != 3">
+            <app-lead-form 
+                [lead]="selectedLead"
+                [sources]="sources$ | async"
+                [reasons]="reasons$ | async"
+                [plans]="plans$ | async"
+                [outcomes]="outcomes$ | async"
+            ></app-lead-form>
+        </ng-container>
+        <ng-container *ngIf="selectedLead.state == 3">
+            <app-lead-view
+                [lead]="selectedLead"
+                [sources]="sources$ | async"
+                [reasons]="reasons$ | async"
+                [plans]="plans$ | async"
+                [outcomes]="outcomes$ | async"
+            ></app-lead-view>
+        </ng-container>
     </div>
     
 </div>

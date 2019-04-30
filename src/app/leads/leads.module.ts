@@ -26,7 +26,7 @@ import { LeadViewComponent } from './components/lead-view/lead-view.component';
     LeadGridComponent,
     LeadDetailsComponent,
     LeadVersionsListComponent,
-    LeadViewComponent
+    LeadViewComponent,
   ],
   imports: [
     CommonModule,

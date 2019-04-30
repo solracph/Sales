@@ -73,8 +73,6 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-3">
                     <mat-form-field>
                         <mat-label>Outcome</mat-label>
@@ -84,7 +82,14 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <ng-container *ngIf="!!leadForm.value.outcome">
+            </div>
+            <ng-container *ngIf="!!leadForm.value.outcome">
+                <div class="row">
+                    <div class="col-md-11 ml-3 pr-3" >
+                        <p _ngcontent-c37="" class="lead bb">Event</p>
+                    </div>
+                </div>
+                <div class="row m-1">
                     <div class="col-md-3" >
                         <mat-form-field>
                             <input matInput type="text" formControlName="eventDate" placeholder="Event Date" id="date" tabindex="0"/>
@@ -95,15 +100,15 @@
                             <input matInput type="text" formControlName="eventLocation" placeholder="Event Location" id="date" tabindex="0"/>
                         </mat-form-field>
                     </div>
-                </ng-container>
-            </div>
-            <div class="row" *ngIf="!!leadForm.value.outcome">
-                <div class="col-md-6" >
-                    <mat-form-field>
-                        <textarea  matInput formControlName="eventNote" placeholder="Event Notes" id="date" tabindex="0"></textarea>
-                    </mat-form-field>
                 </div>
-            </div>
+                <div class="row m-1" >
+                    <div class="col-md-9" >
+                        <mat-form-field>
+                            <textarea  matInput formControlName="eventNote" placeholder="Event Notes" id="date" tabindex="0"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
             <div class="row">
                 <div class="col-md-12" >
                     <div class="button-row">
