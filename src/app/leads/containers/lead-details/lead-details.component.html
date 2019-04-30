@@ -20,18 +20,27 @@
             </div>
         </div>
     </div>
-    <div class="col-md-10">
-        <ng-container *ngIf="selectedLead$ | async; let selectedLead;">
-            <app-lead-form 
-                [lead]="selectedLead"
-                [sources]="sources$ | async"
-                [reasons]="reasons$ | async"
-                [plans]="plans$ | async"
-                [outcomes]="outcomes$ | async"
-                (leadStateChanged)="onLeadStateChange($event)"
-            ></app-lead-form>
-        </ng-container>
+    <div class="col-md-10"  *ngIf="selectedLead$ | async; let selectedLead;">
+            <ng-container *ngIf="selectedLead.state != 3">
+                <app-lead-form 
+                    [lead]="selectedLead"
+                    [sources]="sources$ | async"
+                    [reasons]="reasons$ | async"
+                    [plans]="plans$ | async"
+                    [outcomes]="outcomes$ | async"
+                ></app-lead-form>
+            </ng-container>
+            <ng-container *ngIf="selectedLead.state == 3">
+                <app-lead-view
+                    [lead]="selectedLead"
+                    [sources]="sources$ | async"
+                    [reasons]="reasons$ | async"
+                    [plans]="plans$ | async"
+                    [outcomes]="outcomes$ | async"
+                ></app-lead-view>
+            </ng-container>
     </div>
+    
 </div>
 
 

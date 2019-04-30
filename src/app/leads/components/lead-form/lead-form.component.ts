@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-lead-form',
@@ -21,8 +21,8 @@ export class LeadFormComponent implements OnInit {
   public leadState = LeadState;
   public leadForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    
+
+  constructor() {
   }
 
   ngOnInit() {
@@ -30,23 +30,21 @@ export class LeadFormComponent implements OnInit {
   }
 
   leadFormInitialization(){
-    this.leadForm = this.formBuilder.group({
-      firstName: [this.lead.firstName,[Validators.required]],
-      lastName: [this.lead.lastName,[Validators.required]],
-      source: [this.lead.source,[Validators.required]],
-      outcome: [this.lead.outcome,[Validators.required]],
-      currentPlan: [this.lead.currentPlan,[Validators.required]],
-      email: [this.lead.email,[Validators.required]],
-      phoneNumber: [this.lead.phoneNumber],
-      address: [this.lead.address,[Validators.required]],
-      reason: [this.lead.reason,[Validators.required]],
-      mbi: [this.lead.mbi,[Validators.required]],
-      dob: [this.lead.dob,[Validators.required]],
-      event : this.formBuilder.group({
-        date: [this.lead.event.date],
-        location: [this.lead.event.location],
-        note: [this.lead.event.note]
-      })
+    this.leadForm = new FormGroup({
+      firstName: new FormControl(this.lead.firstName, [Validators.required]),
+      lastName: new FormControl(this.lead.lastName, [Validators.required]),
+      source: new FormControl(this.lead.source),
+      outcome: new FormControl(this.lead.outcome),
+      currentPlan: new FormControl(this.lead.currentPlan),
+      email: new FormControl(this.lead.email, [Validators.required]),
+      phoneNumber: new FormControl(this.lead.phoneNumber),
+      address: new FormControl(this.lead.address),
+      reason: new FormControl(this.lead.reason),
+      mbi: new FormControl(this.lead.mbi),
+      dob: new FormControl(this.lead.dob),
+      eventDate: new FormControl(this.lead.event.date),
+      eventLocation: new FormControl(this.lead.event.location),
+      eventNote: new FormControl(this.lead.event.note),
     });
   }
 
@@ -55,7 +53,11 @@ export class LeadFormComponent implements OnInit {
   cancel(){}
 
   save(){
-    //this.leadSaved.emit()
+    if(this.leadForm.valid){
+      this.leadSaved.emit(this.leadForm.value);
+    }else{
+      
+    }
   }
 
 }
