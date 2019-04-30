@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output , OnChanges, EventEmitter} from '@angu
 import { Lead } from '../../models/lead.model';
 import { MatTableDataSource } from '@angular/material';
 import { LeadGridService } from '../../services/lead-grid.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lead-grid',
@@ -15,7 +16,10 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   public dataSource: MatTableDataSource<Lead>;
 
-  constructor(public leadGridService: LeadGridService) { }
+  constructor(
+    public leadGridService: LeadGridService,
+    private router: Router
+    ) { }
 
   ngOnInit() { }
 
@@ -29,5 +33,10 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   applyFilter(filterValue: string) {
     this.leadGridService.applyFilterToDataSource(filterValue,this.dataSource);
+  }
+
+  newLead(){
+    debugger
+    this.router.navigate(['/leads/new']);
   }
 }

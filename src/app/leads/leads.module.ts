@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LeadDetailsComponent } from './containers/lead-details/lead-details.component';
 import { LeadVersionsListComponent } from './components/lead-versions-list/lead-versions-list.component';
 import { LeadViewComponent } from './components/lead-view/lead-view.component';
+import { NewLeadComponent } from './containers/new-lead/new-lead.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LeadViewComponent } from './components/lead-view/lead-view.component';
     LeadDetailsComponent,
     LeadVersionsListComponent,
     LeadViewComponent,
+    NewLeadComponent
   ],
   imports: [
     CommonModule,
