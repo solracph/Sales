@@ -29,7 +29,7 @@ export class SettingsService {
         // -----------------------------------
         this.layout = {
             isFixed: true,
-            isCollapsed: false,
+            isCollapsed: true,
             isBoxed: false,
             isRTL: false,
             horizontal: false,
@@ -37,7 +37,7 @@ export class SettingsService {
             asideHover: false,
             theme: null,
             asideScrollbar: false,
-            isCollapsedText: false,
+            isCollapsedText: true,
             useFullLayout: true,
             hiddenFooter: false,
             offsidebarOpen: false,
