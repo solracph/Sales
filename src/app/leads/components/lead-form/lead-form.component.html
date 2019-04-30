@@ -84,25 +84,25 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-3" *ngIf="leadForm.value.outcome != null">
-                    <mat-form-field>
-                        <input matInput type="text" formControlName="eventDate" placeholder="Event Date" id="date" tabindex="0"/>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row" *ngIf="leadForm.value.outcome != null">
-                <div class="col-md-6" >
-                    <mat-form-field>
-                        <input matInput type="text" formControlName="eventLocation" placeholder="Event Location" id="date" tabindex="0"/>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row" *ngIf="leadForm.value.outcome != null">
-                    <div class="col-md-6" >
+                <ng-container *ngIf="!!leadForm.value.outcome">
+                    <div class="col-md-3" >
                         <mat-form-field>
-                            <textarea  matInput formControlName="eventNote" placeholder="Event Notes" id="date" tabindex="0"></textarea>
+                            <input matInput type="text" formControlName="eventDate" placeholder="Event Date" id="date" tabindex="0"/>
                         </mat-form-field>
                     </div>
+                    <div class="col-md-6" >
+                        <mat-form-field>
+                            <input matInput type="text" formControlName="eventLocation" placeholder="Event Location" id="date" tabindex="0"/>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="row" *ngIf="!!leadForm.value.outcome">
+                <div class="col-md-6" >
+                    <mat-form-field>
+                        <textarea  matInput formControlName="eventNote" placeholder="Event Notes" id="date" tabindex="0"></textarea>
+                    </mat-form-field>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12" >
