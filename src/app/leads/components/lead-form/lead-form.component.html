@@ -78,7 +78,7 @@
                 <div class="col-md-3">
                     <mat-form-field>
                         <mat-label>Outcome</mat-label>
-                        <mat-select required formControlName="outcome">
+                        <mat-select formControlName="outcome">
                             <mat-option [value]="null" ></mat-option>
                             <mat-option *ngFor="let outcome of outcomes" [value]="outcome.id" >{{ outcome.description }}</mat-option>
                         </mat-select>
