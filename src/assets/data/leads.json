@@ -17,7 +17,7 @@
         "versionDate": "04/10/2019 3:00 PM",
         "event": {
             "date": "2/15/2019 4:00 PM",
-            "loacation": "325 Majorca Ave Coral Gables",
+            "location": "325 Majorca Ave Coral Gables",
             "note": "Successful follow up"
         }
     },
@@ -39,7 +39,7 @@
         "versionDate": "04/28/2019 2:00 PM",
         "event": {
             "date": "2/10/2019 1:00 PM",
-            "loacation": "4754 W Flagler St, Coral Gables, FL 33134",
+            "location": "4754 W Flagler St, Coral Gables, FL 33134",
             "note": "Unsuccessful  follow up"
         }
     }
