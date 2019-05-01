@@ -11,7 +11,6 @@ import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
 import { filter } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-lead-details',
@@ -98,6 +97,5 @@ export class LeadDetailsComponent implements OnInit {
 
   ngOnDestroy(){
     this._subsc.unsubscribe();
-    
   }
 }

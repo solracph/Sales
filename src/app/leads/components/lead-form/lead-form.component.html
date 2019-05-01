@@ -44,11 +44,17 @@
                     <div class="col-md-3">
                         <mat-form-field>
                             <input matInput type="text" formControlName="mbi" placeholder="MBI" id="mbi"  required/>
+                            <div class="validation-error" *ngIf="f.mbi.errors">
+                                <div *ngIf="f.mbi.errors.required">MBI is required.</div>
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field>
                             <input matInput type="text" formControlName="address" placeholder="Address" id="address" required/>
+                            <div class="validation-error" *ngIf="f.address.errors">
+                                <div *ngIf="f.address.errors.required">Address is required.</div>
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
