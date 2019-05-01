@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Lead } from '../models';
 import { LeadState } from '../models/lead-state.enum';
+import { Update } from '@ngrx/entity';
 
 export const LOAD_LEADS =  "[Leads] LOAD LEADS";
 export const LOAD_LEADS_SUCCESS =  "[Leads] LOAD LEADS SUCCESS";
@@ -61,12 +62,12 @@ export class InsertLead implements Action {
 
 export class UpdateLead implements Action {
     readonly type = UPDATE_LEAD;
-    constructor(public payload: { versionId: string, changes: Partial<Lead>}) { }
+    constructor(public payload: Update<Lead>) { }
 }
 
 export class UpdateLeadState implements Action {
     readonly type = UPDATE_LEAD_STATE;
-    constructor(public payload: { versionId: string, changes: { state: LeadState}}) { }
+    constructor(public payload: { id: string, changes:{ state: LeadState }}) { }
 }
 
 export class InsertLeadIo implements Action {

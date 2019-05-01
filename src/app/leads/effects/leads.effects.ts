@@ -50,29 +50,49 @@ export class LeadEffects {
 
   @Effect()
   insertLeadIo$ = this.actions$.pipe(
-    ofType<fromLead.InsertLeadIo>(fromLead.INSERT_LEAD_IO),
+    ofType<fromLead.InsertLeadIo>(
+      fromLead.INSERT_LEAD_IO
+    ),
+    map(action => action.payload.lead),
+    switchMap((lead) => this.leadService.insertLead(lead)
+      .pipe(
+        map((lead: Lead) => new fromLead.InsertLeadIoSuccess({lead})),
+        catchError(error => of(new fromLead.InsertLeadIoFail(error)))
+      )
+    ),
+  );
+
+  @Effect()
+  insertLeadIoSuccess$ = this.actions$.pipe(
+    ofType<fromLead.InsertLeadIoSuccess>(fromLead.INSERT_LEAD_IO_SUCCESS),
     map(action => action.payload.lead),
     switchMap((lead) => this.leadService.insertLead(lead)
       .pipe(
         switchMap((lead: Lead) => {
-          var actions = []
-          if(lead.state == LeadState.new){
-            actions.push(new fromLead.UpdateLead({ versionId: lead.versionId,changes: lead}));
-          }else if (lead.state == LeadState.edition){
+          let actions: any[] = [
+            new fromLead.UpdateLead({
+              id: lead.versionId, 
+              changes: {
+                ...lead, state: lead.state == LeadState.new 
+                  ? LeadState.master
+                  : LeadState.version
+              }
+            })
+          ];
+          
+          if(lead.state == LeadState.edition){
             actions.push(new fromLead.InsertLead({lead : lead}));
           }
-          actions.push(new fromLead.UpdateLeadState({ versionId: lead.versionId,changes: { state: LeadState.master }}))
-          
+
           return actions;
         }),
         catchError(error => of(new fromLead.InsertLeadIoFail(error)))
       )
     ),
   );
-  
 
   private getVersionId(leads: Lead[], leadId: string): string {
-    const lead = leads.filter(i => i.leadId == leadId);
+    const lead = leads.filter(i => i.leadId == leadId && i.state == LeadState.master);
     return lead.length > 0 ? lead[0].versionId : "";
   }
 }
