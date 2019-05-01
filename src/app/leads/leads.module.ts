@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LeadDetailsComponent } from './containers/lead-details/lead-details.component';
 import { LeadVersionsListComponent } from './components/lead-versions-list/lead-versions-list.component';
 import { LeadViewComponent } from './components/lead-view/lead-view.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LeadViewComponent } from './components/lead-view/lead-view.component';
     LeadsRoutingModule,
     StoreModule.forFeature('leads', fromLeads.reducers),
     EffectsModule.forFeature([ListEffects,LeadEffects]),
-    SharedModule
+    SharedModule,
+    TextMaskModule
   ],
   providers:[
     LeadListsService,

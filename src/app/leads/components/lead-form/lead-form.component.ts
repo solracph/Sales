@@ -22,7 +22,10 @@ export class LeadFormComponent implements OnInit {
 
   public leadState = LeadState;
   public leadForm: FormGroup;
+  public phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '/',/\d/, /\d/, '/',/\d/, /\d/, /\d/,/\d/];
 
+  get f() { return this.leadForm.controls; }
 
   constructor() {
   }
@@ -38,12 +41,12 @@ export class LeadFormComponent implements OnInit {
       source: new FormControl(this.lead.source),
       outcome: new FormControl(this.lead.outcome),
       currentPlan: new FormControl(this.lead.currentPlan),
-      email: new FormControl(this.lead.email, [Validators.required]),
+      email: new FormControl(this.lead.email, [Validators.required,Validators.email]),
       phoneNumber: new FormControl(this.lead.phoneNumber),
       address: new FormControl(this.lead.address),
       reason: new FormControl(this.lead.reason),
       mbi: new FormControl(this.lead.mbi),
-      dob: new FormControl(this.lead.dob),
+      dob: new FormControl(this.lead.dob,[Validators.pattern('[0-9]{2}[/][0-9]{2}[/][0-9]{4}')]),
       event : new FormGroup({
         date: new FormControl(new Date(this.lead.event.date)),
         location: new FormControl(this.lead.event.location),

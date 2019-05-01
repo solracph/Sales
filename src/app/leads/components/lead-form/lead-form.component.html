@@ -9,21 +9,34 @@
                     <div class="col-md-3">
                         <mat-form-field>
                             <input matInput type="text" formControlName="firstName" placeholder="First Name" id="firstName"  required/>
+                            <div class="validation-error" *ngIf="f.firstName.errors">
+                                <div *ngIf="f.firstName.errors.required">First Name is required.</div>
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field>
                             <input matInput type="text" formControlName="lastName" placeholder="Last Name" id="lastName" required/>
+                            <div class="validation-error" *ngIf="f.lastName.errors">
+                                <div *ngIf="f.lastName.errors.required">Last Name is required.</div>
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field>
-                            <input matInput type="text" formControlName="email" placeholder="Email" id="email" required/>
+                            <input matInput type="text" formControlName="email" placeholder="Email" id="email" required />
+                            <div class="validation-error" *ngIf="f.email.errors">
+                                <div *ngIf="f.email.errors.required">Email is required.</div>
+                                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
                         <mat-form-field>
-                            <input matInput type="text" formControlName="dob" placeholder="BOB" id="dob" />
+                            <input [textMask]="{mask: dateMask}" matInput type="text" formControlName="dob" placeholder="BOB" id="dob" />
+                            <div class="validation-error" *ngIf="f.dob.errors">
+                                <div *ngIf="f.dob.errors.pattern">DOB must have this format MM/DD/YYYY</div>
+                            </div>
                         </mat-form-field>
                     </div>
                 </div>
@@ -40,7 +53,7 @@
                     </div>
                     <div class="col-md-3">
                         <mat-form-field>
-                            <input matInput type="text" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
+                            <input matInput type="text" [textMask]="{mask: phoneMask}" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
                         </mat-form-field>
                     </div>
                 </div>
@@ -54,6 +67,9 @@
                                     {{ reason.description }}
                                 </mat-option>
                             </mat-select>
+                            <div class="validation-error" *ngIf="f.reason.errors">
+                                <div *ngIf="f.reason.errors.required">Reason is required.</div>
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col-md-3">
