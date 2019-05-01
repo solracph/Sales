@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Lead } from '../models';
 import { map } from 'lodash';
+import { Upsert } from '../models/upsert.model';
 
 @Injectable()
 export class LeadService {
@@ -19,7 +20,7 @@ export class LeadService {
     return this._http.get<Lead[]>(`${environment.apiUrl}versions.json`);
   }
 
-  insertLead(lead: Lead){
+  insertLead(lead: Upsert){
     return of(lead);
   }
 

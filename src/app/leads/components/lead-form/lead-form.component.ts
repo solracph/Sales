@@ -44,9 +44,11 @@ export class LeadFormComponent implements OnInit {
       reason: new FormControl(this.lead.reason),
       mbi: new FormControl(this.lead.mbi),
       dob: new FormControl(this.lead.dob),
-      eventDate: new FormControl(this.lead.event.date),
-      eventLocation: new FormControl(this.lead.event.location),
-      eventNote: new FormControl(this.lead.event.note),
+      event : new FormGroup({
+        date: new FormControl(new Date(this.lead.event.date)),
+        location: new FormControl(this.lead.event.location),
+        note: new FormControl(this.lead.event.note),
+      })
     });
 
     this.leadForm.valueChanges.subscribe((form) => {

@@ -11,6 +11,7 @@ import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
 import { filter } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-lead-details',
@@ -69,6 +70,7 @@ export class LeadDetailsComponent implements OnInit {
           this.store.dispatch(new LoadLeadVersions({ leadId }));
         })
     );
+    
   }
 
   onLeadSelection(lead: Lead){
@@ -83,21 +85,19 @@ export class LeadDetailsComponent implements OnInit {
   leadSaved(lead: Lead){
     if(lead.state == LeadState.new)
     {
-        this.store.dispatch(new InsertLeadIo({lead: lead}));
-    } else if(lead.state == LeadState.edition) {
-
-        //Update old Lead to new state version
-        this.store.dispatch(new UpdateLeadState({ id: lead.versionId, changes: { state: LeadState.version }}));
-
-        //New uid and version date
+        this.store.dispatch(new InsertLeadIo({insert: lead}));
+    } 
+    else if(lead.state == LeadState.edition) {
+        let oldVersionId = lead.versionId;
         lead.versionId = uuid();
         lead.versionDate =  new Date();
-        this.store.dispatch(new InsertLeadIo({ lead: lead }));
+        this.store.dispatch(new InsertLeadIo({ insert: lead, update: { versionId: oldVersionId, state: LeadState.version } }));
         //
     }
   }
 
   ngOnDestroy(){
     this._subsc.unsubscribe();
+    
   }
 }

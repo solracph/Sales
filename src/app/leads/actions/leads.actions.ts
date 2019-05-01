@@ -2,6 +2,8 @@ import { Action } from '@ngrx/store';
 import { Lead } from '../models';
 import { LeadState } from '../models/lead-state.enum';
 import { Update } from '@ngrx/entity';
+import { Upsert } from '../models/upsert.model';
+import { MatSnackBarConfig } from "@angular/material";
 
 export const LOAD_LEADS =  "[Leads] LOAD LEADS";
 export const LOAD_LEADS_SUCCESS =  "[Leads] LOAD LEADS SUCCESS";
@@ -20,6 +22,11 @@ export const INSERT_LEAD_IO_SUCCESS = "[Leads] INSERT LEAD IO SUCCESS";
 export const INSERT_LEAD_IO_FAIL = "[Leads] INSERT LEAD IO FAIL";
 
 export const SELECT_LEAD =  "[Leads] SELECT LEAD";
+
+/* 💩 caca approaching */
+
+export const SNACKBAR_OPEN =  "[SnackBar] SNACKBAR OPEN";
+export const SNACKBAR_CLOSE =  "[SnackBar] SNACKBAR CLOSE";
 
 export class LoadLeads implements Action {
     readonly type = LOAD_LEADS;
@@ -72,19 +79,26 @@ export class UpdateLeadState implements Action {
 
 export class InsertLeadIo implements Action {
     readonly type = INSERT_LEAD_IO;
-    constructor(public payload: {lead : Lead}) { }
+    constructor(public payload: Upsert) { }
 }
 
 export class InsertLeadIoSuccess  implements Action {
     readonly type = INSERT_LEAD_IO_SUCCESS;
-    constructor(public payload: {lead : Lead}) { }
+    constructor(public payload: Upsert) { }
 }
 
 export class InsertLeadIoFail  implements Action {
     readonly type = INSERT_LEAD_IO_FAIL;
     constructor(public payload: any) { }
 }
+export class SnackbarOpen  implements Action {
+    readonly type = SNACKBAR_OPEN;
+    constructor(public payload: {message: string, action?: string, config?: MatSnackBarConfig }) { }
+}
 
+export class SnackbarClose   implements Action {
+    readonly type = SNACKBAR_CLOSE;
+}
 
 export type Actions = 
 LoadLeads 
@@ -99,4 +113,6 @@ LoadLeads
 | UpdateLeadState
 | InsertLeadIo
 | InsertLeadIoSuccess
-| InsertLeadIoFail;
+| InsertLeadIoFail
+| SnackbarOpen
+| SnackbarClose;

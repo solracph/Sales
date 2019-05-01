@@ -108,6 +108,7 @@ export const reducer = (
                 selected: action.payload.id
             }
         }
+
         default:
             return state;
     }

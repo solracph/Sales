@@ -15,6 +15,12 @@ export class LeadVersionsListComponent implements OnInit {
   
   constructor() { }
 
+  ngOnChanges(){
+    this.versions.sort(function(a:  any,b: any){ 
+      return new Date(b.versionDate).getTime() - new Date(a.versionDate).getTime() ;
+    })
+  }
+
   ngOnInit() {
   }
 
@@ -22,6 +28,7 @@ export class LeadVersionsListComponent implements OnInit {
     version.versionId == (this.selected && this.selected.versionId)
       ? "selected-version" 
       : "";
-  
+
+  orderByDate(){} 
   onLeadSelection = (lead: Lead) => this.leadSelected.emit(lead);
 }
