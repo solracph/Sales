@@ -2,6 +2,7 @@ import * as feomLead from '../actions/leads.actions';
 import { Lead } from '../models';
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
+
 //#region State definition
 export interface State extends EntityState<Lead> {
     selected: string,
@@ -31,11 +32,13 @@ export const reducer = (
                 ...state, 
                 loading: true 
             }
+
         case feomLead.LOAD_LEADS_SUCCESS:
             return { 
-                ...adapter.addAll( action.payload, state ), 
+                ...adapter.addMany( action.payload, state ), 
                 loading: false
              }
+
         case feomLead.LOAD_LEADS_FAIL:
             return { 
                 ...state, 
@@ -47,19 +50,38 @@ export const reducer = (
                 ...state, 
                 loading: true 
             }
+            
         case feomLead.LOAD_LEAD_VERSIONS_SUCCESS:
             return { 
                 ...adapter.addMany( action.payload.leads, state ), 
                 loading: false
             }
+
         case feomLead.LOAD_LEAD_VERSIONS_FAIL:
             return { 
                 ...state, 
                 loading: false 
             }
 
+        case feomLead.INSERT_LEAD:
+            return { 
+                ...adapter.addOne( action.payload.lead, state ), 
+                loading: false 
+            }
+
+        case feomLead.UPDATE_LEAD:
+            return { 
+                ...adapter.updateOne({ id: action.payload.versionId, changes : action.payload.changes }, state), 
+                loading: false 
+            }
+            
+        case feomLead.UPDATE_LEAD_STATE:
+            return { 
+                ...adapter.updateOne({ id: action.payload.versionId, changes : action.payload.changes }, state), 
+                loading: false 
+            }
+
         case feomLead.SELECT_LEAD:{
-            //debugger;
             return { 
                 ...state, 
                 selected: action.payload.id

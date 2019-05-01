@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { leadsState } from '../../reducers';
 
 @Component({
   selector: 'app-lead-form',
@@ -17,6 +18,7 @@ export class LeadFormComponent implements OnInit {
   @Input() outcomes: Outcome[];
 
   @Output() leadSaved: EventEmitter<Lead> = new EventEmitter();
+  @Output() formValueChanged: EventEmitter<Lead> = new EventEmitter();
 
   public leadState = LeadState;
   public leadForm: FormGroup;
@@ -46,6 +48,10 @@ export class LeadFormComponent implements OnInit {
       eventLocation: new FormControl(this.lead.event.location),
       eventNote: new FormControl(this.lead.event.note),
     });
+
+    this.leadForm.valueChanges.subscribe((form) => {
+      this.formValueChanged.emit(Object.assign({}, this.lead, form));
+    })  
   }
 
   edit(){}
@@ -54,9 +60,9 @@ export class LeadFormComponent implements OnInit {
 
   save(){
     if(this.leadForm.valid){
-      this.leadSaved.emit(this.leadForm.value);
-    }else{
-      
+      this.leadSaved.emit(
+        Object.assign({}, this.lead, this.leadForm.value)
+      );
     }
   }
 
