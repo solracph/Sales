@@ -10,7 +10,7 @@ import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
-import { filter } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lead-details',
@@ -64,7 +64,10 @@ export class LeadDetailsComponent implements OnInit {
   private _loadVersionsWhenEditingMasterLead(leadId: string, masterLeads: Observable<Lead[]>) {
     this._subsc.add(
       masterLeads
-        .pipe(filter((leads: Lead[]) => !!leads.find(i => i.leadId == leadId)))
+        .pipe(
+          first(),
+          filter((leads: Lead[]) => !!leads.find(i => i.leadId == leadId))
+        )
         .subscribe(leads => {
           this.store.dispatch(new LoadLeadVersions({ leadId }));
         })
