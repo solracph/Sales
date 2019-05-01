@@ -4,8 +4,8 @@ import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import { LoadLeads} from '../../actions/leads.actions';
-import { Lead } from '../../models';
+import * as fromLeadActions from '../../actions/leads.actions';
+import { Lead, NewLead } from '../../models/lead.model';
 
 @Component({
   selector: 'app-leads',
@@ -27,8 +27,14 @@ export class LeadsComponent implements OnInit {
     this.routes.navigate(['/leads/details', lead.leadId]);
   }
 
+  newLead(){
+    var newLead = NewLead();
+    this.store.dispatch(new fromLeadActions.InsertLead({ lead : newLead }));
+    this.routes.navigate(['/leads/details', newLead.leadId]);
+  }
+
   ngOnInit() {
-    this.store.dispatch(new LoadLeads());
+    this.store.dispatch(new fromLeadActions.LoadLeads());
   }
 
 }

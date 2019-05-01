@@ -1,5 +1,6 @@
 import { LeadState } from "./lead-state.enum";
 import { LeadEvent } from "./lead-event.model";
+import { v4 as uuid } from 'uuid';
 
 export interface Lead {
     leadId: string,
@@ -15,7 +16,34 @@ export interface Lead {
     reason: string;
     currentPlan: string;
     mbi: string;
-    dob: Date;
+    dob: string;
     versionDate: Date,
     event: LeadEvent
 }
+
+export function NewLead(): Lead{
+    return {
+        versionId: uuid(), 
+          leadId: uuid(), 
+          state: LeadState.new,
+          address: "",
+          dob: "",
+          email: "",
+          firstName:"",
+          lastName: "",
+          mbi: "",
+          phoneNumber: "",
+          event : {
+            date : new Date(),
+            location: "",
+            note: ""
+          },
+          outcome: "",
+          source: "",
+          currentPlan: "",
+          reason: "",
+          versionDate: new Date()
+    }
+}
+
+

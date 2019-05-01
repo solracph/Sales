@@ -4,12 +4,12 @@ import { Store, select } from '@ngrx/store';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromListSelectors from '../../selectors/list.selectors';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import { SelectLead, LoadLeadVersions } from '../../actions/leads.actions';
+import { SelectLead, LoadLeadVersions, InsertLeadIo, UpdateLeadState,  } from '../../actions/leads.actions';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
-
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-lead-details',
@@ -58,6 +58,28 @@ export class LeadDetailsComponent implements OnInit {
 
   onLeadSelection(lead: Lead){
     this.store.dispatch(new SelectLead({ id: lead.versionId }));
+  }
+
+  formValueChange(lead : Lead){
+    if(lead.state == LeadState.master)
+    this.store.dispatch(new UpdateLeadState({ versionId: lead.versionId, changes: { state: LeadState.edition }}));
+  }
+
+  leadSaved(lead: Lead){
+    if(lead.state == LeadState.new)
+    {
+        this.store.dispatch(new InsertLeadIo({lead: lead}));
+    } else if(lead.state == LeadState.edition) {
+
+        //Update old Lead to new state version
+        this.store.dispatch(new UpdateLeadState({ versionId: lead.versionId, changes: { state: LeadState.version }}));
+
+        //New uid and version date
+        lead.versionId = uuid();
+        lead.versionDate =  new Date();
+        this.store.dispatch(new InsertLeadIo({ lead: lead }));
+        //
+    }
   }
 
   ngOnDestroy(){

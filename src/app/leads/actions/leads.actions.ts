@@ -10,7 +10,13 @@ export const LOAD_LEAD_VERSIONS =  "[Leads] LOAD LEAD VERSIONS";
 export const LOAD_LEAD_VERSIONS_SUCCESS =  "[Leads] LEAD VERSIONS SUCCESS";
 export const LOAD_LEAD_VERSIONS_FAIL =  "[Leads] LEAD VERSIONS FAIL";
 
-export const SET_LEAD_STATE = "[Leads] SET LEAD STATE";
+export const INSERT_LEAD = "[Leads] INSERT LEAD";
+export const UPDATE_LEAD = "[Leads] UPDATE LEAD";
+export const UPDATE_LEAD_STATE = "[Leads] UPDATE LEAD STATE";
+
+export const INSERT_LEAD_IO = "[Leads] INSERT LEAD IO";
+export const INSERT_LEAD_IO_SUCCESS = "[Leads] INSERT LEAD IO SUCCESS";
+export const INSERT_LEAD_IO_FAIL = "[Leads] INSERT LEAD IO FAIL";
 
 export const SELECT_LEAD =  "[Leads] SELECT LEAD";
 
@@ -43,11 +49,41 @@ export class LoadLeadVersionsFail implements Action {
     constructor(public payload: any) { }
 }
 
-
 export class SelectLead implements Action {
     readonly type = SELECT_LEAD;
     constructor(public payload: { id: string }) { }
 }
+
+export class InsertLead implements Action {
+    readonly type = INSERT_LEAD;
+    constructor(public payload: { lead: Lead}) { }
+}
+
+export class UpdateLead implements Action {
+    readonly type = UPDATE_LEAD;
+    constructor(public payload: { versionId: string, changes: Partial<Lead>}) { }
+}
+
+export class UpdateLeadState implements Action {
+    readonly type = UPDATE_LEAD_STATE;
+    constructor(public payload: { versionId: string, changes: { state: LeadState}}) { }
+}
+
+export class InsertLeadIo implements Action {
+    readonly type = INSERT_LEAD_IO;
+    constructor(public payload: {lead : Lead}) { }
+}
+
+export class InsertLeadIoSuccess  implements Action {
+    readonly type = INSERT_LEAD_IO_SUCCESS;
+    constructor(public payload: {lead : Lead}) { }
+}
+
+export class InsertLeadIoFail  implements Action {
+    readonly type = INSERT_LEAD_IO_FAIL;
+    constructor(public payload: any) { }
+}
+
 
 export type Actions = 
 LoadLeads 
@@ -56,4 +92,10 @@ LoadLeads
 | SelectLead
 | LoadLeadVersions
 | LoadLeadVersionsSuccess
-| LoadLeadVersionsFail;
+| LoadLeadVersionsFail
+| InsertLead
+| UpdateLead
+| UpdateLeadState
+| InsertLeadIo
+| InsertLeadIoSuccess
+| InsertLeadIoFail;

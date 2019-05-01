@@ -6,19 +6,15 @@ import * as fromLead from '../actions/leads.actions';
 import { LeadService } from '../services/lead.service';
 import { Lead } from  '../models';
 import * as fromLeads from '../reducers/leads.reducer';
-import * as query from '../selectors/lead.selectors';
-import { Store, select } from '@ngrx/store';
-import { version } from 'codemirror';
-import { head } from "lodash";
-import { debug } from 'util';
+import { Store  } from '@ngrx/store';
+import { LeadState } from '../models/lead-state.enum';
 
 @Injectable()
 export class LeadEffects {
   
   constructor(
       private leadService: LeadService,
-      private actions$: Actions,
-      private store: Store<fromLeads.State>,
+      private actions$: Actions
   ) { }
 
   @Effect()
@@ -45,12 +41,35 @@ export class LeadEffects {
   );
 
   @Effect()
-  LoadLeadVersionsSuccess$ = this.actions$.pipe(
+  loadLeadVersionsSuccess$ = this.actions$.pipe(
     ofType<fromLead.LoadLeadVersionsSuccess>(fromLead.LOAD_LEAD_VERSIONS_SUCCESS),
     map(action => action.payload),
-    filter(({ leadId, leads }) => leads.length > 0),
+    filter(({ leads }) => leads.length > 0),
     mergeMap(({ leadId, leads }) => of(new fromLead.SelectLead({ id: this.getVersionId(leads, leadId) }))),
   );
+
+  @Effect()
+  insertLeadIo$ = this.actions$.pipe(
+    ofType<fromLead.InsertLeadIo>(fromLead.INSERT_LEAD_IO),
+    map(action => action.payload.lead),
+    switchMap((lead) => this.leadService.insertLead(lead)
+      .pipe(
+        switchMap((lead: Lead) => {
+          var actions = []
+          if(lead.state == LeadState.new){
+            actions.push(new fromLead.UpdateLead({ versionId: lead.versionId,changes: lead}));
+          }else if (lead.state == LeadState.edition){
+            actions.push(new fromLead.InsertLead({lead : lead}));
+          }
+          actions.push(new fromLead.UpdateLeadState({ versionId: lead.versionId,changes: { state: LeadState.master }}))
+          
+          return actions;
+        }),
+        catchError(error => of(new fromLead.InsertLeadIoFail(error)))
+      )
+    ),
+  );
+  
 
   private getVersionId(leads: Lead[], leadId: string): string {
     const lead = leads.filter(i => i.leadId == leadId);
