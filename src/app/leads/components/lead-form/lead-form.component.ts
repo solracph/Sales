@@ -31,32 +31,38 @@ export class LeadFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.leadFormInitialization();
-  }
-
-  leadFormInitialization(){
-    this.leadForm = new FormGroup({
-      firstName: new FormControl(this.lead.firstName, [Validators.required]),
-      lastName: new FormControl(this.lead.lastName, [Validators.required]),
-      source: new FormControl(this.lead.source),
-      outcome: new FormControl(this.lead.outcome),
-      currentPlan: new FormControl(this.lead.currentPlan),
-      email: new FormControl(this.lead.email, [Validators.required,Validators.email]),
-      phoneNumber: new FormControl(this.lead.phoneNumber),
-      address: new FormControl(this.lead.address),
-      reason: new FormControl(this.lead.reason),
-      mbi: new FormControl(this.lead.mbi),
-      dob: new FormControl(this.lead.dob,[Validators.pattern('[0-9]{2}[/][0-9]{2}[/][0-9]{4}')]),
-      event : new FormGroup({
-        date: new FormControl(!!this.lead.event.date ? new Date(this.lead.event.date) : null),
-        location: new FormControl(this.lead.event.location),
-        note: new FormControl(this.lead.event.note),
-      })
-    });
+    this.leadFormInitialization(this.lead);
 
     this.leadForm.valueChanges.subscribe((form) => {
       this.formValueChanged.emit(Object.assign({}, this.lead, form));
     })  
+  }
+
+  ngOnChanges(changes){
+    if(!!changes.lead && !!this.leadForm){
+      this.leadFormInitialization(changes.lead.currentValue);
+    }
+  }
+
+  leadFormInitialization(lead){
+    this.leadForm = new FormGroup({
+      firstName: new FormControl(lead.firstName, [Validators.required]),
+      lastName: new FormControl(lead.lastName, [Validators.required]),
+      source: new FormControl(lead.source),
+      outcome: new FormControl(lead.outcome),
+      currentPlan: new FormControl(lead.currentPlan),
+      email: new FormControl(lead.email, [Validators.required,Validators.email]),
+      phoneNumber: new FormControl(lead.phoneNumber),
+      address: new FormControl(lead.address),
+      reason: new FormControl(lead.reason),
+      mbi: new FormControl(lead.mbi),
+      dob: new FormControl(lead.dob,[Validators.pattern('[0-9]{2}[/][0-9]{2}[/][0-9]{4}')]),
+      event : new FormGroup({
+        date: new FormControl(!!lead.event.date ? new Date(lead.event.date) : null),
+        location: new FormControl(lead.event.location),
+        note: new FormControl(lead.event.note),
+      })
+    });
   }
 
   edit(){}
