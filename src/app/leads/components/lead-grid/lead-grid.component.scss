@@ -17,3 +17,18 @@ table {
 
 
 
+.alert-no-record {
+  color: #263238;
+  background-color: #ffffff;
+  border-color: #e0e0e0;
+}
+
+.alert-no-record span{
+  color: #575858;
+}
+
+::ng-deep .alert-no-record .mat-icon{
+  float: right;
+  color: #a7a7a7;
+}
+

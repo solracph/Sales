@@ -15,16 +15,22 @@ import { Lead, NewLead } from '../../models/lead.model';
 export class LeadsComponent implements OnInit {
   
   public leads$ : Observable<Lead[]>;
+  public filter$ : Observable<string>;
 
   constructor(
       private store: Store<fromLeads.State>,
       private routes: Router
     ) {
     this.leads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads));
+    this.filter$ = this.store.pipe(select(fromLeadsSelectors.getFilter));
   }
 
   onLeadSelection(lead: Lead){
     this.routes.navigate(['/leads/details', lead.leadId]);
+  }
+
+  applyFilter(value: string){
+    this.store.dispatch(new fromLeadActions.FilterLead(value))
   }
 
   newLead(){

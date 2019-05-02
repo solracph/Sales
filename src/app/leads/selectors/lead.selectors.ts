@@ -15,6 +15,10 @@ export const {
     selectTotal: getTotalLeads,
 } = adapter.getSelectors(getLeadsState);
 
+export const getFilter = createSelector(
+    getLeadsState,
+    state => state.filter
+);
 
 export const getSelected = createSelector(
     getLeadsState,
@@ -30,13 +34,13 @@ export const getSelectedLead = createSelector(
 export const getAllLeadVersions = createSelector(
     getAllLeads,
     (leads, props) => { 
-        //debugger;
         return leads.filter(lead => lead.leadId == props.leadId);
     }
 );
 
 export const getMasterLeads = createSelector(
     getAllLeads,
-    (state) => state.filter(e => e.state == ELeadState.master)
+    getFilter,
+    (state, filter) => state.filter(e =>  e.state == ELeadState.master && JSON.stringify(e).includes(filter))
 );
 

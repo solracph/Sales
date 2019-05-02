@@ -6,6 +6,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 //#region State definition
 export interface State extends EntityState<Lead> {
     selected: string,
+    filter: string,
     loading: boolean,
     error: any
 }
@@ -17,6 +18,7 @@ export const adapter: EntityAdapter<Lead> = createEntityAdapter({
 
 export const initialState: State = adapter.getInitialState({
     selected: null,
+    filter: "",
     loading: false,
     error: null
 });
@@ -27,7 +29,7 @@ export const reducer = (
     action: fromLead.Actions
 ): State => {
     switch (action.type) {
-        //#region load Leads        
+    //#region load Leads        
         case fromLead.LOAD_LEADS:
             return { 
                 ...state, 
@@ -64,9 +66,9 @@ export const reducer = (
                 ...state, 
                 loading: false 
             }
-        //#endregion
+    //#endregion
 
-        //#region List CrUd Operations
+    //#region List CrUd Operations
         case fromLead.INSERT_LEAD_IO:
             return {
                 ...state,
@@ -103,7 +105,7 @@ export const reducer = (
             return { 
                 ...adapter.updateOne(action.payload, state), 
             }
-        //#endregion
+    //#endregion
 
         case fromLead.SELECT_LEAD:{
             return { 
@@ -111,6 +113,14 @@ export const reducer = (
                 selected: action.payload.id
             }
         }
+
+        case fromLead.FILTER_LEAD:{
+            return { 
+                ...state, 
+                filter: action.payload
+            }
+        }
+
 
         default:
             return state;
