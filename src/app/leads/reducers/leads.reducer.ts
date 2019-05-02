@@ -43,7 +43,8 @@ export const reducer = (
         case fromLead.LOAD_LEADS_FAIL:
             return { 
                 ...state, 
-                error: action.payload, loading: false 
+                error: action.payload, 
+                loading: false 
             }
             
         case fromLead.LOAD_LEAD_VERSIONS:
@@ -87,18 +88,20 @@ export const reducer = (
             return { 
                 ...adapter.addOne( action.payload.lead, state ),
                 selected: action.payload.lead.versionId,
-                loading: false 
+            }
+
+        case fromLead.UPSERT_LEAD:
+            return { 
+                ...adapter.upsertMany( action.payload, state ),
             }
 
         case fromLead.UPDATE_LEAD:
             return {
                 ...adapter.updateOne(action.payload, state), 
-                loading: false 
             }
         case fromLead.UPDATE_LEAD_STATE:
             return { 
                 ...adapter.updateOne(action.payload, state), 
-                loading: false 
             }
         //#endregion
 

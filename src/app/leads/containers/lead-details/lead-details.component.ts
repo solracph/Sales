@@ -4,13 +4,13 @@ import { Store, select } from '@ngrx/store';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromListSelectors from '../../selectors/list.selectors';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import { SelectLead, LoadLeadVersions, InsertLeadIo, UpdateLeadState, LoadLeads,  } from '../../actions/leads.actions';
+import { SelectLead, LoadLeadVersions, InsertLeadIo, UpdateLeadState, LoadLeads, } from '../../actions/leads.actions';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
-import { filter, first } from 'rxjs/operators';
+import { filter, first, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lead-details',
@@ -18,39 +18,39 @@ import { filter, first } from 'rxjs/operators';
   styleUrls: ['./lead-details.component.scss']
 })
 export class LeadDetailsComponent implements OnInit {
-  
-  public selectedLead$ : Observable<Lead>;
-  public versions$ : Observable<Lead[]>;
-  public state$ : Observable<LeadState>;
+
+  public selectedLead$: Observable<Lead>;
+  public versions$: Observable<Lead[]>;
+  public state$: Observable<LeadState>;
   public sources$: Observable<Source[]>;
   public reasons$: Observable<Reason[]>;
-  public plans$:  Observable<Plan[]>;
+  public plans$: Observable<Plan[]>;
   public outcomes$: Observable<Outcome[]>;
   public _subsc: Subscription = new Subscription();
   private masterLeads$: Observable<Lead[]>;
-  
+
   constructor(
     private store: Store<fromLeads.State>,
     private route: ActivatedRoute
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit() {
     this._subsc.add(
       this.route.params
-      .subscribe((params) => {
-        this.initialLoad(params['leadId']);
-      })
+        .subscribe((params) => {
+          this.initialLoad(params['leadId']);
+        })
     );
   }
- 
+
   private initialLoad(leadId) {
     // debugger;
     this.store.dispatch(new LoadLeads());
     this.store.dispatch(new LoadAllLists());
 
-    this.masterLeads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads));
+    this.masterLeads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads), filter(i => !!i.length));
     this._loadVersionsWhenEditingMasterLead(leadId, this.masterLeads$);
 
     this.selectedLead$ = this.store.pipe(select(fromLeadsSelectors.getSelectedLead));
@@ -65,40 +65,47 @@ export class LeadDetailsComponent implements OnInit {
     this._subsc.add(
       masterLeads
         .pipe(
-          first(),
-          filter((leads: Lead[]) => !!leads.find(i => i.leadId == leadId))
+          take(1),
+          filter((leads: Lead[]) => !!leads.find(i => i.leadId == leadId)),
         )
         .subscribe(leads => {
           this.store.dispatch(new LoadLeadVersions({ leadId }));
         })
     );
-    
+
   }
 
-  onLeadSelection(lead: Lead){
+  onLeadSelection(lead: Lead) {
     this.store.dispatch(new SelectLead({ id: lead.versionId }));
   }
 
-  formValueChange(lead : Lead){
-    if(lead.state == LeadState.master)
-    this.store.dispatch(new UpdateLeadState({ id: lead.versionId, changes: { state: LeadState.edition }}));
+  formValueChange(lead: Lead) {
+    if (lead.state == LeadState.master)
+      this.store.dispatch(new UpdateLeadState({ id: lead.versionId, changes: { state: LeadState.edition } }));
   }
 
-  leadSaved(lead: Lead){
-    if(lead.state == LeadState.new)
-    {
-        this.store.dispatch(new InsertLeadIo({insert: lead}));
-    } 
-    else if(lead.state == LeadState.edition) {
-        let oldVersionId = lead.versionId;
-        lead.versionId = uuid();
-        lead.versionDate =  new Date();
-        this.store.dispatch(new InsertLeadIo({ insert: lead, update: { versionId: oldVersionId, state: LeadState.version } }));
-        //
+  leadSaved(lead: Lead) {
+    if (lead.state == LeadState.new) {
+      this.store.dispatch(new InsertLeadIo({ insert: lead }));
+    }
+    else if (lead.state == LeadState.edition) {
+      this.store.dispatch(new InsertLeadIo({
+        insert: {
+          ...lead,
+          versionId: uuid(),
+          versionDate: new Date()
+        },
+        update: {
+          id: lead.versionId,
+          changes: {
+            state: LeadState.version
+          }
+        }
+      }));
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._subsc.unsubscribe();
   }
 }

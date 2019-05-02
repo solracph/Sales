@@ -8,7 +8,7 @@ import { Lead } from  '../models';
 import * as fromLeads from '../reducers/leads.reducer';
 import { Store  } from '@ngrx/store';
 import { LeadState } from '../models/lead-state.enum';
-import { Upsert } from '../models/upsert.model';
+import { UpsertLeads } from '../models/upsert-lead.model';
 import { MatSnackBar } from '@angular/material';
 
 @Injectable()
@@ -59,35 +59,27 @@ export class LeadEffects {
     map(action => action.payload),
     switchMap((upsert) => this.leadService.insertLead(upsert)
       .pipe(
-        map((upsert: Upsert) => new fromLead.InsertLeadIoSuccess(upsert)),
+        map((upsert: UpsertLeads) => new fromLead.InsertLeadIoSuccess(upsert)),
         catchError(error => of(new fromLead.InsertLeadIoFail(error)))
       )
     ),
   );
 
-  
-
   @Effect()
   insertLeadIoSuccess$ = this.actions$.pipe(
     ofType<fromLead.InsertLeadIoSuccess>(fromLead.INSERT_LEAD_IO_SUCCESS),
     map(action => action.payload),
-      switchMap((upsert: Upsert) => {
-
-        let actions: any[] = []
-        if(upsert.insert.state == LeadState.new){
-           //(UI only) New to Master 
-          actions.push( new fromLead.UpdateLead({id: upsert.insert.versionId, changes: {...upsert.insert, state: LeadState.master }}));
-          actions.push( new fromLead.SnackbarOpen({message: "Lead Added Successfully"}));
-        } 
-        else if(upsert.insert.state == LeadState.edition){
-          actions.push( new fromLead.InsertLead({lead : upsert.insert}));
-          actions.push( new fromLead.UpdateLead({id: upsert.update.versionId, changes: upsert.update}));
-          //(UI only) Edition to  Master 
-          actions.push( new fromLead.UpdateLead({id: upsert.insert.versionId, changes: { state : LeadState.master }}));
-          actions.push( new fromLead.SnackbarOpen({message: "Lead Edited Successfully"}));
-        }
-
-       return actions;
+      switchMap(({ insert, update }) => {
+        return (insert.state == LeadState.new)
+          ? [
+            new fromLead.UpdateLead({id: insert.versionId, changes: {...insert, state: LeadState.master }}),
+            new fromLead.SnackbarOpen({message: "Lead Added Successfully"})
+          ]
+          : [
+            new fromLead.UpdateLead(update),
+            new fromLead.InsertLead({lead : {...insert, state : LeadState.master}}),
+            new fromLead.SnackbarOpen({message: "Lead Edited Successfully"})
+          ];
       }),
       catchError(error => of(new fromLead.InsertLeadIoFail(error)))
   );

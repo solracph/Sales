@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { Lead } from '../models';
 import { LeadState } from '../models/lead-state.enum';
 import { Update } from '@ngrx/entity';
-import { Upsert } from '../models/upsert.model';
+import { UpsertLeads } from '../models/upsert-lead.model';
 import { MatSnackBarConfig } from "@angular/material";
 
 export const LOAD_LEADS =  "[Leads] LOAD LEADS";
@@ -14,6 +14,7 @@ export const LOAD_LEAD_VERSIONS_SUCCESS =  "[Leads] LEAD VERSIONS SUCCESS";
 export const LOAD_LEAD_VERSIONS_FAIL =  "[Leads] LEAD VERSIONS FAIL";
 
 export const INSERT_LEAD = "[Leads] INSERT LEAD";
+export const UPSERT_LEAD = "[Leads] UPSERT LEAD";
 export const UPDATE_LEAD = "[Leads] UPDATE LEAD";
 export const UPDATE_LEAD_STATE = "[Leads] UPDATE LEAD STATE";
 
@@ -67,6 +68,11 @@ export class InsertLead implements Action {
     constructor(public payload: { lead: Lead}) { }
 }
 
+export class UpsertLead implements Action {
+    readonly type = UPSERT_LEAD;
+    constructor(public payload: Lead[]) { }
+}
+
 export class UpdateLead implements Action {
     readonly type = UPDATE_LEAD;
     constructor(public payload: Update<Lead>) { }
@@ -79,12 +85,12 @@ export class UpdateLeadState implements Action {
 
 export class InsertLeadIo implements Action {
     readonly type = INSERT_LEAD_IO;
-    constructor(public payload: Upsert) { }
+    constructor(public payload: UpsertLeads) { }
 }
 
 export class InsertLeadIoSuccess  implements Action {
     readonly type = INSERT_LEAD_IO_SUCCESS;
-    constructor(public payload: Upsert) { }
+    constructor(public payload: UpsertLeads) { }
 }
 
 export class InsertLeadIoFail  implements Action {
@@ -109,6 +115,7 @@ LoadLeads
 | LoadLeadVersionsSuccess
 | LoadLeadVersionsFail
 | InsertLead
+| UpsertLead
 | UpdateLead
 | UpdateLeadState
 | InsertLeadIo
