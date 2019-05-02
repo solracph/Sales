@@ -1,7 +1,4 @@
 <div class="md-card">
-    <div class="md-card-heading">
-        <div class="md-card-title">Details<span *ngIf="state == 2" class="state-label">(editing)</span></div>
-    </div>
     <div class="md-card-body">
             <div class="row">
                 <div class="col-md-3">
@@ -74,16 +71,21 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-3">
                     <div class="mda-form-group">
                         <h5>Outcome</h5>
                         <div class="value-text">
-                          {{viewService.getDescription(outcomes,lead.outcome)}}
+                            {{viewService.getDescription(outcomes,lead.outcome)}}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11 ml-3 pr-3" >
+                    <p class="lead bb">Event</p>
+                </div>
+            </div>
+            <div class="row m-1 ng-star-inserted">
                 <div class="col-md-3">
                     <div class="mda-form-group">
                         <h5>Event Date</h5>
@@ -97,8 +99,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6" >
+            <div class="row m-1 ng-star-inserted">
+                <div class="col-md-9" >
                     <div class="mda-form-group">
                         <h5>Event Notes</h5>
                         <div class="value-text">{{lead.event.note}}</div>

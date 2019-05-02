@@ -34,7 +34,7 @@ export function NewLead(): Lead{
           mbi: "",
           phoneNumber: "",
           event : {
-            date : new Date(),
+            date : null,
             location: "",
             note: ""
           },

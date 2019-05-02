@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromListSelectors from '../../selectors/list.selectors';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import { SelectLead, LoadLeadVersions, InsertLeadIo, UpdateLeadState, LoadLeads, } from '../../actions/leads.actions';
+import { SelectLead, LoadLeadVersions, InsertLeadIo, LoadLeads, UpdateLead, } from '../../actions/leads.actions';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
@@ -72,7 +72,6 @@ export class LeadDetailsComponent implements OnInit {
           this.store.dispatch(new LoadLeadVersions({ leadId }));
         })
     );
-
   }
 
   onLeadSelection(lead: Lead) {
@@ -81,7 +80,7 @@ export class LeadDetailsComponent implements OnInit {
 
   formValueChange(lead: Lead) {
     if (lead.state == LeadState.master)
-      this.store.dispatch(new UpdateLeadState({ id: lead.versionId, changes: { state: LeadState.edition } }));
+      this.store.dispatch(new UpdateLead({ id: lead.versionId, changes: { state: LeadState.edition } }));
   }
 
   leadSaved(lead: Lead) {

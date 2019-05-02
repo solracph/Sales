@@ -48,7 +48,7 @@ export class LeadFormComponent implements OnInit {
       mbi: new FormControl(this.lead.mbi),
       dob: new FormControl(this.lead.dob,[Validators.pattern('[0-9]{2}[/][0-9]{2}[/][0-9]{4}')]),
       event : new FormGroup({
-        date: new FormControl(new Date(this.lead.event.date)),
+        date: new FormControl(!!this.lead.event.date ? new Date(this.lead.event.date) : null),
         location: new FormControl(this.lead.event.location),
         note: new FormControl(this.lead.event.note),
       })
