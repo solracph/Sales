@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { SwalService } from './commons/utilities/swal/swal.service';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -49,7 +50,7 @@ export function createTranslateLoader(http: HttpClient) {
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot([AppEffects])
     ],
-    providers: [],
+    providers: [ SwalService ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

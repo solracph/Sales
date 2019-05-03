@@ -10,7 +10,8 @@ import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
-import { filter, first, take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
+import { SwalService } from '../../../commons/utilities/swal/swal.service';
 
 @Component({
   selector: 'app-lead-details',
@@ -31,7 +32,8 @@ export class LeadDetailsComponent implements OnInit {
 
   constructor(
     private store: Store<fromLeads.State>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private swal: SwalService
   ) {
 
   }
@@ -84,27 +86,33 @@ export class LeadDetailsComponent implements OnInit {
   }
 
   leadSaved(lead: Lead) {
+
     if (lead.state == LeadState.new) {
-      this.store.dispatch(new InsertLeadIo({ insert: lead }));
+      this.swal.confirmDialog("Warning","Are you sure you want to saved?", () => {
+        this.store.dispatch(new InsertLeadIo({ insert: lead }));
+      })
     }
     else if (lead.state == LeadState.edition) {
-      this.store.dispatch(new InsertLeadIo({
-        insert: {
-          ...lead,
-          versionId: uuid(),
-          versionDate: new Date()
-        },
-        update: {
-          id: lead.versionId,
-          changes: {
-            state: LeadState.version
+      this.swal.confirmDialog("Warning","Are you sure you want to save the changes?", () => {
+        this.store.dispatch(new InsertLeadIo({
+          insert: {
+            ...lead,
+            versionId: uuid(),
+            versionDate: new Date()
+          },
+          update: {
+            id: lead.versionId,
+            changes: {
+              state: LeadState.version
+            }
           }
-        }
-      }));
+        }));
+      });
     }
   }
 
   ngOnDestroy() {
     this._subsc.unsubscribe();
+    this.store.dispatch(new SelectLead({id : null}));
   }
 }

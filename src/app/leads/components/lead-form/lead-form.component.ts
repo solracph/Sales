@@ -32,16 +32,9 @@ export class LeadFormComponent implements OnInit {
 
   ngOnInit() {
     this.leadFormInitialization(this.lead);
-
     this.leadForm.valueChanges.subscribe((form) => {
       this.formValueChanged.emit(Object.assign({}, this.lead, form));
     })  
-  }
-
-  ngOnChanges(changes){
-    if(!!changes.lead && !!this.leadForm){
-      this.leadFormInitialization(changes.lead.currentValue);
-    }
   }
 
   leadFormInitialization(lead){
@@ -76,5 +69,4 @@ export class LeadFormComponent implements OnInit {
       );
     }
   }
-
 }
