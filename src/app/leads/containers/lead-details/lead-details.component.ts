@@ -91,19 +91,21 @@ export class LeadDetailsComponent implements OnInit {
         this.store.dispatch(new InsertLeadIo({ insert: lead }));
     }
     else if (lead.state == LeadState.edition) {
-      this.store.dispatch(new InsertLeadIo({
-        insert: {
-          ...lead,
-          versionId: uuid(),
-          versionDate: new Date()
-        },
-        update: {
-          id: lead.versionId,
-          changes: {
-            state: LeadState.version
+      // this.swal.confirmDialog("Warning","Are you sure you want to save the changes?", () => {
+        this.store.dispatch(new InsertLeadIo({
+          insert: {
+            ...lead,
+            versionId: uuid(),
+            versionDate: new Date()
+          },
+          update: {
+            id: lead.versionId,
+            changes: {
+              state: LeadState.version
+            }
           }
-        }
-      }));
+        }));
+      // });
     }
   }
 
