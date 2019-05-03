@@ -93,7 +93,7 @@ export class LeadDetailsComponent implements OnInit {
       })
     }
     else if (lead.state == LeadState.edition) {
-      this.swal.confirmDialog("Warning","Are you sure you want to save the changes?", () => {
+      // this.swal.confirmDialog("Warning","Are you sure you want to save the changes?", () => {
         this.store.dispatch(new InsertLeadIo({
           insert: {
             ...lead,
@@ -107,7 +107,7 @@ export class LeadDetailsComponent implements OnInit {
             }
           }
         }));
-      });
+      // });
     }
   }
 
