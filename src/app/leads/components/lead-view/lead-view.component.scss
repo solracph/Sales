@@ -1,8 +1,14 @@
 .mda-form-group{
     padding: 20px;
 }
-.value-text{
+.value-text-container{
     border-bottom: solid 1px #dadada;
+    margin-top: 30px;
+}
+
+.value-text{
+   float: left;
+   margin-top: -25px;
 }
 
 h5{
