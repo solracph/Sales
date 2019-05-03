@@ -1,38 +1,40 @@
 
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" matSort >
+  
   <ng-container matColumnDef="firstName">
-    <th mat-header-cell *matHeaderCellDef> First Name</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name</th>
     <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
   </ng-container>
 
   <ng-container matColumnDef="lastName">
-    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
     <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
   </ng-container>
 
   <ng-container matColumnDef="dob">
-    <th mat-header-cell *matHeaderCellDef> Dob </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dob </th>
     <td mat-cell *matCellDef="let element"> {{element.dob}} </td>
   </ng-container>
   
   <ng-container matColumnDef="mbi">
-    <th mat-header-cell *matHeaderCellDef> MBI </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> MBI </th>
     <td mat-cell *matCellDef="let element"> {{element.mbi}} </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
     <td mat-cell *matCellDef="let element"> {{element.email}} </td>
   </ng-container>
 
   <ng-container matColumnDef="address">
-    <th mat-header-cell *matHeaderCellDef> Address </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
     <td mat-cell *matCellDef="let element"> {{element.address}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="['firstName','lastName', 'dob', 'mbi', 'email', 'address']"></tr>
   <tr mat-row (click)="onLeadSelection(row)" *matRowDef="let row; columns: ['firstName','lastName', 'dob', 'mbi', 'email', 'address'];"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 <div *ngIf="dataSource.data.length == 0" role="alert" class="alert alert-no-record ng-star-inserted"><mat-icon>warning</mat-icon> <span>No record found</span></div>
 
 

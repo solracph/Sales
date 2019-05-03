@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output , OnChanges, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output , OnChanges, EventEmitter, ViewChild} from '@angular/core';
 import { Lead } from '../../models/lead.model';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { LeadGridService } from '../../services/lead-grid.service';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,9 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   @Input() leads : Lead[];
   @Output() leadSelected: EventEmitter<Lead> = new EventEmitter();
-
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
   public dataSource: MatTableDataSource<Lead>;
 
   constructor(
@@ -25,6 +27,8 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   ngOnChanges(changes){
     this.dataSource = new MatTableDataSource(changes.leads.currentValue);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   onLeadSelection(lead: Lead){

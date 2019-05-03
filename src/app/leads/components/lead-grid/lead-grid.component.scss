@@ -32,3 +32,9 @@ table {
   color: #a7a7a7;
 }
 
+::ng-deep .mat-paginator-container {
+  border: solid 1px #e0e0e0;
+  border-top: 0px;
+  padding: 0PX;
+}
+
