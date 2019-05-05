@@ -20,7 +20,7 @@ export class SettingsService {
         // App Settings
         // -----------------------------------
         this.app = {
-            name: 'Angle',
+            name: 'DOCTORS HEALTHCARE PLANS',
             description: 'Angular Bootstrap Admin Template',
             year: ((new Date()).getFullYear())
         };

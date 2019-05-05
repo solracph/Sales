@@ -24,10 +24,7 @@
                     </div>
                     <div class="col-md-3">
                         <mat-form-field>
-                            <input matInput type="text" formControlName="email" placeholder="Email" id="email" required />
-                            <mat-error *ngIf="f.email.hasError('required')">
-                                Email Name is required.
-                            </mat-error>
+                            <input matInput type="text" formControlName="email" placeholder="Email" id="email"  />
                             <mat-error *ngIf="f.email.hasError('email')">
                                 Email must be a valid email address
                             </mat-error>
@@ -35,9 +32,12 @@
                     </div>
                     <div class="col-md-3">
                         <mat-form-field>
-                            <input [textMask]="{mask: dateMask}" matInput type="text" formControlName="dob" placeholder="BOB" id="dob" />
+                            <input [textMask]="{mask: dateMask}" matInput type="text" formControlName="dob" placeholder="DOB" id="dob" required/>
                             <mat-error *ngIf="f.dob.hasError('pattern')">
                                 DOB must have this format MM/DD/YYYY
+                            </mat-error>
+                            <mat-error *ngIf="f.dob.hasError('required')">
+                                DOB is required.
                             </mat-error>
                         </mat-form-field>
                     </div>

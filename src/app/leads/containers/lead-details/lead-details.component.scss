@@ -12,3 +12,8 @@
     min-height: 100%;
 }
 
+/deep/ .title-with-small-icon > span{
+    top: -6px;
+    position: relative;
+}
+
