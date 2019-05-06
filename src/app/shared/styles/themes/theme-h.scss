@@ -179,3 +179,8 @@ body, .wrapper .section-container {
     background-color: $offsidebar-bg;
     color: $offsidebar-color;
 }
+
+.title-with-small-icon > span{
+    top: -6px;
+    position: relative;
+}
