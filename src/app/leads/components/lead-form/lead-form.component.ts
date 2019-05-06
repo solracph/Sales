@@ -24,7 +24,7 @@ export class LeadFormComponent implements OnInit {
   public leadForm: FormGroup;
   public phoneMask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public dateMask = [/\d/, /\d/, '/',/\d/, /\d/, '/',/\d/, /\d/, /\d/,/\d/];
-
+  public panelOpenState: boolean;
   get f() { return this.leadForm.controls; }
 
   constructor() {
@@ -50,11 +50,11 @@ export class LeadFormComponent implements OnInit {
       reason: new FormControl(lead.reason),
       mbi: new FormControl(lead.mbi),
       dob: new FormControl(lead.dob,[Validators.required, Validators.pattern('[0-9]{2}[/][0-9]{2}[/][0-9]{4}')]),
-      event : new FormGroup({
+      /*event : new FormGroup({
         date: new FormControl(!!lead.event.date ? new Date(lead.event.date) : null),
         location: new FormControl(lead.event.location),
         note: new FormControl(lead.event.note),
-      })
+      })*/
     });
   }
 
@@ -62,11 +62,12 @@ export class LeadFormComponent implements OnInit {
 
   cancel(){}
 
-  save(){
+  save(){ 
     if(this.leadForm.valid){
       this.leadSaved.emit(
         Object.assign({}, this.lead, this.leadForm.value)
       );
     }
   }
+ 
 }

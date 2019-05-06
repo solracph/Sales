@@ -14,12 +14,36 @@
         "currentPlan": 1,
         "mbi": "MBI010698",
         "dob": "02/06/1989",
-        "versionDate": "05/10/2019 3:00 PM",
-        "event": {
-            "date": "2/15/2019 4:00 PM",
-            "location": "325 Majorca Ave Coral Gables",
-            "note": "Successful follow up"
-        }
+        "versionDate": "05/2/2019 3:00 PM",
+        "events": [
+            {
+                "date": "05/06/2019 3:20 PM",
+                "location": "325 Majorca Aver Apt 5 Coral Gables, FL 33134",
+                "user": "Ana"
+            },
+            {
+                "date": "05/06/2019 3:20 PM",
+                "location": "325 Majorca Aver Apt 5 Coral Gables, FL 33134",
+                "user": "Ana"
+            },
+            {
+                "date": "05/06/2019 3:20 PM",
+                "location": "325 Majorca Aver Apt 5 Coral Gables, FL 33134",
+                "user": "Ana"
+            }
+        ],
+        "notes": [
+            {
+                "date": "05/06/2019 3:20 PM",
+                "userName": "Ana",
+                "text": "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting."
+            },
+            {
+                "date": "02/15/2019 6:15 PM",
+                "userName": "Bella",
+                "text": "A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting."
+            }
+        ]
     },
     {
         "leadId" : "f2a84d94-42a0-4f8d-abb9-c44a76ab2f8d",

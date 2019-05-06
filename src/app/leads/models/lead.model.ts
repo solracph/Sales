@@ -1,6 +1,7 @@
 import { LeadState } from "./lead-state.enum";
 import { LeadEvent } from "./lead-event.model";
 import { v4 as uuid } from 'uuid';
+import { LeadNote } from "./lead-note.model";
 
 export interface Lead {
     leadId: string,
@@ -18,7 +19,8 @@ export interface Lead {
     mbi: string;
     dob: string;
     versionDate: Date,
-    event: LeadEvent
+    events: LeadEvent[],
+    notes: LeadNote[]
 }
 
 export function NewLead(): Lead{
@@ -33,16 +35,13 @@ export function NewLead(): Lead{
           lastName: "",
           mbi: "",
           phoneNumber: "",
-          event : {
-            date : null,
-            location: "",
-            note: ""
-          },
           outcome: "",
           source: "",
           currentPlan: "",
           reason: "",
-          versionDate: new Date()
+          versionDate: new Date(),
+          events : [],
+          notes: []
     }
 }
 

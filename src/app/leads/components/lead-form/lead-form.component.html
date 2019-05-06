@@ -6,152 +6,261 @@
         </div>
     </div>
     <div class="md-card-body">
-        <scrollable [heightOffset]="140">
-            <form [formGroup]="leadForm" (ngSubmit)="save()">
-                <div class="row">
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <input matInput type="text" formControlName="firstName" placeholder="First Name" id="firstName"  required/>
-                            <mat-error *ngIf="f.firstName.hasError('required')">
-                                First Name is required.
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <input matInput type="text" formControlName="lastName" placeholder="Last Name" id="lastName" required/>
-                            <mat-error *ngIf="f.lastName.hasError('required')">
-                                Last Name is required.
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <input matInput type="text" formControlName="email" placeholder="Email" id="email"  />
-                            <mat-error *ngIf="f.email.hasError('email')">
-                                Email must be a valid email address
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <input [textMask]="{mask: dateMask}" matInput type="text" formControlName="dob" placeholder="DOB" id="dob" required/>
-                            <mat-error *ngIf="f.dob.hasError('pattern')">
-                                DOB must have this format MM/DD/YYYY
-                            </mat-error>
-                            <mat-error *ngIf="f.dob.hasError('required')">
-                                DOB is required.
-                            </mat-error>
-                        </mat-form-field>
+        <scrollable [heightOffset]="200">
+            <div  class="row">
+                <div class="col-xl-12 col-lead-accordion">
+                    <form [formGroup]="leadForm" (ngSubmit)="save()">
+                        <mat-accordion class="lead-form-headers-align" >
+                                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title >
+                                            <mat-icon>account_circle</mat-icon>
+                                            <div *ngIf="!panelOpenState" class="accordion-lead-info-container">
+                                                <div class="accordion-lead-info-card"> 
+                                                    <div class="accordion-lead-info-card-header">
+                                                        Name
+                                                    </div>
+                                                    <div class="accordion-lead-info-card-text">
+                                                        {{f.firstName.value}} {{f.lastName.value}} 
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-lead-info-card"> 
+                                                    <div class="accordion-lead-info-card-header">
+                                                        Email
+                                                    </div>
+                                                    <div class="accordion-lead-info-card-text">
+                                                        {{f.email.value}}
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-lead-info-card"> 
+                                                    <div class="accordion-lead-info-card-header">
+                                                        DOB
+                                                    </div>
+                                                    <div class="accordion-lead-info-card-text">
+                                                        {{f.dob.value}}
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-lead-info-card"> 
+                                                    <div class="accordion-lead-info-card-header">
+                                                        Address
+                                                    </div>
+                                                    <div class="accordion-lead-info-card-text">
+                                                        {{f.address.value}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" formControlName="firstName" placeholder="First Name" id="firstName"  required/>
+                                                        <mat-error *ngIf="f.firstName.hasError('required')">
+                                                            First Name is required.
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" formControlName="lastName" placeholder="Last Name" id="lastName" required/>
+                                                        <mat-error *ngIf="f.lastName.hasError('required')">
+                                                            Last Name is required.
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" formControlName="email" placeholder="Email" id="email"  />
+                                                        <mat-error *ngIf="f.email.hasError('email')">
+                                                            Email must be a valid email address
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <input [textMask]="{mask: dateMask}" matInput type="text" formControlName="dob" placeholder="DOB" id="dob" required/>
+                                                        <mat-error *ngIf="f.dob.hasError('pattern')">
+                                                            DOB must have this format MM/DD/YYYY
+                                                        </mat-error>
+                                                        <mat-error *ngIf="f.dob.hasError('required')">
+                                                            DOB is required.
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" formControlName="mbi" placeholder="MBI" id="mbi"  required/>
+                                                        <mat-error *ngIf="f.mbi.hasError('required')">
+                                                            MBI is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" formControlName="address" placeholder="Address" id="address" required/>
+                                                        <mat-error *ngIf="f.address.hasError('required')">
+                                                            Address is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" [textMask]="{mask: phoneMask}" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <mat-label>Reason</mat-label>
+                                                        <mat-select formControlName="reason" required>
+                                                            <mat-option [value]="null" ></mat-option>
+                                                            <mat-option *ngFor="let reason of reasons" [value]="reason.id" >
+                                                                {{ reason.description }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error *ngIf="f.reason.hasError('required')">
+                                                            Reason is required
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <mat-label>Current Plan</mat-label>
+                                                        <mat-select formControlName="currentPlan">
+                                                            <mat-option [value]="null" ></mat-option>
+                                                            <mat-option *ngFor="let plan of plans" [value]="plan.id" >{{ plan.description }}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <mat-form-field >
+                                                        <mat-label>Source</mat-label>
+                                                        <mat-select formControlName="source">
+                                                            <mat-option [value]="null" ></mat-option>
+                                                            <mat-option *ngFor="let source of sources" [value]="source.id" >{{ source.description }}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <!-- <div class="col-md-3">
+                                                    <mat-form-field>
+                                                        <mat-label>Outcome</mat-label>
+                                                        <mat-select formControlName="outcome">
+                                                            <mat-option [value]="null" ></mat-option>
+                                                            <mat-option *ngFor="let outcome of outcomes" [value]="outcome.id" >{{ outcome.description }}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>-->
+                                            </div>
+                                            <!--<ng-container *ngIf="!!leadForm.value.outcome" formGroupName="event">
+                                                <div class="row">
+                                                    <div class="col-md-11 ml-3 pr-3" >
+                                                        <p class="lead bb">Event</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row m-1">
+                                                    <div class="col-md-3" >
+                                                        <mat-form-field>
+                                                                <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Event Date">
+                                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                                <mat-datepicker #picker></mat-datepicker>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-6" >
+                                                        <mat-form-field>
+                                                            <input matInput type="text" formControlName="location" placeholder="Event Location" id="date" tabindex="0"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="row m-1" >
+                                                    <div class="col-md-9" >
+                                                        <mat-form-field>
+                                                            <textarea  matInput formControlName="note" placeholder="Event Notes" id="date" tabindex="0"></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </ng-container>-->
+                                            <!-- <div class="row">
+                                                <div class="col-md-12 button-col" >
+                                                    <div class="button-row">
+                                                        <button mb-stroked-button class="mb-1 mr-1 btn btn-danger" type="button" (click)="cancel()" *ngIf="lead.state != leadState.version">Cancel</button>
+                                                        <button  mb-stroked-button class="mb-1 mr-1 btn btn-labeled btn-success" type="submit" *ngIf="lead.state != leadState.version " [disabled]="leadForm.invalid">
+                                                            <span class="btn-label"><i class="fa fa-check"></i></span>
+                                                            Save
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                
+                                    
+                                </mat-expansion-panel>
+                        </mat-accordion>
+                    </form>
+                </div>
+            </div>
+            <div  class="row">
+                <div class="col-xl-12 col-lead-events-notes">
+                    <div class="events-notes-container"> 
+
+                        <mat-card class="note-container-card">
+                            <mat-card-header>
+                            <mat-card-title>Notes</mat-card-title>
+                            <mat-icon style="color: #4288fd;">view_list</mat-icon>
+                            </mat-card-header>
+                            <mat-card-actions>
+                            <div class="card-actions">
+                            <button mat-flat-button class="note-add-button" color="primary">New</button>
+                            </div>
+                            </mat-card-actions>
+                            <mat-card-content>
+                                <mat-card  class="note-card" *ngFor="let note of lead.notes">
+                                    <mat-card-header>
+                                        <div class="card-header-text">
+                                        <mat-card-title class="note-header-title"> {{note.userName}}</mat-card-title>
+                                        <mat-card-subtitle>{{note.date}}</mat-card-subtitle>
+                                        </div>
+                                        <mat-icon style="color: #ceaa23;">speaker_notes</mat-icon>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <p>{{note.text}}</p>
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-card-content>
+                        </mat-card>
+
+                        <mat-card class="event-container-card">
+                            <mat-card-header>
+                                <mat-card-title>Events</mat-card-title>
+                                <mat-icon style="color: #4288fd;">date_range</mat-icon>
+                            </mat-card-header>
+                            <mat-card-actions>
+                                <div class="card-actions">
+                                <button mat-flat-button class="note-add-button" color="primary">New</button>
+                                </div>
+                            </mat-card-actions>
+                            <mat-card-content class="event-container">
+                                <mat-card class="event-card" *ngFor="let event of lead.events">
+                                    <mat-card-header>
+                                        <div class="card-header-text">
+                                        <mat-card-title class="event-header-title">{{event.date}}</mat-card-title>
+                                        <mat-card-subtitle>{{event.location}}</mat-card-subtitle>
+                                        </div>
+                                        <mat-icon style="color: #4288fd;">calendar_today</mat-icon>
+                                        <!--<mat-icon matBadge="!" matBadgeColor="warn" style="color: #4288fd;">calendar_today</mat-icon>-->
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                    </mat-card-content>
+                                </mat-card>
+                            </mat-card-content>
+                        </mat-card>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <input matInput type="text" formControlName="mbi" placeholder="MBI" id="mbi"  required/>
-                            <mat-error *ngIf="f.mbi.hasError('required')">
-                                MBI is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-6">
-                        <mat-form-field>
-                            <input matInput type="text" formControlName="address" placeholder="Address" id="address" required/>
-                            <mat-error *ngIf="f.address.hasError('required')">
-                                Address is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <input matInput type="text" [textMask]="{mask: phoneMask}" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <mat-label>Reason</mat-label>
-                            <mat-select formControlName="reason" required>
-                                <mat-option [value]="null" ></mat-option>
-                                <mat-option *ngFor="let reason of reasons" [value]="reason.id" >
-                                    {{ reason.description }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="f.reason.hasError('required')">
-                                Reason is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <mat-label>Current Plan</mat-label>
-                            <mat-select formControlName="currentPlan">
-                                <mat-option [value]="null" ></mat-option>
-                                <mat-option *ngFor="let plan of plans" [value]="plan.id" >{{ plan.description }}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field >
-                            <mat-label>Source</mat-label>
-                            <mat-select formControlName="source">
-                                <mat-option [value]="null" ></mat-option>
-                                <mat-option *ngFor="let source of sources" [value]="source.id" >{{ source.description }}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                        <mat-form-field>
-                            <mat-label>Outcome</mat-label>
-                            <mat-select formControlName="outcome">
-                                <mat-option [value]="null" ></mat-option>
-                                <mat-option *ngFor="let outcome of outcomes" [value]="outcome.id" >{{ outcome.description }}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <ng-container *ngIf="!!leadForm.value.outcome" formGroupName="event">
-                    <div class="row">
-                        <div class="col-md-11 ml-3 pr-3" >
-                            <p class="lead bb">Event</p>
-                        </div>
-                    </div>
-                    <div class="row m-1">
-                        <div class="col-md-3" >
-                            <mat-form-field>
-                                    <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Event Date">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6" >
-                            <mat-form-field>
-                                <input matInput type="text" formControlName="location" placeholder="Event Location" id="date" tabindex="0"/>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row m-1" >
-                        <div class="col-md-9" >
-                            <mat-form-field>
-                                <textarea  matInput formControlName="note" placeholder="Event Notes" id="date" tabindex="0"></textarea>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </ng-container>
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="button-row">
-                            <button mb-stroked-button class="mb-1 mr-1 btn btn-danger" type="button" (click)="cancel()" *ngIf="lead.state != leadState.version">Cancel</button>
-                            <button  mb-stroked-button class="mb-1 mr-1 btn btn-labeled btn-success" type="submit" *ngIf="lead.state != leadState.version " [disabled]="leadForm.invalid">
-                                <span class="btn-label"><i class="fa fa-check"></i></span>
-                                Save
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
         </scrollable>
     </div>
 </div>
+
+
 

@@ -16,3 +16,24 @@ h5{
     font-weight: bold;
     color: #515253;
 }
+
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+    ::ng-deep app-lead-form .slimScrollDiv , scrollable{
+        max-height: 360px !important;
+    }
+
+    ::ng-deep app-lead-form .md-card .md-card-body{
+        padding: 0px 22px;
+    }
+}
+
+@media screen and (max-width: 992px) and (min-width: 576px) {
+    ::ng-deep app-lead-form .slimScrollDiv , scrollable{
+        max-height: 600px !important;
+    }
+    
+    .md-card{
+        min-height: 690px;
+    }
+    
+}

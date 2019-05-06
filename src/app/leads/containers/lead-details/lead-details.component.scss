@@ -1,19 +1,20 @@
 
-/deep/ .md-card{
-    min-height: 100%;
-    overflow: auto;
-}
+::ng-deep {
+    .md-card{
+        min-height: 100%;
+        overflow: auto;
+    }
+    
+    .lead-versions{
+        background-color: white;
+    }
 
-/deep/ .lead-versions{
-    background-color: white;
-}
-
-/deep/ .main-row {
-    min-height: 100%;
-}
-
-/deep/ .title-with-small-icon > span{
-    top: -6px;
-    position: relative;
-}
-
+    .main-row {
+        min-height: 100%;
+    }
+    
+    .title-with-small-icon > span{
+        top: -6px;
+        position: relative;
+    }
+} 

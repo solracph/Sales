@@ -1,6 +1,5 @@
 <div class="row no-gutters lead-versions main-row">
-    <div class="col-md-2">
-      
+    <!--<div class="col-xl-2">
         <div class="md-card">
             <div class="md-card-heading title-with-small-icon">
                 <mat-icon class="material-icons" color="primary">list</mat-icon>
@@ -18,10 +17,8 @@
                 </app-lead-versions-list>
             </ng-container>
         </div>
-        
-    </div>
-    <div class="col-md-10"  *ngIf="selectedLead$ | async; let selectedLead;">
-        
+    </div>-->
+    <div class="col-xl-10"  *ngIf="selectedLead$ | async; let selectedLead;">
             <ng-container *ngIf="selectedLead.state != 3 ">
                 <app-lead-form 
                     [lead]="selectedLead"
@@ -44,7 +41,6 @@
                 ></app-lead-view>
             </ng-container>
     </div>
-    
 </div>
 
 

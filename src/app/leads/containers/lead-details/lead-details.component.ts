@@ -34,9 +34,7 @@ export class LeadDetailsComponent implements OnInit {
     private store: Store<fromLeads.State>,
     private route: ActivatedRoute,
     private swal: SwalService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this._subsc.add(

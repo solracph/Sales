@@ -1,5 +1,11 @@
 @import "./commons/utilities/swal/swal-custom.scss";
 
-/deep/.mat-raised-button.mat-primary{
+::ng-deep{
+  .mat-raised-button.mat-primary{
     background-color: #3F51B5;
   } 
+
+  .mat-icon.mat-primary{
+    color: #4288fd;
+  }
+} 
