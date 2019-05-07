@@ -1,0 +1,32 @@
+
+::ng-deep {
+    .mat-dialog-content .mat-form-field{
+        width: 100%;
+    }
+    
+    .mat-dialog-container{
+        width: 700px;
+    }
+
+    button {
+        margin-right: 10px !important;
+    }
+
+    .mat-dialog-actions{
+        float: right !important;
+    }
+
+    .mat-fab.mat-primary, .mat-flat-button.mat-primary, 
+    .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary{
+        background-color: #4288fd;
+    }
+
+    app-lead-new-event-dialog .mat-dialog-title mat-icon{
+        color: #4288fd;
+        position: absolute;
+        margin-left: 10px;
+        margin-top: 5px;
+    }
+}
+    
+

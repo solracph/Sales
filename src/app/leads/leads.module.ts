@@ -20,6 +20,10 @@ import { LeadVersionsListComponent } from './components/lead-versions-list/lead-
 import { LeadViewComponent } from './components/lead-view/lead-view.component';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MatBadgeModule  } from '@angular/material';
+import { LeadNewNoteDialogComponent } from './components/lead-new-note-dialog/lead-new-note-dialog.component';
+import { LeadNotesBoxComponent } from './components/lead-notes-box/lead-notes-box.component';
+import { LeadEventsBoxComponent } from './components/lead-events-box/lead-events-box.component';
+import { LeadNewEventDialogComponent } from './components/lead-new-event-dialog/lead-new-event-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { MatBadgeModule  } from '@angular/material';
     LeadGridComponent,
     LeadDetailsComponent,
     LeadVersionsListComponent,
-    LeadViewComponent
+    LeadViewComponent,
+    LeadNewNoteDialogComponent,
+    LeadNotesBoxComponent,
+    LeadEventsBoxComponent,
+    LeadNewEventDialogComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +52,10 @@ import { MatBadgeModule  } from '@angular/material';
     LeadService,
     LeadGridService,
     LeadViewService
-  ]
+  ],
+  entryComponents: [
+    LeadNewNoteDialogComponent,
+    LeadNewEventDialogComponent
+  ],
 })
 export class LeadsModule { }

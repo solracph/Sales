@@ -13,6 +13,7 @@ export interface Lead {
     outcome: string;
     email: string;
     phoneNumber: string;
+    secondaryPhone: string;
     address: string;
     reason: string;
     currentPlan: string;
@@ -35,6 +36,7 @@ export function NewLead(): Lead{
           lastName: "",
           mbi: "",
           phoneNumber: "",
+          secondaryPhone: "",
           outcome: "",
           source: "",
           currentPlan: "",

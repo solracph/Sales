@@ -53,9 +53,7 @@ export class LeadEffects {
 
   @Effect()
   insertLeadIo$ = this.actions$.pipe(
-    ofType<fromLead.InsertLeadIo>(
-      fromLead.INSERT_LEAD_IO
-    ),
+    ofType<fromLead.InsertLeadIo>(fromLead.INSERT_LEAD_IO),
     map(action => action.payload),
     switchMap((upsert) => this.leadService.insertLead(upsert)
       .pipe(

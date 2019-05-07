@@ -1,0 +1,25 @@
+<mat-card class="note-container-card">
+    <mat-card-header>
+        <mat-card-title><h4>Notes</h4></mat-card-title>
+        <mat-icon>view_list</mat-icon>
+    </mat-card-header>
+    <mat-card-actions>
+    <div class="card-actions">
+    <button mat-flat-button class="note-add-button" color="primary" (click)="openDialog($event)">New</button>
+    </div>
+    </mat-card-actions>
+    <mat-card-content>
+        <mat-card  class="note-card" *ngFor="let note of lead.notes">
+            <mat-card-header>
+                <div class="card-header-text">
+                    <mat-card-title class="note-header-title"> {{note.userName}}</mat-card-title>
+                    <mat-card-subtitle>{{note.date | date: 'MM/dd/yyyy hh:mm aaa'}}</mat-card-subtitle>
+                </div>
+                <mat-icon>speaker_notes</mat-icon>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{note.text}}</p>
+            </mat-card-content>
+        </mat-card>
+    </mat-card-content>
+</mat-card>

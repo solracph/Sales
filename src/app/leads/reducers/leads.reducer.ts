@@ -2,7 +2,6 @@ import * as fromLead from '../actions/leads.actions';
 import { Lead } from '../models';
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
-
 //#region State definition
 export interface State extends EntityState<Lead> {
     selected: string,
@@ -15,6 +14,7 @@ export const adapter: EntityAdapter<Lead> = createEntityAdapter({
 	selectId: (loc: Lead) => loc.versionId,
     sortComparer: false,
 });
+
 
 export const initialState: State = adapter.getInitialState({
     selected: null,

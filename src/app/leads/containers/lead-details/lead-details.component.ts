@@ -4,14 +4,17 @@ import { Store, select } from '@ngrx/store';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromListSelectors from '../../selectors/list.selectors';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import { SelectLead, LoadLeadVersions, InsertLeadIo, LoadLeads, UpdateLead, } from '../../actions/leads.actions';
+import { SelectLead, LoadLeadVersions, InsertLeadIo, LoadLeads, UpdateLead, InsertLeadNote, } from '../../actions/leads.actions';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
-import { filter, take } from 'rxjs/operators';
-import { SwalService } from '../../../commons/utilities/swal/swal.service';
+import { filter, take, tap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { LeadNewNoteDialogComponent } from '../../components/lead-new-note-dialog/lead-new-note-dialog.component';
+import * as _ from 'lodash'
+import { LeadNewEventDialogComponent } from '../../components/lead-new-event-dialog/lead-new-event-dialog.component';
 
 @Component({
   selector: 'app-lead-details',
@@ -29,11 +32,12 @@ export class LeadDetailsComponent implements OnInit {
   public outcomes$: Observable<Outcome[]>;
   public _subsc: Subscription = new Subscription();
   private masterLeads$: Observable<Lead[]>;
+  private versionId: string;
 
   constructor(
     private store: Store<fromLeads.State>,
     private route: ActivatedRoute,
-    private swal: SwalService
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -61,6 +65,7 @@ export class LeadDetailsComponent implements OnInit {
     this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
   }
 
+
   private _loadVersionsWhenEditingMasterLead(leadId: string, masterLeads: Observable<Lead[]>) {
     this._subsc.add(
       masterLeads
@@ -68,7 +73,7 @@ export class LeadDetailsComponent implements OnInit {
           take(1),
           filter((leads: Lead[]) => !!leads.find(i => i.leadId == leadId)),
         )
-        .subscribe(leads => {
+        .subscribe(() => {
           this.store.dispatch(new LoadLeadVersions({ leadId }));
         })
     );
@@ -89,22 +94,54 @@ export class LeadDetailsComponent implements OnInit {
         this.store.dispatch(new InsertLeadIo({ insert: lead }));
     }
     else if (lead.state == LeadState.edition) {
-      // this.swal.confirmDialog("Warning","Are you sure you want to save the changes?", () => {
-        this.store.dispatch(new InsertLeadIo({
-          insert: {
-            ...lead,
-            versionId: uuid(),
-            versionDate: new Date()
-          },
-          update: {
-            id: lead.versionId,
-            changes: {
-              state: LeadState.version
-            }
+      this.store.dispatch(new InsertLeadIo({
+        insert: {
+          ...lead,
+          versionId: uuid(),
+          versionDate: new Date()
+        },
+        update: {
+          id: lead.versionId,
+          changes: {
+            state: LeadState.version
           }
-        }));
-      // });
+        }
+      }));
     }
+  }
+
+  newNoteDialog(): void {
+      const dialogRef = this.dialog.open(LeadNewNoteDialogComponent);
+      dialogRef.afterClosed().subscribe( result => {
+        if(result){
+            let _lead;
+            let _notes;
+            this.selectedLead$.subscribe( lead => {
+              if(!!lead) {
+                _lead = lead;
+                let notes = [{ text:  result,date: new Date(), userName: lead.firstName }]
+                lead.notes.forEach(note => {
+                  notes.push(note);
+                });
+                _notes = notes;
+              }
+            });
+            this.store.dispatch(new UpdateLead( 
+            { 
+                id: _lead.versionId, 
+                changes:{ notes: _notes }
+            }))
+        }
+      });
+  }
+
+  newEventDialog(){
+    const dialogRef = this.dialog.open(LeadNewEventDialogComponent);
+    dialogRef.afterClosed().subscribe( result => {
+      if(result){
+        console.log(result)
+      }
+    })
   }
 
   ngOnDestroy() {

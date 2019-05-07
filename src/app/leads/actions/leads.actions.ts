@@ -4,6 +4,7 @@ import { LeadState } from '../models/lead-state.enum';
 import { Update } from '@ngrx/entity';
 import { UpsertLeads } from '../models/upsert-lead.model';
 import { MatSnackBarConfig } from "@angular/material";
+import { LeadNote } from '../models/lead-note.model';
 
 export const LOAD_LEADS =  "[Leads] LOAD LEADS";
 export const LOAD_LEADS_SUCCESS =  "[Leads] LOAD LEADS SUCCESS";
@@ -17,6 +18,11 @@ export const INSERT_LEAD = "[Leads] INSERT LEAD";
 export const INSERT_LEAD_IO = "[Leads] INSERT LEAD IO";
 export const INSERT_LEAD_IO_SUCCESS = "[Leads] INSERT LEAD IO SUCCESS";
 export const INSERT_LEAD_IO_FAIL = "[Leads] INSERT LEAD IO FAIL";
+
+export const INSERT_LEAD_NOTE = "[Leads] INSERT LEAD NOTE";
+export const INSERT_LEAD_NOTE_IO = "[Leads] INSERT LEAD NOTE IO";
+export const INSERT_LEAD_NOTE_SUCCESS = "[Leads] INSERT LEAD NOTE IO SUCCESS";
+export const INSERT_LEAD_NOTE_FAIL = "[Leads] INSERT LEAD NOTE IO FAIL";
 
 export const UPSERT_LEAD = "[Leads] UPSERT LEAD";
 export const UPDATE_LEAD = "[Leads] UPDATE LEAD";
@@ -82,6 +88,26 @@ export const SNACKBAR_CLOSE =  "[SnackBar] SNACKBAR CLOSE";
         constructor(public payload: any) { }
     }
 
+    export class InsertLeadNote implements Action{
+        readonly type = INSERT_LEAD_NOTE;
+        constructor(public payload: Update<Lead> ) { }
+    }
+
+    export class InsertLeadNoteIo implements Action{
+        readonly type = INSERT_LEAD_NOTE_IO;
+        constructor(public payload: LeadNote) { }
+    }
+
+    export class InsertLeadNoteIoSuccess implements Action{
+        readonly type = INSERT_LEAD_NOTE_IO;
+        constructor(public payload: LeadNote) { }
+    }
+
+    export class InsertLeadNoteIoFail implements Action{
+        readonly type = INSERT_LEAD_NOTE_IO;
+        constructor(public payload: LeadNote) { }
+    }
+
     export class UpdateLead implements Action {
         readonly type = UPDATE_LEAD;
         constructor(public payload: Update<Lead>) { }
@@ -128,6 +154,10 @@ LoadLeads
 | InsertLeadIo
 | InsertLeadIoSuccess
 | InsertLeadIoFail
+| InsertLeadNote
+| InsertLeadNoteIo
+| InsertLeadNoteIoSuccess
+| InsertLeadNoteIoFail
 | UpsertLead
 | UpdateLead
 | UpdateLeadState

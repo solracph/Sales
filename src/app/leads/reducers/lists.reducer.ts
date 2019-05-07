@@ -1,7 +1,5 @@
-import { Action } from '@ngrx/store';
 import { Source, Outcome, Reason, Plan } from '../models';
 import * as fromList from '../actions/lists.actions';
-
 
 export interface State {
   sources: Source[],

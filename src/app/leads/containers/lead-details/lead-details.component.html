@@ -18,29 +18,62 @@
             </ng-container>
         </div>
     </div>-->
-    <div class="col-xl-12"  *ngIf="selectedLead$ | async; let selectedLead;">
-        <ng-container *ngIf="selectedLead.state != 3 ">
-            <app-lead-form 
-                [lead]="selectedLead"
-                [sources]="sources$ | async"
-                [reasons]="reasons$ | async"
-                [plans]="plans$ | async"
-                [outcomes]="outcomes$ | async"
-                
-                (leadSaved)="leadSaved($event)"
-                (formValueChanged)="formValueChange($event)"
-            ></app-lead-form>
-        </ng-container>
-        <ng-container *ngIf="selectedLead.state == 3">
-            <app-lead-view
-                [lead]="selectedLead"
-                [sources]="sources$ | async"
-                [reasons]="reasons$ | async"
-                [plans]="plans$ | async"
-                [outcomes]="outcomes$ | async"
-            ></app-lead-view>
-        </ng-container>
+    <div class="col-xl-12">
+    <div *ngIf="selectedLead$ | async; let selectedLead;">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="md-card">
+                    <!--<div class="md-card-heading pb-0">
+                        <div class="md-card-title title-with-small-icon ml-3">
+                            <mat-icon class="material-icons">{{selectedLead.state == leadState.new ? "person_add": "edit"}}</mat-icon>
+                            <span class="ml-2">{{lselectedLeadstate == leadState.new ? "New": "Edit"}} Lead</span>
+                        </div>
+                    </div>-->
+                    <div class="md-card-body">
+                        
+                        <scrollable [heightOffset]="150">
+                            <ng-container *ngIf="selectedLead.state != 3 ">
+                                <app-lead-form 
+                                    [lead]="selectedLead"
+                                    [sources]="sources$ | async"
+                                    [reasons]="reasons$ | async"
+                                    [plans]="plans$ | async"
+                                    [outcomes]="outcomes$ | async"
+                                    
+                                    (leadSaved)="leadSaved($event)"
+                                    (formValueChanged)="formValueChange($event)"
+                                   
+                                ></app-lead-form>
+                            </ng-container>
+                                    
+                            <div class="events-notes-container" *ngIf="selectedLead.state != 2 "> 
+                                <div  class="row">
+                                    <div class="col-xl-6">
+                                        <app-lead-notes-box [lead]="selectedLead"  (newNote)="newNoteDialog($event)"> </app-lead-notes-box>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <app-lead-events-box [lead]="selectedLead" (newEvent)="newEventDialog($event)"></app-lead-events-box>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <ng-container *ngIf="selectedLead.state == 3">
+                                <app-lead-view
+                                    [lead]="selectedLead"
+                                    [sources]="sources$ | async"
+                                    [reasons]="reasons$ | async"
+                                    [plans]="plans$ | async"
+                                    [outcomes]="outcomes$ | async"
+                                ></app-lead-view>
+                            </ng-container>
+                        </scrollable>
+                    </div>
+                </div>
+            </div>
+        </div>
+              
     </div>
+</div>
 </div>
 
 

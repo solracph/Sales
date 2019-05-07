@@ -9,6 +9,7 @@
         "outcome": 1,
         "email": "anaallison@gmail.com",
         "phoneNumber": "7862789898",
+        "secondaryPhone": "7862789898",
         "address": "325 Majorca Ave Coral Gables",
         "reason": 3,
         "currentPlan": 1,
@@ -54,6 +55,7 @@
         "source": 2,
         "outcome": 1,
         "phoneNumber": "3056548789",
+        "secondaryPhone": "3056548789",
         "email": "kearney_bella@gmail.com",
         "address": "4754 W Flagler St, Coral Gables, FL 33134",
         "reason": 1,
@@ -65,7 +67,8 @@
             "date": "2/10/2019 1:00 PM",
             "location": "4754 W Flagler St, Coral Gables, FL 33134",
             "note": "Unsuccessful  follow up"
-        }
+        },
+        "notes":[]
     },
     {
         "leadId" : "338a48cd-6ce7-4573-9d0a-7334cc67f39e",
@@ -76,6 +79,7 @@
         "source": 3,
         "outcome": 1,
         "phoneNumber": "3054878457",
+        "secondaryPhone": "3054878457",
         "email": "eesakerr@gmail.com",
         "address": "3443 Midway Road Fort Smith 72908",
         "reason": 1,
@@ -87,7 +91,8 @@
             "date": "",
             "location": "",
             "note": ""
-        }
+        },
+        "notes":[]
     },
     {
         "leadId" : "e952365e-39a3-432a-8bfb-bab4d9a41345",
@@ -98,6 +103,7 @@
         "source": 3,
         "outcome": 1,
         "phoneNumber": "3054125124",
+        "secondaryPhone": "3054878457",
         "email": "calihoffman@gmail.com",
         "address": "1584 Haven Lane Dimondale 48821",
         "reason": 1,
@@ -109,7 +115,8 @@
             "date": "",
             "location": "",
             "note": ""
-        }
+        },
+        "notes":[]
     },
     {
         "leadId" : "ed31c5ec-b8a1-4c36-998c-e7d86b4ddaba",
@@ -120,6 +127,7 @@
         "source": 1,
         "outcome": 1,
         "phoneNumber": "3058789654",
+        "secondaryPhone": "3054878457",
         "email": "BlaneGrant@gmail.com",
         "address": "4290 Snider Street Hartse 80449",
         "reason": 1,
@@ -131,6 +139,7 @@
             "date": "",
             "location": "",
             "note": ""
-        }
+        },
+        "notes":[]
     }
 ]
