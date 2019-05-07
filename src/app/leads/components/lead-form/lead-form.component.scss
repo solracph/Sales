@@ -1,3 +1,8 @@
+.row{
+    margin-right: 0;
+    margin-left: 0;
+}
+
 .mda-form-control ~ label{
     color: #000000;
     font-weight: 600;
@@ -67,10 +72,12 @@
   }
 
 .note-container-card, .event-container-card {
-    width: 720px;
+  /*  width: 100%;
     margin-bottom: 20px;
-    margin-left: 15px;
+    margin-left: 15px;*/
 }
+
+
 
 .note-card mat-card-content{
     margin-left: 15px;
@@ -86,15 +93,6 @@
 .event-card{
     margin-bottom: 20px;
     padding: 20px;
-    max-width: 315px;
-    min-height: 50px;
-    max-height: 100px;
-    margin-left: 15px;
-}
-  
-.events-notes-container, .event-container{
-    display: flex;
-     flex-wrap: wrap;
 }
   
 .note-add-button{
@@ -120,8 +118,6 @@
 
 .col-lead-accordion{
     margin-bottom: 25px;
-    padding-left: 29px;
-    padding-right: 25px;
 }
   
 mat-panel-title mat-icon {
