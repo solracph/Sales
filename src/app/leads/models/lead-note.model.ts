@@ -1,6 +1,6 @@
 export interface LeadNote {
-    id: string;
-    versionId: string;
+    noteId: string;
+    leadId: string;
     date: Date;
     userName: string;
     text: string;

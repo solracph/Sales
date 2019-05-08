@@ -10,11 +10,10 @@ import { Source, Outcome, Plan } from '../models';
 export class ListEffects {
 
     constructor(
-        private prospectTrackingService: LeadListsService,
+        private leadListsService: LeadListsService,
         private actions$: Actions,
         //private store: Store<LeadState>
       ) {}
-
     
 
     @Effect()
@@ -31,7 +30,7 @@ export class ListEffects {
     @Effect()
     LoadSources$ = this.actions$.pipe(
       ofType<fromList.LoadSources>(fromList.LOAD_SOURCES),
-      switchMap(() => this.prospectTrackingService.getSources()
+      switchMap(() => this.leadListsService.getSources()
         .pipe(
           map((sources: Source[]) => new fromList.LoadSourcesSuccess(sources)),
           catchError(error => of(new fromList.LoadSourcesFail(error)))
@@ -42,7 +41,7 @@ export class ListEffects {
     @Effect()
     LoadOutcomes$ = this.actions$.pipe(
       ofType<fromList.LoadOutcomes>(fromList.LOAD_OUTCOMES),
-      switchMap(() => this.prospectTrackingService.getOutcomes()
+      switchMap(() => this.leadListsService.getOutcomes()
         .pipe(
           map((outcome: Outcome[]) => new fromList.LoadOutcomesSuccess(outcome)),
           catchError(error => of(new fromList.LoadOutcomesFail(error)))
@@ -53,7 +52,7 @@ export class ListEffects {
     @Effect()
     LoadReasons$ = this.actions$.pipe(
       ofType<fromList.LoadReasons>(fromList.LOAD_REASONS),
-      switchMap(() => this.prospectTrackingService.getReasons()
+      switchMap(() => this.leadListsService.getReasons()
         .pipe(
           map((outcome: Outcome[]) => new fromList.LoadReasonsSuccess(outcome)),
           catchError(error => of(new fromList.LoadReasonsFail(error)))
@@ -64,7 +63,7 @@ export class ListEffects {
     @Effect()
     LoadPlans$ = this.actions$.pipe(
       ofType<fromList.LoadPlans>(fromList.LOAD_PLANS),
-      switchMap(() => this.prospectTrackingService.getPlans()
+      switchMap(() => this.leadListsService.getPlans()
         .pipe(
           map((plan: Plan[]) => new fromList.LoadPlansSuccess(plan)),
           catchError(error => of(new fromList.LoadPlansFail(error)))

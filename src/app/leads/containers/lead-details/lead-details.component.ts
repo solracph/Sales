@@ -4,7 +4,8 @@ import { Store, select } from '@ngrx/store';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromListSelectors from '../../selectors/list.selectors';
 import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import { SelectLead, LoadLeadVersions, InsertLeadIo, LoadLeads, UpdateLead, InsertLeadNote, } from '../../actions/leads.actions';
+import * as fromNotesSelectors from '../../selectors/note.selectors';
+import { SelectLead, LoadLeadVersions, InsertLeadIo, LoadLeads, UpdateLead } from '../../actions/leads.actions';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
@@ -15,6 +16,8 @@ import { MatDialog } from '@angular/material';
 import { LeadNewNoteDialogComponent } from '../../components/lead-new-note-dialog/lead-new-note-dialog.component';
 import * as _ from 'lodash'
 import { LeadNewEventDialogComponent } from '../../components/lead-new-event-dialog/lead-new-event-dialog.component';
+import { LeadNote } from '../../models/lead-note.model';
+import { LoadNotes } from '../../actions/notes.actions';
 
 @Component({
   selector: 'app-lead-details',
@@ -30,6 +33,7 @@ export class LeadDetailsComponent implements OnInit {
   public reasons$: Observable<Reason[]>;
   public plans$: Observable<Plan[]>;
   public outcomes$: Observable<Outcome[]>;
+  public notes$: Observable<LeadNote[]>
   public _subsc: Subscription = new Subscription();
   private masterLeads$: Observable<Lead[]>;
   private versionId: string;
@@ -53,10 +57,11 @@ export class LeadDetailsComponent implements OnInit {
     // debugger;
     this.store.dispatch(new LoadLeads());
     this.store.dispatch(new LoadAllLists());
+    this.store.dispatch(new LoadNotes());
 
+    this.notes$ = this.store.pipe(select(fromNotesSelectors.getAllLeadNotes , { leadId }));
     this.masterLeads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads), filter(i => !!i.length));
     this._loadVersionsWhenEditingMasterLead(leadId, this.masterLeads$);
-
     this.selectedLead$ = this.store.pipe(select(fromLeadsSelectors.getSelectedLead));
     this.versions$ = this.store.pipe(select(fromLeadsSelectors.getAllLeadVersions, { leadId }));
     this.sources$ = this.store.pipe(select(fromListSelectors.getSources));

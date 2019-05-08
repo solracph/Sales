@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Lead } from '../../models';
+import { LeadNote } from '../../models/lead-note.model';
 
 @Component({
   selector: 'app-lead-notes-box',
@@ -8,7 +8,7 @@ import { Lead } from '../../models';
 })
 export class LeadNotesBoxComponent implements OnInit {
 
-  @Input() lead: Lead;
+  @Input() notes: LeadNote[];
   @Output() newNote: EventEmitter<Event> = new EventEmitter();
   
   constructor() { }

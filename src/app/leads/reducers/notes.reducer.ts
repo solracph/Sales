@@ -4,18 +4,16 @@ import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 export interface State extends EntityState<LeadNote> {
     loading: boolean,
-    notes: LeadNote[],
     error: any
 }
 
 export const adapter: EntityAdapter<LeadNote> = createEntityAdapter({
-	selectId: (loc: LeadNote) => loc.id,
+	selectId: (loc: LeadNote) => loc.noteId,
     sortComparer: false
 });
 
 export const initialState: State = adapter.getInitialState({
     loading: false,
-    notes: [],
     error: null
 });
 
@@ -26,8 +24,8 @@ export const reducer = (
     switch (action.type) {
         case fromNote.LOAD_NOTES_SUCCESS: 
             return {
-                ...state,
-                notes: action.payload
+                ...adapter.addMany( action.payload, state ),
+                loading: false
             };
         case fromNote.LOAD_NOTES_FAIL:
             return {

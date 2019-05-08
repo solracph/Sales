@@ -5,8 +5,6 @@ import { catchError, delay, map, switchMap, mergeMap, filter, tap } from 'rxjs/o
 import * as fromLead from '../actions/leads.actions';
 import { LeadService } from '../services/lead.service';
 import { Lead } from  '../models';
-import * as fromLeads from '../reducers/leads.reducer';
-import { Store  } from '@ngrx/store';
 import { LeadState } from '../models/lead-state.enum';
 import { UpsertLeads } from '../models/upsert-lead.model';
 import { MatSnackBar } from '@angular/material';
