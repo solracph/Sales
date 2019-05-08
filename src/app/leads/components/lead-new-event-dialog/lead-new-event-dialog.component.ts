@@ -14,13 +14,16 @@ export class LeadNewEventDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<LeadNewEventDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    console.log(data)
+   }
 
   ngOnInit() {
     this.eventForm = new FormGroup({
-      date: new FormControl(null,[Validators.required]),
-      location: new FormControl('',[Validators.required])
+      date: new FormControl('',[Validators.required]),
+      location: new FormControl('',[Validators.required]),
+      outcome: new FormControl('', [Validators.required]),
     });
   }
 

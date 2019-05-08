@@ -1,6 +1,6 @@
 <mat-card class="event-container-card">
     <mat-card-header>
-        <mat-card-title><h4>Events</h4></mat-card-title>
+        <mat-card-title><h4>Outcome</h4></mat-card-title>
         <mat-icon >date_range</mat-icon>
     </mat-card-header> 
     <mat-card-actions>
@@ -10,7 +10,7 @@
     </mat-card-actions>
     <mat-card-content class="event-container">
         <div class="row">
-            <div class="col-xl-6" *ngFor="let event of lead.events"> 
+            <div class="col-xl-6" *ngFor="let event of events"> 
                 <mat-card class="event-card">
                     <mat-card-header>
                         <div class="card-header-text">

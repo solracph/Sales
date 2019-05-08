@@ -1,23 +1,24 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Lead } from '../../models';
+import { LeadEvent } from '../../models/lead-event.model';
+import { Outcome } from '../../models';
 
 @Component({
-  selector: 'app-lead-events-box',
-  templateUrl: './lead-events-box.component.html',
-  styleUrls: ['./lead-events-box.component.scss']
+    selector: 'app-lead-events-box',
+    templateUrl: './lead-events-box.component.html',
+    styleUrls: ['./lead-events-box.component.scss']
 })
 export class LeadEventsBoxComponent implements OnInit {
 
-  @Input() lead: Lead;
-  @Output() newEvent: EventEmitter<Event> = new EventEmitter();
+    @Input() events: LeadEvent[];
+    @Output() newEvent: EventEmitter<Event> = new EventEmitter();
   
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  openDialog(event): void {
-    this.newEvent.emit(event);
-  }
+    openDialog(event): void {
+        this.newEvent.emit(event);
+    }
 
 }

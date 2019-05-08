@@ -1,8 +1,10 @@
 import { Outcome } from "./outcome.model";
 
 export interface LeadEvent {
-    //id: string;
-    date: Date,
-    location: string
+    eventId: string;
+    leadId: string;
+    date: Date;
+    location: string;
+    userName: string;
     outcome: Outcome
 }

@@ -1,14 +1,14 @@
-import { LeadNote } from "../models/lead-note.model";
-import * as fromNote from '../actions/notes.actions';
+import { LeadEvent } from "../models/lead-event.model";
+import * as fromEvent from '../actions/event.actions';
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
-export interface State extends EntityState<LeadNote> {
+export interface State extends EntityState<LeadEvent> {
     loading: boolean,
     error: any
 }
 
-export const adapter: EntityAdapter<LeadNote> = createEntityAdapter({
-	selectId: (loc: LeadNote) => loc.noteId,
+export const adapter: EntityAdapter<LeadEvent> = createEntityAdapter({
+	selectId: (loc: LeadEvent) => loc.eventId,
     sortComparer: false
 });
 
@@ -17,38 +17,39 @@ export const initialState: State = adapter.getInitialState({
     error: null
 });
 
+
 export const reducer = (
     state = initialState, 
-    action: fromNote.Actions
+    action: fromEvent.Actions
 ): State => {
     switch (action.type) {
-        case fromNote.LOAD_NOTES_SUCCESS: 
+        case fromEvent.LOAD_EVENTS_SUCCESS: 
             return {
                 ...adapter.addMany( action.payload, state ),
                 loading: false
             };
-        case fromNote.LOAD_NOTES_FAIL:
+        case fromEvent.LOAD_EVENTS_FAIL:
             return {
                 ...state,
                 loading: false,
                 error: action.payload
             }
-        case fromNote.INSERT_NOTE:
+        case fromEvent.INSERT_EVENT:
             return {
                 ...adapter.addOne( action.payload, state ),
                 loading: true
             }
-        case fromNote.INSERT_NOTE_IO:
+        case fromEvent.INSERT_EVENT_IO:
             return {
                 ...state,
                 loading: true
             }
-        case fromNote.INSERT_NOTE_IO_SUCCESS:
+        case fromEvent.INSERT_EVENT_IO_SUCCESS:
             return {
                 ...state,
                 loading: false
             }
-        case fromNote.INSERT_NOTE_IO_FAIL:
+        case fromEvent.INSERT_EVENT_IO_FAIL:
             return {
                 ...state,
                 loading: false,
@@ -58,4 +59,3 @@ export const reducer = (
             return state;
     }
 }
-  

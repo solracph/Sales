@@ -8,16 +8,16 @@ import { LeadNote } from '../../models/lead-note.model';
 })
 export class LeadNotesBoxComponent implements OnInit {
 
-  @Input() notes: LeadNote[];
-  @Output() newNote: EventEmitter<Event> = new EventEmitter();
-  
-  constructor() { }
+    @Input() notes: LeadNote[];
+    @Output() newNote: EventEmitter<Event> = new EventEmitter();
+    
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  openDialog(event): void {
-    this.newNote.emit(event);
-  }
+    openDialog(event): void {
+        this.newNote.emit(event);
+    }
 
 }

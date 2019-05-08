@@ -16,23 +16,7 @@
         "mbi": "MBI010698",
         "dob": "02/06/1989",
         "versionDate": "05/2/2019 3:00 PM",
-        "events": [
-            {
-                "date": "05/06/2019 3:20 PM",
-                "location": "325 Majorca Aver Apt 5 Coral Gables, FL 33134",
-                "user": "Ana"
-            },
-            {
-                "date": "05/06/2019 3:20 PM",
-                "location": "325 Majorca Aver Apt 5 Coral Gables, FL 33134",
-                "user": "Ana"
-            },
-            {
-                "date": "05/06/2019 3:20 PM",
-                "location": "325 Majorca Aver Apt 5 Coral Gables, FL 33134",
-                "user": "Ana"
-            }
-        ],
+        "events": [],
         "notes": []
     },
     {

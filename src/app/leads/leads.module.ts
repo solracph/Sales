@@ -26,6 +26,8 @@ import { LeadEventsBoxComponent } from './components/lead-events-box/lead-events
 import { LeadNewEventDialogComponent } from './components/lead-new-event-dialog/lead-new-event-dialog.component';
 import { NoteEffects } from './effects/notes.effects';
 import { NotesService } from './services/lead-notes.service';
+import { EventsService } from './services/lead-events.service';
+import { EventEffects } from './effects/event.effects';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,12 @@ import { NotesService } from './services/lead-notes.service';
     CommonModule,
     LeadsRoutingModule,
     StoreModule.forFeature('leads', fromLeads.reducers),
-    EffectsModule.forFeature([ListEffects,LeadEffects, NoteEffects]),
+    EffectsModule.forFeature([
+      ListEffects,
+      LeadEffects, 
+      NoteEffects,
+      EventEffects
+    ]),
     SharedModule,
     TextMaskModule,
     MatBadgeModule
@@ -54,7 +61,8 @@ import { NotesService } from './services/lead-notes.service';
     LeadService,
     LeadGridService,
     LeadViewService,
-    NotesService
+    NotesService,
+    EventsService
   ],
   entryComponents: [
     LeadNewNoteDialogComponent,

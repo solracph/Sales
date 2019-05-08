@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { LeadNote } from '../models/lead-note.model';
+import { LeadEvent } from '../models/lead-event.model';
 
 @Injectable()
-export class NotesService {
+export class EventsService {
 
   constructor(private _http: HttpClient) { }
 
-  getNotes(): Observable<LeadNote[]> {
-    return this._http.get<any>(`${environment.apiUrl}notes.json`);
+  getEvents(): Observable<LeadEvent[]> {
+    return this._http.get<any>(`${environment.apiUrl}events.json`);
   }
 
-  insertNote(lead: LeadNote){
+  insertEvent(lead: LeadEvent){
     return of(lead);
   }
 }

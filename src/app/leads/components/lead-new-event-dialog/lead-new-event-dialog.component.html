@@ -1,8 +1,17 @@
 <form [formGroup]="eventForm" (ngSubmit)="addNewEvent()">
-  <h1 mat-dialog-title>Event  <mat-icon>date_range</mat-icon></h1>
+  <h1 mat-dialog-title>Outcome  <mat-icon>date_range</mat-icon></h1>
   <div mat-dialog-content>
       
             <div class="row m-1">
+                <div class="col-md-6" >
+                    <mat-form-field>
+                        <mat-label>Outcome</mat-label>
+                        <mat-select formControlName="outcome">
+                            <mat-option [value]="null" ></mat-option>
+                            <mat-option *ngFor="let outcome of data.outcomes | async" [value]="outcome.id" >{{ outcome.description }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
                 <div class="col-md-6" >
                     <mat-form-field>
                         <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Date">
@@ -24,6 +33,7 @@
                     </mat-form-field>
                 </div>
             </div>
+            
   </div>
   <div mat-dialog-actions>
     <button mat-flat-button (click)="onClose()">Close</button>
