@@ -75,7 +75,6 @@ export class LeadDetailsComponent implements OnInit {
         this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
     }
 
-
     private _loadVersionsWhenEditingMasterLead(leadId: string, masterLeads: Observable<Lead[]>) {
         this._subsc.add(
         masterLeads
@@ -100,7 +99,7 @@ export class LeadDetailsComponent implements OnInit {
 
     leadSaved(lead: Lead) {
         if (lead.state == LeadState.new) {
-            this.store.dispatch(new InsertLeadIo({ insert: lead }));
+            this.store.dispatch(new InsertLeadIo({ insert: { ...lead } }));
         }
         else if (lead.state == LeadState.edition) {
             this.store.dispatch(new InsertLeadIo({
@@ -121,12 +120,19 @@ export class LeadDetailsComponent implements OnInit {
 
     newNoteDialog(): void {
         const dialogRef = this.dialog.open(LeadNewNoteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            if(result){
+        dialogRef.afterClosed().subscribe(note => {
+            if(note){
                 this._subsc.add(
                     this.selectedLead$.subscribe( lead => {
                         if(!!lead)
-                        this.store.dispatch(new InsertNoteIo({ noteId: uuid(), leadId: lead.leadId, text: result, date: new Date(), userName: lead.firstName }))
+                        this.store.dispatch(new InsertNoteIo(
+                            { ...note, 
+                                noteId: uuid(), 
+                                leadId: lead.leadId, 
+                                text: note, 
+                                date: new Date(), 
+                                userName: lead.firstName 
+                            }))
                     })
                 );
             };
@@ -141,15 +147,13 @@ export class LeadDetailsComponent implements OnInit {
             if(event){
                 this._subsc.add(
                     this.selectedLead$.subscribe( lead => {
+                        debugger
                         if(!!lead)
                         this.store.dispatch(new InsertEvent(
-                            {
+                            { ...event,
                                 eventId: uuid(),
-                                leadId: lead.leadId,
-                                date: event.date,
-                                location: event.location,
+                                leadId: lead.leadId, 
                                 userName: lead.firstName,
-                                outcome: event.outcome
                             }
                         ))
                     })

@@ -14,11 +14,18 @@
                 <mat-card class="event-card">
                     <mat-card-header>
                         <div class="card-header-text">
-                        <mat-card-title class="event-header-title">{{event.date | date: 'MM/dd/yyyy hh:mm aaa'}}</mat-card-title>
-                        <mat-card-subtitle>{{event.location}}</mat-card-subtitle>
+                            <mat-card-title class="event-header-title" [ngClass]="eventUrgency(event.date)">{{event.date | date: 'MM/dd/yyyy hh:mm aaa'}}</mat-card-title>
+                            <mat-card-title class="event-header-title">
+                                <mat-icon *ngIf="event.outcome == 1" >sync</mat-icon> 
+                                <mat-icon *ngIf="event.outcome == 2" >event_available</mat-icon> 
+                                {{leadService.getListDescription(outcomes, event.outcome)}}</mat-card-title>
+                            <mat-card-subtitle>
+                                <mat-icon >location_on</mat-icon> {{event.location}}
+                            </mat-card-subtitle>
                         </div>
-                        <mat-icon>calendar_today</mat-icon>
-                        <!--<mat-icon matBadge="!" matBadgeColor="warn" style="color: #4288fd;">calendar_today</mat-icon>-->
+                        <mat-icon *ngIf="eventUrgency(event.date) == 'pasts' || eventUrgency(event.date) == 'upcoming' ">calendar_today</mat-icon>
+                        <mat-icon *ngIf="eventUrgency(event.date) == 'oneday'" matBadge="!" matBadgeColor="warn">calendar_today</mat-icon>
+                        <mat-icon *ngIf="eventUrgency(event.date) == 'twodays'" matBadge="!" >calendar_today</mat-icon>
                     </mat-card-header>
                     <mat-card-content>
                     </mat-card-content>

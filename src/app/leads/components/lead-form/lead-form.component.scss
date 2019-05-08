@@ -172,3 +172,7 @@ mat-expansion-panel{
 h4{
     color: #515253
 }
+
+.mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after, .mat-input-element:disabled{
+    color: #515253 !important;
+}

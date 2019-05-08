@@ -6,5 +6,5 @@ export interface LeadEvent {
     date: Date;
     location: string;
     userName: string;
-    outcome: Outcome
+    outcome: string
 }

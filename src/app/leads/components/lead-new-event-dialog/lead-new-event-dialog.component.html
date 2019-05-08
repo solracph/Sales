@@ -1,39 +1,40 @@
 <form [formGroup]="eventForm" (ngSubmit)="addNewEvent()">
   <h1 mat-dialog-title>Outcome  <mat-icon>date_range</mat-icon></h1>
   <div mat-dialog-content>
-      
-            <div class="row m-1">
-                <div class="col-md-6" >
-                    <mat-form-field>
-                        <mat-label>Outcome</mat-label>
-                        <mat-select formControlName="outcome">
-                            <mat-option [value]="null" ></mat-option>
-                            <mat-option *ngFor="let outcome of data.outcomes | async" [value]="outcome.id" >{{ outcome.description }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-6" >
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Date">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="f.date.hasError('required')">
-                            Date is required.
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+        <div class="row m-1">
+            <div class="col-md-6" >
+                <mat-form-field>
+                    <mat-label>Outcome</mat-label>
+                    <mat-select formControlName="outcome">
+                        <mat-option [value]="null" ></mat-option>
+                        <mat-option *ngFor="let outcome of data.outcomes | async" [value]="outcome.id" >{{ outcome.description }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="f.outcome.hasError('required')">
+                        Outcome is required.
+                    </mat-error>
+                </mat-form-field>
             </div>
-            <div class="row m-1" >
-                <div class="col-md-12" >
-                    <mat-form-field>
-                        <input matInput type="text" formControlName="location" placeholder="Location" id="date" tabindex="0"/>
-                        <mat-error *ngIf="f.location.hasError('required')">
-                            Location is required.
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="col-md-6" >
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="f.date.hasError('required')">
+                        Date is required.
+                    </mat-error>
+                </mat-form-field>
             </div>
-            
+        </div>
+        <div class="row m-1" >
+            <div class="col-md-12" >
+                <mat-form-field>
+                    <input matInput type="text" formControlName="location" placeholder="Location" id="date" tabindex="0"/>
+                    <mat-error *ngIf="f.location.hasError('required')">
+                        Location is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
   </div>
   <div mat-dialog-actions>
     <button mat-flat-button (click)="onClose()">Close</button>

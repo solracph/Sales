@@ -3,11 +3,14 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, delay, map, switchMap, mergeMap, filter, tap } from 'rxjs/operators';
 import * as fromLead from '../actions/leads.actions';
+import * as fromNote from '../actions/notes.actions';
+import * as fromEvent from '../actions/event.actions';
 import { LeadService } from '../services/lead.service';
 import { Lead } from  '../models';
 import { LeadState } from '../models/lead-state.enum';
 import { UpsertLeads } from '../models/upsert-lead.model';
 import { MatSnackBar } from '@angular/material';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class LeadEffects {
@@ -65,17 +68,23 @@ export class LeadEffects {
   insertLeadIoSuccess$ = this.actions$.pipe(
     ofType<fromLead.InsertLeadIoSuccess>(fromLead.INSERT_LEAD_IO_SUCCESS),
     map(action => action.payload),
-      switchMap(({ insert, update }) => {
-        return (insert.state == LeadState.new)
-          ? [
-            new fromLead.UpdateLead({id: insert.versionId, changes: {...insert, state: LeadState.master }}),
-            new fromLead.SnackbarOpen({message: "Lead Added Successfully"})
-          ]
-          : [
-            new fromLead.UpdateLead(update),
-            new fromLead.InsertLead({lead : {...insert, state : LeadState.master}}),
-            new fromLead.SnackbarOpen({message: "Lead Edited Successfully"})
-          ];
+      switchMap(({ insert, update }) => 
+      {
+        let actions = [];
+        if((insert.state == LeadState.new))
+        {
+          debugger
+          actions.push(new fromLead.UpdateLead({id: insert.versionId, changes: {...insert, state: LeadState.master }}));
+          actions.push(new fromLead.SnackbarOpen({message: "Lead Added Successfully"}));
+          actions.push(new fromNote.InsertNoteIo({...insert.note, userName: insert.firstName }));
+          actions.push(new fromEvent.InsertEventIo({ ...insert.event, outcome: insert.outcome}));
+        } else {
+          actions.push( new fromLead.UpdateLead(update));
+          actions.push( new fromLead.InsertLead({lead : {...insert, state : LeadState.master}}));
+          actions.push( new fromLead.SnackbarOpen({message: "Lead Edited Successfully"}));
+        }
+
+        return actions;
       }),
       catchError(error => of(new fromLead.InsertLeadIoFail(error)))
   );

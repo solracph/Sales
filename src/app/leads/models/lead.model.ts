@@ -20,8 +20,8 @@ export interface Lead {
     mbi: string;
     dob: string;
     versionDate: Date,
-    events: LeadEvent[],
-    notes: LeadNote[]
+    event: LeadEvent,
+    note: LeadNote
 }
 
 export function NewLead(): Lead{
@@ -42,8 +42,8 @@ export function NewLead(): Lead{
           currentPlan: "",
           reason: "",
           versionDate: new Date(),
-          events : [],
-          notes: []
+          event : null,
+          note: null
     }
 }
 

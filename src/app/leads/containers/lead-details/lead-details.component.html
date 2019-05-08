@@ -51,7 +51,7 @@
                                             <app-lead-notes-box [notes]="notes$ | async"  (newNote)="newNoteDialog($event)"> </app-lead-notes-box>
                                         </div>
                                         <div class="col-xl-6">
-                                            <app-lead-events-box [events]="events$ | async" (newEvent)="newEventDialog($event)"></app-lead-events-box>
+                                            <app-lead-events-box [events]="events$ | async" [outcomes]="outcomes$ | async" (newEvent)="newEventDialog($event)"></app-lead-events-box>
                                         </div>
                                     </div>
                                 </div>

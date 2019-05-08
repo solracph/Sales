@@ -12,7 +12,7 @@
                     <mat-expansion-panel-header>
                         <mat-panel-title >
                             <mat-icon class="info-container-icon" *ngIf="!panelOpenState">account_circle</mat-icon>
-                            <mat-icon *ngIf="panelOpenState">{{lead.state == leadState.new ? "person_add": "edit"}}</mat-icon>
+                            <mat-icon *ngIf="panelOpenState">{{lead.state == leadState.new ? "person_add": "account_circle"}}</mat-icon>
                             <div *ngIf="!panelOpenState" class="accordion-lead-info-container">
                                 <div class="accordion-lead-info-card"> 
                                     <div class="accordion-lead-info-card-header">
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div *ngIf="panelOpenState">
-                                <h4>{{lead.state == leadState.new ? "New": "Edit"}} Lead</h4>
+                                <h4>{{lead.state == leadState.new ? "New": ""}} Lead</h4>
                             </div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -153,7 +153,7 @@
                                 
                             </div>
                             <div class="row">
-                                <div class="col-md-3"  *ngIf="lead.state == leadState.new || panelOpenState">
+                                <div class="col-md-3"  *ngIf="lead.state == leadState.new">
                                     <mat-form-field>
                                         <mat-label>Outcome</mat-label>
                                         <mat-select formControlName="outcome">
@@ -163,46 +163,37 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <ng-container *ngIf="lead.state == leadState.new">
-                                <div formArrayName="notes"  *ngFor="let note of notes.controls; index as i">
-                                    <div [formGroupName]="i">
-                                        <div class="row m-1" >
-                                            <div class="col-md-6" >
-                                                <mat-form-field>
-                                                    <textarea  matInput formControlName="text" placeholder="Notes" id="date" tabindex="0"></textarea>
-                                                </mat-form-field>
-                                            </div>
-                                        </div>
+                            <ng-container formGroupName="note" *ngIf="lead.state == leadState.new">
+                                <div class="row m-1" >
+                                    <div class="col-md-6" >
+                                        <mat-form-field>
+                                            <textarea  matInput formControlName="text" placeholder="Notes" id="date" tabindex="0"></textarea>
+                                        </mat-form-field>
                                     </div>
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="!!leadForm.value.outcome && lead.state == leadState.new">
-                                <div formArrayName="events"  *ngFor="let event of events.controls; index as i">
-                                    <div [formGroupName]="i">
-                                        <div class="row">
-                                            <div class="col-md-11 ml-3 pr-3" >
-                                                <p class="lead bb">Event</p>
-                                            </div>
-                                        </div>
-                                        <div class="row m-1">
-                                            <div class="col-md-3" >
-                                                <mat-form-field>
-                                                        <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Event Date">
-                                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                        <mat-datepicker #picker></mat-datepicker>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-6" >
-                                                <mat-form-field>
-                                                    <input matInput type="text" formControlName="location" placeholder="Event Location" id="date" tabindex="0"/>
-                                                </mat-form-field>
-                                            </div>
-                                        </div>
+                            <ng-container formGroupName="event" *ngIf="!!leadForm.value.outcome && lead.state == leadState.new">
+                                <div class="row">
+                                    <div class="col-md-11 ml-3 pr-3" >
+                                        <p class="lead bb">Event</p>
                                     </div>
                                 </div>
-                                
+                                <div class="row m-1">
+                                    <div class="col-md-3" >
+                                        <mat-form-field>
+                                                <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Event Date">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6" >
+                                        <mat-form-field>
+                                            <input matInput type="text" formControlName="location" placeholder="Event Location" id="date" tabindex="0"/>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
                             </ng-container>
-                            <div class="row" *ngIf="lead.state == leadState.new || panelOpenState">
+                            <div class="row" *ngIf="lead.state == leadState.new">
                                 <div class="col-md-12 button-col" >
                                     <div class="button-row">
                                         <button mb-stroked-button class="mb-1 mr-1 btn btn-danger" type="button" (click)="cancel()" *ngIf="lead.state != leadState.version">Cancel</button>
@@ -217,7 +208,7 @@
             </mat-accordion>
         </div>
     </div>
-    <div class="row" *ngIf="!panelOpenState">
+    <!--<div class="row" *ngIf="!panelOpenState">
         <div class="col-xl-12">
             <mat-card class="col-lead-accordion">
                 <mat-card-content>
@@ -244,7 +235,7 @@
                 </mat-card-content>
             </mat-card>
         </div>
-    </div>
+    </div>-->
 </form>
 
 

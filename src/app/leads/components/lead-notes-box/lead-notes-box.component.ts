@@ -16,6 +16,12 @@ export class LeadNotesBoxComponent implements OnInit {
     ngOnInit() {
     }
 
+    ngOnChanges(){
+      this.notes.sort(function(a: LeadNote,b: LeadNote){ 
+          return new Date(b.date).getTime() - new Date(a.date).getTime() ;
+      })
+    }
+
     openDialog(event): void {
         this.newNote.emit(event);
     }

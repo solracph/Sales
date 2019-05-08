@@ -1,6 +1,6 @@
 .event-card{
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 16px;
 }
   
 .card-actions{
@@ -13,6 +13,28 @@
 .card-header-text{
     width: 100% !important;
     margin-left: -15px;
+}
+
+.card-header-text mat-icon{
+    float: left;
+    margin-right: 10px;
+    margin-top: 2px !important;
+    color: #b9b9b9 !important;
+    font-size: 20px;
+}
+.mat-badge-content{
+    background-color: orange;
+}
+
+.mat-badge-warn .mat-badge-content{
+    background-color: red !important;
+}
+.oneday{
+    color: red;
+}
+
+.twodays {
+    color: orange;
 }
 
 .event-header-title{

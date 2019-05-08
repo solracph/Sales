@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import * as _ from 'lodash';
 import { leadsState } from '../../reducers';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-lead-form',
@@ -29,9 +30,7 @@ export class LeadFormComponent implements OnInit {
   public panelOpenState: boolean;
   
   get f() { return this.leadForm.controls; }
-  get events(): FormArray { return this.leadForm.get('events') as FormArray; }
-  get notes(): FormArray { return this.leadForm.get('notes') as FormArray; }
-
+  
   constructor(public dialog: MatDialog) {
   }
 
@@ -40,44 +39,34 @@ export class LeadFormComponent implements OnInit {
     this.leadForm.valueChanges.subscribe((form) => {
       this.formValueChanged.emit(Object.assign({}, this.lead, form));
     })  
-    this.leadForm.get('outcome').valueChanges.subscribe( () => {
-        if(this.lead.state == this.leadState.new ){
-            
-            this.leadForm.controls.notes = new FormArray([]);
-            this.leadForm.controls.events = new FormArray([]);
-
-            const notes = this.leadForm.controls.notes as FormArray;
-            const events = this.leadForm.controls.events as FormArray;
-            notes.push(new FormGroup({
-              date: new FormControl(new Date()),
-              userName: new FormControl(this.lead.firstName),
-              text: new FormControl('')
-            }))
-      
-            events.push( new FormGroup({
-              date: new FormControl(new Date()),
-              location: new FormControl('')
-            }))
-        }
-    });
   }
 
   leadFormInitialization(lead){
     this.leadForm = new FormGroup({
-      firstName: new FormControl(lead.firstName, [Validators.required]),
-      lastName: new FormControl(lead.lastName, [Validators.required]),
-      source: new FormControl(lead.source),
-      outcome: new FormControl(lead.outcome),
-      currentPlan: new FormControl(lead.currentPlan),
-      email: new FormControl(lead.email, [Validators.email]),
-      phoneNumber: new FormControl(lead.phoneNumber),
-      secondaryPhone: new FormControl(lead.secondaryPhone),
-      address: new FormControl(lead.address),
-      reason: new FormControl(lead.reason),
-      mbi: new FormControl(lead.mbi),
-      dob: new FormControl(lead.dob,[Validators.required, Validators.pattern('[0-9]{2}[/][0-9]{2}[/][0-9]{4}')]),
-      events : new FormArray([]),
-      notes : new FormArray([])
+      firstName: new FormControl({value: lead.firstName, disabled: lead.state != 2}, [Validators.required]),
+      lastName: new FormControl({value: lead.lastName, disabled: lead.state != 2}, [Validators.required]),
+      source: new FormControl({value: lead.source, disabled: lead.state != 2}),
+      outcome: new FormControl({value: lead.outcome, disabled: lead.state != 2}),
+      currentPlan: new FormControl({value: lead.currentPlan, disabled: lead.state != 2}),
+      email: new FormControl({value: lead.email, disabled: lead.state != 2}, [Validators.email]),
+      phoneNumber: new FormControl({value: lead.phoneNumber, disabled: lead.state != 2}),
+      secondaryPhone: new FormControl({value: lead.secondaryPhone, disabled: lead.state != 2}),
+      address: new FormControl({value: lead.address, disabled: lead.state != 2}),
+      reason: new FormControl({value: lead.reason, disabled: lead.state != 2}),
+      mbi: new FormControl({value: lead.mbi, disabled: lead.state != 2}),
+      dob: new FormControl({value: lead.dob, disabled: lead.state != 2},[Validators.required, Validators.pattern('[0-9]{2}[/][0-9]{2}[/][0-9]{4}')]),
+      note: new FormGroup({
+        noteId: new FormControl(uuid()),
+        leadId: new FormControl(lead.leadId),
+        date: new FormControl(new Date()),
+        text: new FormControl('')
+      }),
+      event: new FormGroup({
+        eventId: new FormControl(uuid()),
+        leadId: new FormControl(lead.leadId),
+        date: new FormControl(new Date()),
+        location: new FormControl('')
+      })
     });
   }
 
@@ -87,14 +76,7 @@ export class LeadFormComponent implements OnInit {
 
   save(){ 
     if(this.leadForm.valid){
-      if(this.lead.state == this.leadState.new){
-        this.leadSaved.emit( Object.assign({},this.lead,this.leadForm.value))
-      }else{
-        debugger
-        this.leadForm.value.notes = _.merge(this.leadForm.value.notes,this.lead.notes)
-        this.leadForm.value.events = _.merge(this.leadForm.value.events,this.lead.events)
-        this.leadSaved.emit(Object.assign({},this.lead,this.leadForm.value))
-      }
+      this.leadSaved.emit( Object.assign({},this.lead,this.leadForm.value))
     }
   }
 }
