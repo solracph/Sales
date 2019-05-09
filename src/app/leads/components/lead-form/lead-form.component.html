@@ -1,5 +1,5 @@
 
-<form [formGroup]="leadForm" (ngSubmit)="save()" atleastOneDemographic>
+<form [formGroup]="leadForm" (ngSubmit)="save()" atleast-one-demographic>
     <div  class="row">
         <div class="col-xl-12 col-lead-accordion">
             <mat-accordion class="lead-form-headers-align" >
@@ -97,15 +97,19 @@
                                         <mat-error *ngIf="f.email.hasError('email')">
                                             Email must be a valid email address
                                         </mat-error>
-                                        <mat-error *ngIf="f.email.hasError('atleastOneDemographic')">
+                                        <mat-error *ngIf="f.email.hasError('atleast-one-demographic')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput type="text" formControlName="address" placeholder="Address" id="address"/>
-                                        <mat-error *ngIf="f.email.hasError('atleastOneDemographic')">
+                                        <input matInput formControlName="address" placeholder="Address" id="address"
+                                            matGoogleMapsAutocomplete
+                                            [country]="us"
+                                            [type]="address"
+                                            (onAutocompleteSelected)="onAutocompleteAddress($event)">
+                                        <mat-error *ngIf="f.address.hasError('atleast-one-demographic')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
@@ -113,7 +117,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <input matInput type="text" [textMask]="{mask: phoneMask}" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
-                                        <mat-error *ngIf="f.email.hasError('atleastOneDemographic')">
+                                        <mat-error *ngIf="f.phoneNumber.hasError('atleast-one-demographic')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
@@ -159,8 +163,8 @@
                                 </div>
                                 
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"  *ngIf="lead.state == leadState.new">
+                            <div class="row" *ngIf="lead.state == leadState.new">
+                                <div class="col-md-3" >
                                     <mat-form-field>
                                         <mat-label>Outcome</mat-label>
                                         <mat-select formControlName="outcome">
@@ -194,7 +198,11 @@
                                     </div>
                                     <div class="col-md-6" >
                                         <mat-form-field>
-                                            <input matInput type="text" formControlName="location" placeholder="Event Location" id="date" tabindex="0"/>
+                                            <input matInput formControlName="location" placeholder="Location" id="Location"
+                                                matGoogleMapsAutocomplete
+                                                [country]="us"
+                                                [type]="address"
+                                                (onAutocompleteSelected)="onAutocompleteLocation($event)">
                                         </mat-form-field>
                                     </div>
                                 </div>

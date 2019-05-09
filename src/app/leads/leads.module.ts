@@ -28,6 +28,7 @@ import { NoteEffects } from './effects/notes.effects';
 import { NotesService } from './services/lead-notes.service';
 import { EventsService } from './services/lead-events.service';
 import { EventEffects } from './effects/event.effects';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { EventEffects } from './effects/event.effects';
     ]),
     SharedModule,
     TextMaskModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatGoogleMapsAutocompleteModule
   ],
   providers:[
     LeadListsService,

@@ -12,22 +12,22 @@ export const atleastOneDemographic: ValidatorFn = (control: FormGroup): Validati
     const phoneNumber = control.get('phoneNumber');
     const address = control.get('address');
 
-    if( email.value || phoneNumber.value || address.value  ){
+    if( email.value || phoneNumber.value || address.value ){
       if(!email.getError('email'))
       email.setErrors(null)
       phoneNumber.setErrors(null)
       address.setErrors(null)
       return  null
     } else {
-      email.setErrors({ 'atleastOneDemographic': true })
-      phoneNumber.setErrors({ 'atleastOneDemographic': true })
-      address.setErrors({ 'atleastOneDemographic': true })
-      return  { 'atleastOneDemographic': true } ;
+      email.setErrors({ 'atleast-one-demographic': true })
+      phoneNumber.setErrors({ 'atleast-one-demographic': true })
+      address.setErrors({ 'atleast-one-demographic': true })
+      return  { 'atleast-one-demographic': true } ;
     }
 };
 
 @Directive({
-  selector: '[atleastOneDemographic]',
+  selector: '[atleast-one-demographic]',
   providers: [{ provide: NG_VALIDATORS, useExisting: atleastOneDemographicValidatorDirective, multi: true }]
 })
 export class atleastOneDemographicValidatorDirective implements Validator {
@@ -62,14 +62,14 @@ export class LeadFormComponent implements OnInit {
   get f() { return this.leadForm.controls; }
   get eventDate() {  return this.leadForm.get('event.date') as FormControl; }
   get outcome() {  return this.leadForm.get('outcome') as FormControl; }
+  get address() {  return this.leadForm.get('address') as FormControl; }
+  get location() {  return this.leadForm.get('event.location') as FormControl; }
 
   constructor(public dialog: MatDialog) {
   }
 
   ngOnInit() {
-  
     this.leadFormInitialization(this.lead);
-    console.log(this.leadForm)
     this.leadForm.valueChanges.subscribe((form) => {
       this.formValueChanged.emit(Object.assign({}, this.lead, form));
     })  
@@ -119,6 +119,14 @@ export class LeadFormComponent implements OnInit {
     if(this.leadForm.valid) {
        this.leadSaved.emit( Object.assign({},this.lead,this.leadForm.value))
     }
+  }
+
+  onAutocompleteAddress(result) {
+    this.address.setValue(result.formatted_address);
+  }
+
+  onAutocompleteLocation(result) {
+    this.location.setValue(result.formatted_address);
   }
 
 }

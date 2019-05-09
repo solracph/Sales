@@ -1,10 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
@@ -19,6 +17,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { SwalService } from './commons/utilities/swal/swal.service';
+import { AgmCoreModule } from '@agm/core';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -43,6 +43,11 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyB1GM47H-AKhXjEN3-CRReMiisTGyk3OTs',
+            libraries: ['places']
+          }),
+        MatGoogleMapsAutocompleteModule.forRoot(),
         
         StoreModule.forRoot(reducers, { metaReducers }),
         // @ngrx/router-store keeps router state up-to-date in the store.
