@@ -28,21 +28,21 @@
   <ng-container matColumnDef="source">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Source </th>
       <td mat-cell *matCellDef="let element"> 
-        {{leadService.getListDescription(sources,element.source) }}
+          {{element.source}}
       </td>
     </ng-container>
 
   <ng-container matColumnDef="outcome">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Outcome </th>
     <td mat-cell *matCellDef="let element"> 
-      {{getEvetOutcome(element.leadId) }}
+        {{element.outcome}}
     </td>
   </ng-container>
 
   <ng-container matColumnDef="outcomeDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
       <td mat-cell *matCellDef="let element"> 
-        {{getEvetDate(element.leadId) | date: 'MM/dd/yyyy'}} </td>
+        {{element.outcomeDate | date: 'MM/dd/yyyy'}} </td>
     </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="['name', 'dob', 'mbi', 'email', 'address', 'outcome', 'outcomeDate', 'source']"></tr>

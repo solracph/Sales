@@ -40,7 +40,6 @@ export const getAllLeadVersions = createSelector(
 
 export const getMasterLeads = createSelector(
     getAllLeads,
-    getFilter,
-    (state, filter) => state.filter(e =>  e.state == ELeadState.master && JSON.stringify(e).includes(filter))
+    (state) => state.filter(e =>  e.state == ELeadState.master /*&& JSON.stringify(e).includes(filter)*/)
 );
 

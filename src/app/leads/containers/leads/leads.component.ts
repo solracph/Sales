@@ -34,10 +34,10 @@ export class LeadsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new fromEventActions.LoadEvents());
-    this.store.dispatch(new fromLeadActions.LoadLeads());
-    this.store.dispatch(new fromLeadActions.LoadLeads());
     this.store.dispatch(new fromListActions.LoadOutcomes());
     this.store.dispatch(new fromListActions.LoadSources());
+    this.store.dispatch(new fromLeadActions.LoadLeads());
+    
 
     this.leads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads));
     this.filter$ = this.store.pipe(select(fromLeadsSelectors.getFilter));

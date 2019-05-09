@@ -22,6 +22,7 @@
                     </mat-toolbar>
                     <app-lead-grid 
                         [leads]="leads$ | async" 
+                        [filter]="filter$ | async"
                         [lastLeadEvents]="lastLeadEvents" 
                         [outcomes]="outcomes$ | async" 
                         [sources]="sources$ | async"

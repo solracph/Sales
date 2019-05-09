@@ -18,7 +18,7 @@
                             <mat-card-title class="event-header-title">
                                 <mat-icon *ngIf="event.outcome == 1" >sync</mat-icon> 
                                 <mat-icon *ngIf="event.outcome == 2" >event_available</mat-icon> 
-                                {{leadService.getListDescription(outcomes, event.outcome)}}</mat-card-title>
+                                {{listService.getListDescription(outcomes, event.outcome)}}</mat-card-title>
                             <mat-card-subtitle>
                                 <mat-icon >location_on</mat-icon> {{event.location}}
                             </mat-card-subtitle>

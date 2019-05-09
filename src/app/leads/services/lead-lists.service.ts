@@ -24,4 +24,21 @@ export class LeadListsService {
   getPlans(): Observable<any> {
     return this._http.get<any>(`${environment.apiUrl}plans.json`);
   }
+
+  getListDescription(array,id){
+    let result =  this.filterById(array,id)
+    return result != null ? result.description : '';
+  }
+
+  private filterById(array, filter){
+      return ( 
+          array != undefined 
+          && array != null 
+          && array.length > 0 
+          && filter != null 
+          && filter != undefined
+      )
+      ? array.filter(r => r.id == filter)[0] 
+      : null;
+  }
 }

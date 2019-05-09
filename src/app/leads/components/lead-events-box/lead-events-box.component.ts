@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { LeadEvent } from '../../models/lead-event.model';
-import { LeadService } from '../../services/lead.service';
 import { Outcome } from '../../models';
+import { LeadListsService } from '../../services/lead-lists.service';
 
 @Component({
     selector: 'app-lead-events-box',
@@ -15,7 +15,7 @@ export class LeadEventsBoxComponent implements OnInit {
     @Output() newEvent: EventEmitter<Event> = new EventEmitter();
   
     constructor(
-        public  leadService : LeadService
+        public  listService : LeadListsService
     ) { }
 
     ngOnInit() {

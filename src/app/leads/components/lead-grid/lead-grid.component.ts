@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output , OnChanges, EventEmitter, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, Output , OnChanges, EventEmitter, ViewChild, SimpleChanges} from '@angular/core';
 import { Lead } from '../../models/lead.model';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { LeadGridService } from '../../services/lead-grid.service';
 import { Router } from '@angular/router';
 import { LeadEvent } from '../../models/lead-event.model';
 import { Outcome, Source } from '../../models';
-import { LeadService } from '../../services/lead.service';
+import { LeadListsService } from '../../services/lead-lists.service';
 
 @Component({
   selector: 'app-lead-grid',
@@ -17,16 +17,18 @@ export class LeadGridComponent implements OnInit , OnChanges {
   @Input() leads : Lead[];
   @Input() outcomes : Outcome[];
   @Input() sources : Source[];
+  @Input() filter : Source[];
   @Input() lastLeadEvents : LeadEvent[];
   @Output() leadSelected: EventEmitter<Lead> = new EventEmitter();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  public dataSource: MatTableDataSource<Lead>;
+  public dataSource: MatTableDataSource<Lead> = new MatTableDataSource([]);
+
 
   constructor(
     public leadGridService: LeadGridService,
-    public leadService: LeadService,
+    public listsService: LeadListsService,
     private router: Router
   ) { }
 
@@ -35,9 +37,22 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   ngOnChanges(changes){
     if(!!changes.leads){
-      this.dataSource = new MatTableDataSource(changes.leads.currentValue);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+        let mergedDataSource = [];
+        changes.leads.currentValue.forEach((lead: Lead) => {
+          mergedDataSource.push({...lead, 
+            outcome: this.getEvetOutcome(lead.leadId),
+            source: this.listsService.getListDescription(this.sources,lead.source),
+            outcomeDate: this.getEvetDate(lead.leadId)
+          })
+        });
+
+        this.dataSource = new MatTableDataSource(mergedDataSource);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+    }
+
+    if(!!changes.filter){
+      this.applyFilter(changes.filter.currentValue);
     }
   }
 
@@ -56,7 +71,7 @@ export class LeadGridComponent implements OnInit , OnChanges {
     let outcome
     this.lastLeadEvents.forEach((event: LeadEvent) => {
         if(event.leadId == leadId) {
-          outcome = this.leadService.getListDescription(this.outcomes,event.outcome);
+          outcome = this.listsService.getListDescription(this.outcomes,event.outcome);
           return
         }
     });
