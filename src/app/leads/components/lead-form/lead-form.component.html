@@ -22,15 +22,7 @@
                                         {{f.firstName.value}} {{f.lastName.value}} 
                                     </div>
                                 </div>
-                                <div class="accordion-lead-info-card"> 
-                                    <div class="accordion-lead-info-card-header">
-                                        Email
-                                    </div>
-                                    <div class="accordion-lead-info-card-text">
-                                        {{f.email.value}}
-                                    </div>
-                                </div>
-                                <div class="accordion-lead-info-card"> 
+                                <div *ngIf="!!f.dob.value"  class="accordion-lead-info-card"> 
                                     <div class="accordion-lead-info-card-header">
                                         DOB
                                     </div>
@@ -38,12 +30,28 @@
                                         {{f.dob.value}}
                                     </div>
                                 </div>
-                                <div class="accordion-lead-info-card"> 
+                                <div *ngIf="!!f.email.value" class="accordion-lead-info-card"> 
+                                    <div class="accordion-lead-info-card-header">
+                                        Email
+                                    </div>
+                                    <div class="accordion-lead-info-card-text">
+                                        {{f.email.value}}
+                                    </div>
+                                </div>
+                                <div *ngIf="!!f.address.value" class="accordion-lead-info-card"> 
                                     <div class="accordion-lead-info-card-header">
                                         Address
                                     </div>
                                     <div class="accordion-lead-info-card-text">
                                         {{f.address.value}}
+                                    </div>
+                                </div>
+                                <div *ngIf="!!f.phoneNumber.value" class="accordion-lead-info-card"> 
+                                    <div class="accordion-lead-info-card-header">
+                                        Phone Number
+                                    </div>
+                                    <div class="accordion-lead-info-card-text">
+                                        {{f.phoneNumber.value | phone}}
                                     </div>
                                 </div>
                             </div>

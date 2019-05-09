@@ -20,7 +20,7 @@
                                 <mat-icon *ngIf="event.outcome == 2" >event_available</mat-icon> 
                                 {{listService.getListDescription(outcomes, event.outcome)}}</mat-card-title>
                             <mat-card-subtitle>
-                                <mat-icon >location_on</mat-icon> {{event.location}}
+                                <mat-icon *ngIf="!!event.location" >location_on</mat-icon> {{event.location}}
                             </mat-card-subtitle>
                         </div>
                         <mat-icon *ngIf="eventUrgency(event.date) == 'pasts' || eventUrgency(event.date) == 'upcoming' ">calendar_today</mat-icon>

@@ -29,6 +29,7 @@ import { NotesService } from './services/lead-notes.service';
 import { EventsService } from './services/lead-events.service';
 import { EventEffects } from './effects/event.effects';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { PhonePipe } from '../commons/pipes/phone.pipe';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
     LeadNewNoteDialogComponent,
     LeadNotesBoxComponent,
     LeadEventsBoxComponent,
-    LeadNewEventDialogComponent
+    LeadNewEventDialogComponent,
+    PhonePipe
   ],
   imports: [
     CommonModule,

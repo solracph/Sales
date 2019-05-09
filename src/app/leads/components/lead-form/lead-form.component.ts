@@ -7,34 +7,39 @@ import * as _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 
-export const atleastOneDemographic: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-    const email = control.get('email');
-    const phoneNumber = control.get('phoneNumber');
-    const address = control.get('address');
 
-    if( email.value || phoneNumber.value || address.value ){
-      if(!email.getError('email'))
-      email.setErrors(null)
-      phoneNumber.setErrors(null)
-      address.setErrors(null)
-      return  null
-    } else {
-      email.setErrors({ 'atleast-one-demographic': true })
-      phoneNumber.setErrors({ 'atleast-one-demographic': true })
-      address.setErrors({ 'atleast-one-demographic': true })
-      return  { 'atleast-one-demographic': true } ;
+/************************************************************** */
+/*ask to the white beard wizard -> 🎅 this is temporarily here */
+  export const atleastOneDemographic: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+      const email = control.get('email');
+      const phoneNumber = control.get('phoneNumber');
+      const address = control.get('address');
+
+      if( email.value || phoneNumber.value || address.value ){
+        if(!email.getError('email'))
+        email.setErrors(null)
+        phoneNumber.setErrors(null)
+        address.setErrors(null)
+        return  null
+      } else {
+        email.setErrors({ 'atleast-one-demographic': true })
+        phoneNumber.setErrors({ 'atleast-one-demographic': true })
+        address.setErrors({ 'atleast-one-demographic': true })
+        return  { 'atleast-one-demographic': true } ;
+      }
+  };
+
+  @Directive({
+    selector: '[atleast-one-demographic]',
+    providers: [{ provide: NG_VALIDATORS, useExisting: atleastOneDemographicValidatorDirective, multi: true }]
+  })
+  export class atleastOneDemographicValidatorDirective implements Validator {
+    validate(control: AbstractControl): ValidationErrors {
+      return atleastOneDemographic(control)
     }
-};
-
-@Directive({
-  selector: '[atleast-one-demographic]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: atleastOneDemographicValidatorDirective, multi: true }]
-})
-export class atleastOneDemographicValidatorDirective implements Validator {
-  validate(control: AbstractControl): ValidationErrors {
-    return atleastOneDemographic(control)
   }
-}
+/****************************************************************/
+
 
 @Component({
   selector: 'app-lead-form',
@@ -73,7 +78,6 @@ export class LeadFormComponent implements OnInit {
     this.leadForm.valueChanges.subscribe((form) => {
       this.formValueChanged.emit(Object.assign({}, this.lead, form));
     })  
-
   }
 
   leadFormInitialization(lead){
