@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Lead, Source, Reason, Plan, Outcome } from '../../models';
-import { LeadViewService } from '../../services/lead-view.service';
+import { LeadService } from '../../services/lead.service';
 
 @Component({
   selector: 'app-lead-view',
@@ -15,7 +15,7 @@ export class LeadViewComponent implements OnInit {
   @Input() plans : Plan[];
   @Input() outcomes: Outcome[];
   
-  constructor(public viewService: LeadViewService) { }
+  constructor(public leadService: LeadService) { }
 
   ngOnInit() {
   }

@@ -1,6 +1,7 @@
 import { leadsState } from '../reducers';
 import { createSelector } from '@ngrx/store';
 import { adapter } from "../reducers/notes.reducer";
+import { LeadNote } from '../models/lead-note.model';
 
 export const getNotesState = createSelector(
     leadsState,
@@ -14,8 +15,17 @@ export const {
     selectTotal: getTotalNote,
 } = adapter.getSelectors(getNotesState);
 
-export const getAllLeadNotes = createSelector(
+export const getAllNotesSortByDate = createSelector(
     getAllNotes,
+    (events: LeadNote[]) => { 
+        return events.sort(function(a: LeadNote,b: LeadNote){ 
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        })
+    }
+);
+
+export const getAllLeadNotes = createSelector(
+    getAllNotesSortByDate,
     (notes, props) => { 
         return notes.filter(notes => notes.leadId == props.leadId);
     }

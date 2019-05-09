@@ -3,9 +3,15 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
 import * as fromLeads from '../../reducers/leads.reducer';
-import * as fromLeadsSelectors from '../../selectors/lead.selectors';
 import * as fromLeadActions from '../../actions/leads.actions';
+import * as fromEventActions from '../../actions/event.actions';
+import * as fromListActions from '../../actions/lists.actions';
+import * as fromLeadsSelectors from '../../selectors/lead.selectors';
+import * as fromEventSelector from '../../selectors/event.selectors';
+import * as fromListSelectors from '../../selectors/list.selectors';
 import { Lead, NewLead } from '../../models/lead.model';
+import { LeadEvent } from '../../models/lead-event.model';
+import { Outcome, Source } from '../../models';
 
 @Component({
   selector: 'app-leads',
@@ -16,13 +22,44 @@ export class LeadsComponent implements OnInit {
   
   public leads$ : Observable<Lead[]>;
   public filter$ : Observable<string>;
+  public outcomes$: Observable<Outcome[]>;
+  public sources$: Observable<Source[]>;
+  public lastEvent$: Observable<LeadEvent>;
+  public lastLeadEvents: LeadEvent[] = [];
 
   constructor(
       private store: Store<fromLeads.State>,
       private routes: Router
-    ) {
+  ) {  }
+
+  ngOnInit() {
+    this.store.dispatch(new fromEventActions.LoadEvents());
+    this.store.dispatch(new fromLeadActions.LoadLeads());
+    this.store.dispatch(new fromLeadActions.LoadLeads());
+    this.store.dispatch(new fromListActions.LoadOutcomes());
+    this.store.dispatch(new fromListActions.LoadSources());
+
     this.leads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads));
     this.filter$ = this.store.pipe(select(fromLeadsSelectors.getFilter));
+    this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
+    this.sources$ = this.store.pipe(select(fromListSelectors.getSources));
+
+    this.selectLastLeadEvent(this.leads$);
+
+  }
+
+  selectLastLeadEvent(leads : Observable<Lead[]>){
+    leads.subscribe(leads => {
+      leads.forEach(lead => {
+        let leadId = lead.leadId;
+        this.lastEvent$ = this.store.pipe(select(fromEventSelector.getLastLeadEvent,{ leadId }));
+        this.lastEvent$.subscribe(
+          event => {
+            if(!!event)
+            this.lastLeadEvents.push(event);
+        });
+      });
+    })
   }
 
   onLeadSelection(lead: Lead){
@@ -39,8 +76,6 @@ export class LeadsComponent implements OnInit {
     this.routes.navigate(['/leads/details', newLead.leadId]);
   }
 
-  ngOnInit() {
-    this.store.dispatch(new fromLeadActions.LoadLeads());
-  }
+  
 
 }

@@ -20,7 +20,13 @@
                             <mat-icon matSuffix>filter_list</mat-icon>
                         </mat-form-field>
                     </mat-toolbar>
-                    <app-lead-grid [leads]="leads$ | async" (leadSelected)="onLeadSelection($event)"></app-lead-grid>
+                    <app-lead-grid 
+                        [leads]="leads$ | async" 
+                        [lastLeadEvents]="lastLeadEvents" 
+                        [outcomes]="outcomes$ | async" 
+                        [sources]="sources$ | async"
+
+                        (leadSelected)="onLeadSelection($event)"></app-lead-grid>
                 <!-- </div>
             </div> -->
         </div>

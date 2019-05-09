@@ -21,12 +21,6 @@ export class LeadEventsBoxComponent implements OnInit {
     ngOnInit() {
     }
 
-    ngOnChanges(){
-        this.events.sort(function(a:  LeadEvent,b: LeadEvent){ 
-            return new Date(b.date).getTime() - new Date(a.date).getTime() ;
-        })
-    }
-
     openDialog(event): void {
         this.newEvent.emit(event);
     }

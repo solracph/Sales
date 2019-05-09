@@ -20,7 +20,7 @@ import { LeadNewEventDialogComponent } from '../../components/lead-new-event-dia
 import { LeadNote } from '../../models/lead-note.model';
 import { LoadNotes, InsertNoteIo } from '../../actions/notes.actions';
 import { LeadEvent } from '../../models/lead-event.model';
-import { LoadEvents, InsertEvent } from '../../actions/event.actions';
+import { LoadEvents, InsertEvent, InsertEventIo } from '../../actions/event.actions';
 
 @Component({
   selector: 'app-lead-details',
@@ -149,7 +149,7 @@ export class LeadDetailsComponent implements OnInit {
                     this.selectedLead$.subscribe( lead => {
                         debugger
                         if(!!lead)
-                        this.store.dispatch(new InsertEvent(
+                        this.store.dispatch(new InsertEventIo(
                             { ...event,
                                 eventId: uuid(),
                                 leadId: lead.leadId, 
