@@ -29,7 +29,9 @@ import { NotesService } from './services/lead-notes.service';
 import { EventsService } from './services/lead-events.service';
 import { EventEffects } from './effects/event.effects';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { LeadFormValidatorDirective } from './directives/lead-form-validator.directive';
 import { PhonePipe } from '../commons/pipes/phone.pipe';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { PhonePipe } from '../commons/pipes/phone.pipe';
     LeadNotesBoxComponent,
     LeadEventsBoxComponent,
     LeadNewEventDialogComponent,
+    LeadFormValidatorDirective,
     PhonePipe
   ],
   imports: [

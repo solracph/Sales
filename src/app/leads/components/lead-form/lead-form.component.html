@@ -1,5 +1,5 @@
 
-<form [formGroup]="leadForm" (ngSubmit)="save()" atleast-one-demographic>
+<form [formGroup]="leadForm" (ngSubmit)="save()" lead-form-validator>
     <div  class="row">
         <div class="col-xl-12 col-lead-accordion">
             <mat-accordion class="lead-form-headers-align" >
@@ -105,7 +105,7 @@
                                         <mat-error *ngIf="f.email.hasError('email')">
                                             Email must be a valid email address
                                         </mat-error>
-                                        <mat-error *ngIf="f.email.hasError('atleast-one-demographic')">
+                                        <mat-error *ngIf="f.email.hasError('lead-form-validator')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
@@ -117,7 +117,7 @@
                                             [country]="us"
                                             [type]="address"
                                             (onAutocompleteSelected)="onAutocompleteAddress($event)">
-                                        <mat-error *ngIf="f.address.hasError('atleast-one-demographic')">
+                                        <mat-error *ngIf="f.address.hasError('lead-form-validator')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
@@ -125,7 +125,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <input matInput type="text" [textMask]="{mask: phoneMask}" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
-                                        <mat-error *ngIf="f.phoneNumber.hasError('atleast-one-demographic')">
+                                        <mat-error *ngIf="f.phoneNumber.hasError('lead-form-validator')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>

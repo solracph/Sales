@@ -5,41 +5,7 @@ import { FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, Valid
 import { MatDialog } from '@angular/material';
 import * as _ from 'lodash';
 import { v4 as uuid } from 'uuid';
-
-
-
-/************************************************************** */
-/*ask to the white beard wizard -> 🎅 this is temporarily here */
-  export const atleastOneDemographic: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-      const email = control.get('email');
-      const phoneNumber = control.get('phoneNumber');
-      const address = control.get('address');
-
-      if( email.value || phoneNumber.value || address.value ){
-        if(!email.getError('email'))
-        email.setErrors(null)
-        phoneNumber.setErrors(null)
-        address.setErrors(null)
-        return  null
-      } else {
-        email.setErrors({ 'atleast-one-demographic': true })
-        phoneNumber.setErrors({ 'atleast-one-demographic': true })
-        address.setErrors({ 'atleast-one-demographic': true })
-        return  { 'atleast-one-demographic': true } ;
-      }
-  };
-
-  @Directive({
-    selector: '[atleast-one-demographic]',
-    providers: [{ provide: NG_VALIDATORS, useExisting: atleastOneDemographicValidatorDirective, multi: true }]
-  })
-  export class atleastOneDemographicValidatorDirective implements Validator {
-    validate(control: AbstractControl): ValidationErrors {
-      return atleastOneDemographic(control)
-    }
-  }
-/****************************************************************/
-
+import { LeadFormValidator } from '../../directives/lead-form-validator.directive';
 
 @Component({
   selector: 'app-lead-form',
@@ -106,7 +72,7 @@ export class LeadFormComponent implements OnInit {
         date: new FormControl(null),
         location: new FormControl('')
       })
-    },{ validators: atleastOneDemographic });
+    },{ validators: LeadFormValidator });
 
     this.outcome.valueChanges.subscribe(value => {
       if (value) {
