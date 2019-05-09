@@ -8,17 +8,18 @@ import { v4 as uuid } from 'uuid';
 
 
 export const atleastOneDemographic: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-    const name = control.get('email');
+    const email = control.get('email');
     const phoneNumber = control.get('phoneNumber');
     const address = control.get('address');
 
-    if( name.value || phoneNumber.value || address.value  ){
-      name.setErrors(null)
+    if( email.value || phoneNumber.value || address.value  ){
+      if(!email.getError('email'))
+      email.setErrors(null)
       phoneNumber.setErrors(null)
       address.setErrors(null)
       return  null
     } else {
-      name.setErrors({ 'atleastOneDemographic': true })
+      email.setErrors({ 'atleastOneDemographic': true })
       phoneNumber.setErrors({ 'atleastOneDemographic': true })
       address.setErrors({ 'atleastOneDemographic': true })
       return  { 'atleastOneDemographic': true } ;

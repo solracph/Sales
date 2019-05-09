@@ -37,15 +37,12 @@ export class LeadsComponent implements OnInit {
     this.store.dispatch(new fromListActions.LoadOutcomes());
     this.store.dispatch(new fromListActions.LoadSources());
     this.store.dispatch(new fromLeadActions.LoadLeads());
-    
 
     this.leads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads));
     this.filter$ = this.store.pipe(select(fromLeadsSelectors.getFilter));
     this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
     this.sources$ = this.store.pipe(select(fromListSelectors.getSources));
-
     this.selectLastLeadEvent(this.leads$);
-
   }
 
   selectLastLeadEvent(leads : Observable<Lead[]>){

@@ -20,7 +20,7 @@ import { LeadNewEventDialogComponent } from '../../components/lead-new-event-dia
 import { LeadNote } from '../../models/lead-note.model';
 import { LoadNotes, InsertNoteIo } from '../../actions/notes.actions';
 import { LeadEvent } from '../../models/lead-event.model';
-import { LoadEvents, InsertEvent, InsertEventIo } from '../../actions/event.actions';
+import { LoadEvents, InsertEventIo } from '../../actions/event.actions';
 
 @Component({
   selector: 'app-lead-details',
@@ -120,16 +120,15 @@ export class LeadDetailsComponent implements OnInit {
 
     newNoteDialog(): void {
         const dialogRef = this.dialog.open(LeadNewNoteDialogComponent);
-        dialogRef.afterClosed().subscribe(note => {
-            if(note){
+        dialogRef.afterClosed().subscribe((text: string ) => {
+            if(text){
                 this._subsc.add(
                     this.selectedLead$.subscribe( lead => {
                         if(!!lead)
-                        this.store.dispatch(new InsertNoteIo(
-                            { ...note, 
+                        this.store.dispatch(new InsertNoteIo({  
                                 noteId: uuid(), 
                                 leadId: lead.leadId, 
-                                text: note, 
+                                text: text, 
                                 date: new Date(), 
                                 userName: lead.firstName 
                             }))

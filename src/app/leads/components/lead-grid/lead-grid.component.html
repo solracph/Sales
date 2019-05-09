@@ -45,8 +45,8 @@
         {{element.outcomeDate | date: 'MM/dd/yyyy'}} </td>
     </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="['name', 'dob', 'mbi', 'email', 'address', 'outcome', 'outcomeDate', 'source']"></tr>
-  <tr mat-row (click)="onLeadSelection(row)" *matRowDef="let row; columns: ['name', 'dob', 'mbi', 'email', 'address', 'outcome', 'outcomeDate', 'source'];"></tr>
+  <tr mat-header-row *matHeaderRowDef="['name', 'dob', 'mbi', 'email', 'address','source', 'outcome', 'outcomeDate' ]"></tr>
+  <tr mat-row (click)="onLeadSelection(row)" *matRowDef="let row; columns: ['name', 'dob', 'mbi', 'email', 'address', 'source', 'outcome', 'outcomeDate'];"></tr>
 </table>
 <div *ngIf="dataSource.data.length == 0" role="alert" class="alert alert-no-record ng-star-inserted"><mat-icon>warning</mat-icon> <span>No record found</span></div>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
