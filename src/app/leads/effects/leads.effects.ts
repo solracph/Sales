@@ -73,10 +73,11 @@ export class LeadEffects {
         let actions = [];
         if((insert.state == LeadState.new))
         {
-          debugger
           actions.push(new fromLead.UpdateLead({id: insert.versionId, changes: {...insert, state: LeadState.master }}));
           actions.push(new fromLead.SnackbarOpen({message: "Lead Added Successfully"}));
+          if(insert.note.text)
           actions.push(new fromNote.InsertNoteIo({...insert.note, userName: insert.firstName }));
+          if(insert.event.date)
           actions.push(new fromEvent.InsertEventIo({ ...insert.event, outcome: insert.outcome}));
         } else {
           actions.push( new fromLead.UpdateLead(update));

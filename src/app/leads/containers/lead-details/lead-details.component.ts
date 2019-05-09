@@ -57,7 +57,6 @@ export class LeadDetailsComponent implements OnInit {
     }
 
     private initialLoad(leadId) {
-        // debugger;
         this.store.dispatch(new LoadLeads());
         this.store.dispatch(new LoadAllLists());
         this.store.dispatch(new LoadNotes());
@@ -98,6 +97,7 @@ export class LeadDetailsComponent implements OnInit {
     }
 
     leadSaved(lead: Lead) {
+        debugger
         if (lead.state == LeadState.new) {
             this.store.dispatch(new InsertLeadIo({ insert: { ...lead } }));
         }
@@ -147,7 +147,6 @@ export class LeadDetailsComponent implements OnInit {
             if(event){
                 this._subsc.add(
                     this.selectedLead$.subscribe( lead => {
-                        debugger
                         if(!!lead)
                         this.store.dispatch(new InsertEventIo(
                             { ...event,

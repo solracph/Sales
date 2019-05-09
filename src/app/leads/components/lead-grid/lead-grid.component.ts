@@ -25,7 +25,6 @@ export class LeadGridComponent implements OnInit , OnChanges {
   
   public dataSource: MatTableDataSource<Lead> = new MatTableDataSource([]);
 
-
   constructor(
     public leadGridService: LeadGridService,
     public listsService: LeadListsService,
@@ -39,7 +38,8 @@ export class LeadGridComponent implements OnInit , OnChanges {
     if(!!changes.leads){
         let mergedDataSource = [];
         changes.leads.currentValue.forEach((lead: Lead) => {
-          mergedDataSource.push({...lead, 
+          mergedDataSource.push({
+            ...lead, 
             outcome: this.getEvetOutcome(lead.leadId),
             source: this.listsService.getListDescription(this.sources,lead.source),
             outcomeDate: this.getEvetDate(lead.leadId)
@@ -87,7 +87,6 @@ export class LeadGridComponent implements OnInit , OnChanges {
   }
 
   newLead(){
-    debugger
     this.router.navigate(['/leads/new']);
   }
 }

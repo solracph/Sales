@@ -1,5 +1,5 @@
 
-<form [formGroup]="leadForm" (ngSubmit)="save()">
+<form [formGroup]="leadForm" (ngSubmit)="save()" atleastOneDemographic>
     <div  class="row">
         <div class="col-xl-12 col-lead-accordion">
             <mat-accordion class="lead-form-headers-align" >
@@ -71,15 +71,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput type="text" formControlName="email" placeholder="Email" id="email"  />
-                                        <mat-error *ngIf="f.email.hasError('email')">
-                                            Email must be a valid email address
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field>
-                                        <input [textMask]="{mask: dateMask}" matInput type="text" formControlName="dob" placeholder="DOB" id="dob" required/>
+                                        <input [textMask]="{mask: dateMask}" matInput type="text" formControlName="dob" placeholder="DOB" id="dob"/>
                                         <mat-error *ngIf="f.dob.hasError('pattern')">
                                             DOB must have this format MM/DD/YYYY
                                         </mat-error>
@@ -88,27 +80,42 @@
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field>
-                                        <input matInput type="text" formControlName="mbi" placeholder="MBI" id="mbi"  required/>
+                                        <input matInput type="text" formControlName="mbi" placeholder="MBI" id="mbi"/>
                                         <mat-error *ngIf="f.mbi.hasError('required')">
                                             MBI is required
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <input matInput type="text" formControlName="email" placeholder="Email" id="email"  />
+                                        <mat-error *ngIf="f.email.hasError('email')">
+                                            Email must be a valid email address
+                                        </mat-error>
+                                        <mat-error *ngIf="f.email.hasError('atleastOneDemographic')">
+                                            (Email or Address or Phone Number) are required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
                                 <div class="col-md-6">
                                     <mat-form-field>
-                                        <input matInput type="text" formControlName="address" placeholder="Address" id="address" required/>
-                                        <mat-error *ngIf="f.address.hasError('required')">
-                                            Address is required
+                                        <input matInput type="text" formControlName="address" placeholder="Address" id="address"/>
+                                        <mat-error *ngIf="f.email.hasError('atleastOneDemographic')">
+                                            (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <input matInput type="text" [textMask]="{mask: phoneMask}" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
+                                        <mat-error *ngIf="f.email.hasError('atleastOneDemographic')">
+                                            (Email or Address or Phone Number) are required
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -121,7 +128,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <mat-label>Reason</mat-label>
-                                        <mat-select formControlName="reason" required>
+                                        <mat-select formControlName="reason">
                                             <mat-option [value]="null" ></mat-option>
                                             <mat-option *ngFor="let reason of reasons" [value]="reason.id" >
                                                 {{ reason.description }}
@@ -162,16 +169,12 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
-                            </div>
-                            <ng-container formGroupName="note" *ngIf="lead.state == leadState.new">
-                                <div class="row m-1" >
-                                    <div class="col-md-6" >
-                                        <mat-form-field>
-                                            <textarea  matInput formControlName="text" placeholder="Notes" id="date" tabindex="0"></textarea>
-                                        </mat-form-field>
-                                    </div>
+                                <div class="col-md-6" formGroupName="note">
+                                    <mat-form-field>
+                                        <textarea  matInput formControlName="text" placeholder="Notes" id="date" tabindex="0" rows="1"></textarea>
+                                    </mat-form-field>
                                 </div>
-                            </ng-container>
+                            </div>
                             <ng-container formGroupName="event" *ngIf="!!leadForm.value.outcome && lead.state == leadState.new">
                                 <div class="row">
                                     <div class="col-md-11 ml-3 pr-3" >
@@ -184,6 +187,9 @@
                                                 <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Event Date">
                                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker></mat-datepicker>
+                                                <mat-error *ngIf="eventDate.hasError('required')">
+                                                    Event Date is required
+                                                </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6" >
@@ -197,7 +203,7 @@
                                 <div class="col-md-12 button-col" >
                                     <div class="button-row">
                                         <button mb-stroked-button class="mb-1 mr-1 btn btn-danger" type="button" (click)="cancel()" *ngIf="lead.state != leadState.version">Cancel</button>
-                                        <button  mb-stroked-button class="mb-1 mr-1 btn btn-labeled btn-success" type="submit" *ngIf="lead.state != leadState.version " [disabled]="leadForm.invalid">
+                                        <button  mb-stroked-button class="mb-1 mr-1 btn btn-labeled btn-success" type="submit" *ngIf="lead.state != leadState.version">
                                             <span class="btn-label"><i class="fa fa-check"></i></span>
                                             Save
                                         </button>
