@@ -24,8 +24,7 @@ export class LeadsComponent implements OnInit {
   public filter$ : Observable<string>;
   public outcomes$: Observable<Outcome[]>;
   public sources$: Observable<Source[]>;
-  public lastEvent$: Observable<LeadEvent>;
-  public lastLeadEvents: LeadEvent[] = [];
+  public lastEvents$: Observable<LeadEvent[]>;
 
   constructor(
       private store: Store<fromLeads.State>,
@@ -42,21 +41,7 @@ export class LeadsComponent implements OnInit {
     this.filter$ = this.store.pipe(select(fromLeadsSelectors.getFilter));
     this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
     this.sources$ = this.store.pipe(select(fromListSelectors.getSources));
-    this.selectLastLeadEvent(this.leads$);
-  }
-
-  selectLastLeadEvent(leads : Observable<Lead[]>){
-    leads.subscribe(leads => {
-      leads.forEach(lead => {
-        let leadId = lead.leadId;
-        this.lastEvent$ = this.store.pipe(select(fromEventSelector.getLastLeadEvent,{ leadId }));
-        this.lastEvent$.subscribe(
-          event => {
-            if(!!event)
-            this.lastLeadEvents.push(event);
-        });
-      });
-    })
+    this.lastEvents$ = this.store.pipe(select(fromEventSelector.getLastEvents));
   }
 
   onLeadSelection(lead: Lead){

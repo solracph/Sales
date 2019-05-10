@@ -1,9 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 const screenfull = require('screenfull');
-
 import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
+import { Observable } from 'rxjs';
+import { LeadEvent } from 'src/app/leads/models/lead-event.model';
+import { Store, select } from '@ngrx/store';
+import * as fromEvents from '../../leads/selectors/event.selectors';
+import * as fromLeads from '../../leads/reducers';
+
 
 @Component({
     selector: 'app-header',
@@ -14,14 +19,20 @@ export class HeaderComponent implements OnInit {
 
     navCollapsed = true; // for horizontal layout
     menuItems = []; // for horizontal layout
+    public events$ : Observable<any>;
 
     isNavSearchVisible: boolean;
     @ViewChild('fsbutton') fsbutton;  // the fullscreen button
 
-    constructor(public menu: MenuService, public userblockService: UserblockService, public settings: SettingsService) {
+    constructor(
+        public menu: MenuService, 
+        public userblockService: UserblockService, 
+        public settings: SettingsService,
+        private store: Store<fromLeads.State>,) {
 
         // show only a few items on demo
         this.menuItems = menu.getMenu().slice(0, 4); // for horizontal layout
+        this.events$ = this.store.pipe(select(fromEvents.getLastEvents));
 
     }
 

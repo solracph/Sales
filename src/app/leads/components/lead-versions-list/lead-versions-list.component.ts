@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Lead } from '../../models';
-import { SelectLead } from '../../actions/leads.actions';
 
 @Component({
   selector: 'app-lead-versions-list',

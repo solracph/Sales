@@ -18,7 +18,7 @@ export class LeadGridComponent implements OnInit , OnChanges {
   @Input() outcomes : Outcome[];
   @Input() sources : Source[];
   @Input() filter : Source[];
-  @Input() lastLeadEvents : LeadEvent[];
+  @Input() lastEvents : LeadEvent[];
   @Output() leadSelected: EventEmitter<Lead> = new EventEmitter();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -58,7 +58,7 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   getEvetDate(leadId){
     let date
-    this.lastLeadEvents.forEach((event: LeadEvent) => {
+    this.lastEvents.forEach((event: LeadEvent) => {
         if(event.leadId == leadId) {
           date = event.date;
           return
@@ -69,7 +69,7 @@ export class LeadGridComponent implements OnInit , OnChanges {
 
   getEvetOutcome(leadId){
     let outcome
-    this.lastLeadEvents.forEach((event: LeadEvent) => {
+    this.lastEvents.forEach((event: LeadEvent) => {
         if(event.leadId == leadId) {
           outcome = this.listsService.getListDescription(this.outcomes,event.outcome);
           return

@@ -2,6 +2,7 @@ import { leadsState } from '../reducers';
 import { createSelector } from '@ngrx/store';
 import { adapter } from "../reducers/events.reducer";
 import { LeadEvent } from '../models/lead-event.model';
+import * as _ from 'lodash';
 
 export const getEventsState = createSelector(
     leadsState,
@@ -31,9 +32,11 @@ export const getAllLeadEvents = createSelector(
     }
 );
 
-export const getLastLeadEvent = createSelector(
+export const getLastEvents = createSelector(
     getAllEventsSortByDate,
-    (events: LeadEvent[], props) => { 
-        return events.filter(event => (event.leadId == props.leadId))[0];
+    (events: LeadEvent[]) => { 
+        return _.chain(events).groupBy("leadId").map(function(events, i) {
+            return _.find(events,(e) => { return e.leadId == i});
+          }).value();;
     }
 );

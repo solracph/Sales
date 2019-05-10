@@ -68,7 +68,7 @@
                         <!-- START list group-->
                         <div class="list-group">
                            <!-- list item-->
-                           <div class="list-group-item list-group-item-action">
+                           <div class="list-group-item list-group-item-action" *ngFor="let event of events$ | async">
                               <div class="media">
                                  <div class="align-self-start mr-2">
                                     <em class="fab fa-twitter fa-2x text-info"></em>
@@ -80,29 +80,7 @@
                               </div>
                            </div>
                            <!-- list item-->
-                           <div class="list-group-item list-group-item-action">
-                              <div class="media">
-                                 <div class="align-self-start mr-2">
-                                    <em class="fa fa-envelope fa-2x text-warning"></em>
-                                 </div>
-                                 <div class="media-body">
-                                    <p class="m-0">New e-mails</p>
-                                    <p class="m-0 text-muted text-sm">You have 10 new emails</p>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- list item-->
-                           <div class="list-group-item list-group-item-action">
-                              <div class="media">
-                                 <div class="align-self-start mr-2">
-                                    <em class="fa fa-tasks fa-2x text-success"></em>
-                                 </div>
-                                 <div class="media-body">
-                                    <p class="m-0">Pending Tasks</p>
-                                    <p class="m-0 text-muted text-sm">11 pending task</p>
-                                 </div>
-                              </div>
-                           </div>
+                           
                            <!-- last list item-->
                            <div class="list-group-item list-group-item-action">
                               <span class="d-flex align-items-center">
