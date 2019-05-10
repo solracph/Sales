@@ -4,7 +4,7 @@ import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
 import { Observable } from 'rxjs';
-import { LeadEvent } from 'src/app/leads/models/lead-event.model';
+import { LeadEvent } from '../../leads/models/lead-event.model';
 import { Store, select } from '@ngrx/store';
 import * as fromEvents from '../../leads/selectors/event.selectors';
 import * as fromLeads from '../../leads/reducers';

@@ -7,10 +7,11 @@ export const LeadFormValidator: ValidatorFn = (control: FormGroup): ValidationEr
     const address = control.get('address');
 
     if( email.value || phoneNumber.value || address.value ){
-      if(!email.getError('email'))
-      email.setErrors(null)
-      phoneNumber.setErrors(null)
-      address.setErrors(null)
+      if(!email.getError('email')){
+        email.setErrors(null)
+        phoneNumber.setErrors(null)
+        address.setErrors(null)
+      }
       return  null
     } else {
       email.setErrors({ 'lead-form-validator': true })
