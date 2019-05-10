@@ -1,5 +1,5 @@
 
-<form [formGroup]="leadForm" (ngSubmit)="save()" lead-form-validator>
+<form [formGroup]="leadForm" (ngSubmit)="save()" email-phone-address>
     <div  class="row">
         <div class="col-xl-12 col-lead-accordion">
             <mat-accordion class="lead-form-headers-align" >
@@ -105,7 +105,7 @@
                                         <mat-error *ngIf="f.email.hasError('email')">
                                             Email must be a valid email address
                                         </mat-error>
-                                        <mat-error *ngIf="f.email.hasError('lead-form-validator')">
+                                        <mat-error *ngIf="f.email.hasError('email-phone-address')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
@@ -117,7 +117,7 @@
                                             [country]="us"
                                             [type]="address"
                                             (onAutocompleteSelected)="onAutocompleteAddress($event)">
-                                        <mat-error *ngIf="f.address.hasError('lead-form-validator')">
+                                        <mat-error *ngIf="f.address.hasError('email-phone-address')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
@@ -125,7 +125,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <input matInput type="text" [textMask]="{mask: phoneMask}" formControlName="phoneNumber" placeholder="Phone Number" id="phoneNumber"/>
-                                        <mat-error *ngIf="f.phoneNumber.hasError('lead-form-validator')">
+                                        <mat-error *ngIf="f.phoneNumber.hasError('email-phone-address')">
                                             (Email or Address or Phone Number) are required
                                         </mat-error>
                                     </mat-form-field>
@@ -215,7 +215,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            <div class="row" *ngIf="lead.state == leadState.new">
+                            <div class="row" *ngIf="lead.state == leadState.new || user.role == 2">
                                 <div class="col-md-12 button-col" >
                                     <div class="button-row">
                                         <button mb-stroked-button class="mb-1 mr-1 btn btn-danger" type="button" (click)="cancel()" *ngIf="lead.state != leadState.version">Cancel</button>

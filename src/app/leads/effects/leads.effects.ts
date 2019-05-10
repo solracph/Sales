@@ -10,7 +10,6 @@ import { Lead } from  '../models';
 import { LeadState } from '../models/lead-state.enum';
 import { UpsertLeads } from '../models/upsert-lead.model';
 import { MatSnackBar } from '@angular/material';
-import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class LeadEffects {
@@ -71,7 +70,7 @@ export class LeadEffects {
       switchMap(({ insert, update }) => 
       {
         let actions = [];
-        if((insert.state == LeadState.new))
+        if(insert.state == LeadState.new)
         {
           actions.push(new fromLead.UpdateLead({id: insert.versionId, changes: {...insert, state: LeadState.master }}));
           actions.push(new fromLead.SnackbarOpen({message: "Lead Added Successfully"}));
@@ -79,7 +78,7 @@ export class LeadEffects {
           actions.push(new fromNote.InsertNoteIo({...insert.note, userName: insert.firstName }));
           if(insert.event.date)
           actions.push(new fromEvent.InsertEventIo({ ...insert.event, outcome: insert.outcome}));
-        } else {
+        } else if(insert.state == LeadState.edition){
           actions.push( new fromLead.UpdateLead(update));
           actions.push( new fromLead.InsertLead({lead : {...insert, state : LeadState.master}}));
           actions.push( new fromLead.SnackbarOpen({message: "Lead Edited Successfully"}));

@@ -111,49 +111,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="mda-form-group">
-                        <h5>Outcome</h5>
-                        <div class="value-text-container">
-                            <div class="value-text">
-                                {{listService.getListDescription(outcomes,lead.outcome)}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="!!lead.outcome">
-                <div class="row" >
-                    <div class="col-md-11 ml-3 pr-3" >
-                        <p class="lead bb">Event</p>
-                    </div>
-                </div>
-                <div class="row m-1 ng-star-inserted">
-                    <div class="col-md-3">
-                        <div class="mda-form-group">
-                            <h5>Event Date</h5>
-                            <div class="value-text-container">{{lead.event.date | date: 'MM/dd/yyyy'}}</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" >
-                        <div class="mda-form-group">
-                            <h5>Event Location</h5>
-                            <div class="value-text-container">{{lead.event.location}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-1 ng-star-inserted">
-                    <div class="col-md-9" >
-                        <div class="mda-form-group">
-                            <h5>Event Notes</h5>
-                            <div class="value-text-container">
-                                <div class="value-text">
-                                    {{lead.event.note}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <mat-card class="note-container-card">
     <mat-card-header>
         <mat-card-title><h4>Notes</h4></mat-card-title>
-        <mat-icon>view_list</mat-icon>
+        <mat-icon>question_answer</mat-icon>
     </mat-card-header>
     <mat-card-actions>
     <div class="card-actions">
@@ -16,6 +16,9 @@
                     <mat-card-subtitle>{{note.date | date: 'MM/dd/yyyy hh:mm aaa'}}</mat-card-subtitle>
                 </div>
                 <mat-icon>speaker_notes</mat-icon>
+                <span *ngIf="user.role == 2" class="edit-note" matTooltip="Edit Note">
+                    <mat-icon >edit</mat-icon>
+                </span>
             </mat-card-header>
             <mat-card-content>
                 <p>{{note.text}}</p>

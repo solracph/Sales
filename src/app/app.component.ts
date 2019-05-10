@@ -1,6 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-
 import { SettingsService } from './core/settings/settings.service';
+import { Store } from '@ngrx/store';
+import * as fromAccount from './account/reducers';
+import { Login } from './account/actions/user.actions';
+import { v4 as uuid } from 'uuid';
+import { Role } from './account/models/roles.enum';
 
 @Component({
     selector: 'app-root',
@@ -20,12 +24,25 @@ export class AppComponent implements OnInit {
     @HostBinding('class.aside-toggled') get asideToggled() { return this.settings.getLayoutSetting('asideToggled'); };
     @HostBinding('class.aside-collapsed-text') get isCollapsedText() { return this.settings.getLayoutSetting('isCollapsedText'); };
 
-    constructor(public settings: SettingsService) { }
+    constructor(
+        public settings: SettingsService,
+        private store: Store<fromAccount.State>,
+    ) { }
 
     ngOnInit() {
         document.addEventListener('click', e => {
             const target = e.target as HTMLElement;
             if (target.tagName === 'A') e.preventDefault();
         })
+
+        this.store.dispatch(new Login(
+            [{
+                userId: uuid(),
+                name: "ana",
+                isAuthenticated: true,
+                role: Role.Agent,
+                picture: "assets/img/user/01.jpg"
+            }]
+        ))
     }
 }

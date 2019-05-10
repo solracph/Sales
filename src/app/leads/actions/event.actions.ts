@@ -41,7 +41,7 @@ export class InsertEventIoSuccess implements Action {
 
 export class InsertEventIoFail implements Action {
     readonly type = INSERT_EVENT_IO_FAIL;
-    constructor(public payload: LeadEvent ){}
+    constructor(public payload: any ){}
 }
 
 export type Actions = 

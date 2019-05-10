@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { LeadEvent } from '../../models/lead-event.model';
 import { Outcome } from '../../models';
 import { LeadListsService } from '../../services/lead-lists.service';
+import { User } from '../../../account/models/user.model';
 
 @Component({
     selector: 'app-lead-events-box',
@@ -12,6 +13,7 @@ export class LeadEventsBoxComponent implements OnInit {
 
     @Input() events: LeadEvent[];
     @Input() outcomes: Outcome[];
+    @Input() user: User;
     @Output() newEvent: EventEmitter<Event> = new EventEmitter();
   
     constructor(
@@ -40,7 +42,7 @@ export class LeadEventsBoxComponent implements OnInit {
         }
 
         var d = new Date(date); 
-        d.setDate(d.getDate() - 2); 
+        new Date(date).setDate(d.getDate() - 2); 
         if(now.getTime() > d.getTime()) 
         {
             return 'twodays';

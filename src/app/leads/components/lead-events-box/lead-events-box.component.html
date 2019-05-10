@@ -23,9 +23,12 @@
                                 <mat-icon *ngIf="!!event.location" >location_on</mat-icon> {{event.location}}
                             </mat-card-subtitle>
                         </div>
-                        <mat-icon *ngIf="eventUrgency(event.date) == 'pasts' || eventUrgency(event.date) == 'upcoming' ">calendar_today</mat-icon>
-                        <mat-icon *ngIf="eventUrgency(event.date) == 'oneday'" matBadge="!" matBadgeColor="warn">calendar_today</mat-icon>
+                        <mat-icon *ngIf="eventUrgency(event.date) == 'pasts' ">calendar_today</mat-icon>
+                        <mat-icon *ngIf="eventUrgency(event.date) == 'oneday' || eventUrgency(event.date) == 'upcoming'" matBadge="!" matBadgeColor="warn">calendar_today</mat-icon>
                         <mat-icon *ngIf="eventUrgency(event.date) == 'twodays'" matBadge="!" >calendar_today</mat-icon>
+                        <span *ngIf="user.role == 2" class="edit-note" matTooltip="Edit Event">
+                            <mat-icon >edit</mat-icon>
+                        </span>
                     </mat-card-header>
                     <mat-card-content>
                     </mat-card-content>

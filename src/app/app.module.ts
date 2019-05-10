@@ -19,6 +19,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { SwalService } from './commons/utilities/swal/swal.service';
 import { AgmCoreModule } from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { AccountModule } from './account/account.module'
+
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -53,7 +55,8 @@ export function createTranslateLoader(http: HttpClient) {
         // @ngrx/router-store keeps router state up-to-date in the store.
         StoreRouterConnectingModule.forRoot(),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        EffectsModule.forRoot([AppEffects])
+        EffectsModule.forRoot([AppEffects]),
+        AccountModule
     ],
     providers: [ SwalService ],
     bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 <div class="row no-gutters lead-versions main-row">
-    <!--<div class="col-xl-2">
+    <div class="col-xl-2" *ngIf="(user$ | async).role == 2">
         <div class="md-card">
             <div class="md-card-heading title-with-small-icon">
                 <mat-icon class="material-icons">list</mat-icon>
@@ -8,7 +8,6 @@
                 </span>
             </div>
             <mat-divider></mat-divider>
-            
             <ng-container *ngIf="versions$ | async; let versions;">
                 <app-lead-versions-list 
                     [selected]="selectedLead$ | async"
@@ -17,9 +16,8 @@
                 </app-lead-versions-list>
             </ng-container>
         </div>
-    </div>-->
-    
-    <div class="col-xl-12">
+    </div>
+    <div [class]="(user$ | async).role == 2 ? 'col-xl-10' : 'col-xl-12'">
         <div *ngIf="selectedLead$ | async; let selectedLead;">
             <div class="row">
                 <div class="col-xl-12">
@@ -39,23 +37,13 @@
                                         [reasons]="reasons$ | async"
                                         [plans]="plans$ | async"
                                         [outcomes]="outcomes$ | async"
+                                        [user]="user$ | async"
                                         
                                         (leadSaved)="leadSaved($event)"
                                         (formValueChanged)="formValueChange($event)"
                                     
                                     ></app-lead-form>
                                 </ng-container>
-                                <div class="events-notes-container" *ngIf="selectedLead.state != 2 "> 
-                                    <div  class="row">
-                                        <div class="col-xl-6">
-                                            <app-lead-notes-box [notes]="notes$ | async"  (newNote)="newNoteDialog($event)"> </app-lead-notes-box>
-                                        </div>
-                                        <div class="col-xl-6">
-                                            <app-lead-events-box [events]="events$ | async" [outcomes]="outcomes$ | async" (newEvent)="newEventDialog($event)"></app-lead-events-box>
-                                        </div>
-                                    </div>
-                                </div>
-                                
                                 <ng-container *ngIf="selectedLead.state == 3">
                                     <app-lead-view
                                         [lead]="selectedLead"
@@ -65,6 +53,16 @@
                                         [outcomes]="outcomes$ | async"
                                     ></app-lead-view>
                                 </ng-container>
+                                <div class="events-notes-container" *ngIf="selectedLead.state != 2 "> 
+                                    <div  class="row">
+                                        <div class="col-xl-6">
+                                            <app-lead-notes-box [notes]="notes$ | async" [user]="user$ | async" (newNote)="newNoteDialog($event)"> </app-lead-notes-box>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <app-lead-events-box [events]="events$ | async" [outcomes]="outcomes$ | async" [user]="user$ | async" (newEvent)="newEventDialog($event)"></app-lead-events-box>
+                                        </div>
+                                    </div>
+                                </div>
                             </scrollable>
                         </div>
                     </div>

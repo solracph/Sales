@@ -30,3 +30,10 @@ export const getAllLeadNotes = createSelector(
         return notes.filter(notes => notes.leadId == props.leadId);
     }
 );
+
+export const getAllLeadNotesByVersion = createSelector(
+    getAllNotesSortByDate,
+    (notes, props) => { 
+        return notes.filter(notes => notes.versionId == props.versionId);
+    }
+);

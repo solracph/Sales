@@ -3,24 +3,25 @@ import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import * as fromLeads from '../../reducers/leads.reducer';
 import * as fromListSelectors from '../../selectors/list.selectors';
-import * as fromLeadsSelectors from '../../selectors/lead.selectors';
-import * as fromNotesSelectors from '../../selectors/note.selectors';
-import * as fromEventsSelectors from '../../selectors/event.selectors';
+import * as fromLeadSelectors from '../../selectors/lead.selectors';
+import * as fromNoteSelectors from '../../selectors/note.selectors';
+import * as fromEventSelectors from '../../selectors/event.selectors';
+import * as fromUserSelectors from '../../../account/selectors/user.selectors';
 import { SelectLead, LoadLeadVersions, InsertLeadIo, LoadLeads, UpdateLead } from '../../actions/leads.actions';
 import { Source, Reason, Plan, Outcome, Lead } from '../../models';
 import { LeadState } from '../../models/lead-state.enum';
 import { LoadAllLists } from '../../actions/lists.actions';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
-import { filter, take } from 'rxjs/operators';
+import { filter, take, debounce, map, first } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { LeadNewNoteDialogComponent } from '../../components/lead-new-note-dialog/lead-new-note-dialog.component';
-import * as _ from 'lodash'
 import { LeadNewEventDialogComponent } from '../../components/lead-new-event-dialog/lead-new-event-dialog.component';
 import { LeadNote } from '../../models/lead-note.model';
 import { LoadNotes, InsertNoteIo } from '../../actions/notes.actions';
 import { LeadEvent } from '../../models/lead-event.model';
 import { LoadEvents, InsertEventIo } from '../../actions/event.actions';
+import { User } from '../../../account/models/user.model';
 
 @Component({
   selector: 'app-lead-details',
@@ -29,17 +30,22 @@ import { LoadEvents, InsertEventIo } from '../../actions/event.actions';
 })
 export class LeadDetailsComponent implements OnInit {
 
+    private masterLeads$: Observable<Lead[]>;
     public selectedLead$: Observable<Lead>;
+   
     public versions$: Observable<Lead[]>;
     public state$: Observable<LeadState>;
     public sources$: Observable<Source[]>;
     public reasons$: Observable<Reason[]>;
     public plans$: Observable<Plan[]>;
     public outcomes$: Observable<Outcome[]>;
-    public notes$: Observable<LeadNote[]>
-    public events$: Observable<LeadEvent[]>
+    public notes$: Observable<LeadNote[]>;
+    public events$: Observable<LeadEvent[]>;
+    public user$ : Observable<User>;
     public _subsc: Subscription = new Subscription();
-    private masterLeads$: Observable<Lead[]>;
+    public _lead: Lead;
+    public _user: User;
+   
 
     constructor(
         private store: Store<fromLeads.State>,
@@ -51,7 +57,7 @@ export class LeadDetailsComponent implements OnInit {
         this._subsc.add(
         this.route.params
             .subscribe((params) => {
-            this.initialLoad(params['leadId']);
+                this.initialLoad(params['leadId']);
             })
         );
     }
@@ -62,29 +68,51 @@ export class LeadDetailsComponent implements OnInit {
         this.store.dispatch(new LoadNotes());
         this.store.dispatch(new LoadEvents());
 
-        this.notes$ = this.store.pipe(select(fromNotesSelectors.getAllLeadNotes , { leadId }));
-        this.events$ = this.store.pipe(select(fromEventsSelectors.getAllLeadEvents , { leadId }));
-        this.masterLeads$ = this.store.pipe(select(fromLeadsSelectors.getMasterLeads), filter(i => !!i.length));
+        this.masterLeads$ = this.store.pipe(select(fromLeadSelectors.getMasterLeads), filter(i => !!i.length));
         this._loadVersionsWhenEditingMasterLead(leadId, this.masterLeads$);
-        this.selectedLead$ = this.store.pipe(select(fromLeadsSelectors.getSelectedLead));
-        this.versions$ = this.store.pipe(select(fromLeadsSelectors.getAllLeadVersions, { leadId }));
+        this.selectedLead$ = this.store.pipe(select(fromLeadSelectors.getSelectedLead));
+        this._loadNotesAndEvents(this.selectedLead$);
+        this.versions$ = this.store.pipe(select(fromLeadSelectors.getAllLeadVersions, { leadId }));
         this.sources$ = this.store.pipe(select(fromListSelectors.getSources));
         this.reasons$ = this.store.pipe(select(fromListSelectors.getReasons));
         this.plans$ = this.store.pipe(select(fromListSelectors.getPlans));
         this.outcomes$ = this.store.pipe(select(fromListSelectors.getOutcomes));
+        this.user$ = this.store.pipe(select(fromUserSelectors.getUser));
+
+        this.user$.subscribe((user: User) => {
+            this._user = user;
+        })
+        this.selectedLead$.subscribe((lead: Lead) => {
+            this._lead = lead;
+        })
     }
 
     private _loadVersionsWhenEditingMasterLead(leadId: string, masterLeads: Observable<Lead[]>) {
         this._subsc.add(
         masterLeads
             .pipe(
-            take(1),
-            filter((leads: Lead[]) => !!leads.find(i => i.leadId == leadId)),
+                take(1),
+                filter((leads: Lead[]) => !!leads.find(i => i.leadId == leadId)),
             )
             .subscribe(() => {
-            this.store.dispatch(new LoadLeadVersions({ leadId }));
+                this.store.dispatch(new LoadLeadVersions({ leadId }));
             })
         );
+    }
+
+    private _loadNotesAndEvents(selectedLead: Observable<Lead>){
+        this._subsc.add(
+            selectedLead.subscribe((lead) =>{
+                if(!!lead)
+                if(lead.state == 3){
+                    this.events$ =  this.store.pipe(select(fromEventSelectors.getAllLeadEventsByVersion , { versionId: lead.versionId }));
+                    this.notes$ = this.store.pipe(select(fromNoteSelectors.getAllLeadNotesByVersion , { versionId: lead.versionId }));
+                }else{
+                    this.events$ =  this.store.pipe(select(fromEventSelectors.getAllLeadEvents , { leadId: lead.leadId }));
+                    this.notes$ = this.store.pipe(select(fromNoteSelectors.getAllLeadNotes , { leadId: lead.leadId }));
+                }
+            })
+        )
     }
 
     onLeadSelection(lead: Lead) {
@@ -97,7 +125,6 @@ export class LeadDetailsComponent implements OnInit {
     }
 
     leadSaved(lead: Lead) {
-        debugger
         if (lead.state == LeadState.new) {
             this.store.dispatch(new InsertLeadIo({ insert: { ...lead } }));
         }
@@ -122,18 +149,14 @@ export class LeadDetailsComponent implements OnInit {
         const dialogRef = this.dialog.open(LeadNewNoteDialogComponent);
         dialogRef.afterClosed().subscribe((text: string ) => {
             if(text){
-                this._subsc.add(
-                    this.selectedLead$.subscribe( lead => {
-                        if(!!lead)
-                        this.store.dispatch(new InsertNoteIo({  
-                                noteId: uuid(), 
-                                leadId: lead.leadId, 
-                                text: text, 
-                                date: new Date(), 
-                                userName: lead.firstName 
-                            }))
-                    })
-                );
+                this.store.dispatch(new InsertNoteIo({  
+                    noteId: uuid(), 
+                    leadId: this._lead.leadId, 
+                    versionId: this._lead.versionId,
+                    text: text, 
+                    date: new Date(), 
+                    userName: this._user.name
+                }))
             };
         });
     }
@@ -144,18 +167,14 @@ export class LeadDetailsComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe( (event : LeadEvent) => {
             if(event){
-                this._subsc.add(
-                    this.selectedLead$.subscribe( lead => {
-                        if(!!lead)
-                        this.store.dispatch(new InsertEventIo(
-                            { ...event,
-                                eventId: uuid(),
-                                leadId: lead.leadId, 
-                                userName: lead.firstName,
-                            }
-                        ))
-                    })
-                );
+                this.store.dispatch(new InsertEventIo(
+                    { ...event,
+                        eventId: uuid(),
+                        leadId: this._lead.leadId, 
+                        versionId: this._lead.versionId,
+                        userName: this._user.name,
+                    }
+                ))
             }
         })
     }

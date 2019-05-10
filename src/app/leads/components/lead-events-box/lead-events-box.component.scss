@@ -29,7 +29,7 @@
 .mat-badge-warn .mat-badge-content{
     background-color: red !important;
 }
-.oneday{
+.oneday,.upcoming{
     color: red;
 }
 
@@ -91,3 +91,14 @@ mat-expansion-panel{
 h4{
     color: #515253
 }
+
+.edit-note mat-icon{
+    color: #607D8B;
+}
+
+.edit-note {
+    cursor: pointer;
+    margin-left: 10px;
+    height: 20px;
+}
+

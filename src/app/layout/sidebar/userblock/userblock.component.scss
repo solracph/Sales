@@ -1,0 +1,9 @@
+.user-block{
+    background: #f5f7fa;
+}
+::ng-deep .aside-collapsed, .aside-collapsed-text {
+    .user-block-info {
+        padding-top: 5px;
+        display: block !important;
+    }
+}
