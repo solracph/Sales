@@ -56,10 +56,20 @@
                                 <div class="events-notes-container" *ngIf="selectedLead.state != 2 "> 
                                     <div  class="row">
                                         <div class="col-xl-6">
-                                            <app-lead-notes-box [notes]="notes$ | async" [user]="user$ | async" (newNote)="newNoteDialog($event)"> </app-lead-notes-box>
+                                            <app-lead-notes-box 
+                                                [notes]="notes$ | async" 
+                                                [user]="user$ | async" 
+                                                [lead]="selectedLead"
+                                                (newNoteDialog)="newNoteDialog($event)"> </app-lead-notes-box>
                                         </div>
                                         <div class="col-xl-6">
-                                            <app-lead-events-box [events]="events$ | async" [outcomes]="outcomes$ | async" [user]="user$ | async" (newEvent)="newEventDialog($event)"></app-lead-events-box>
+                                            <app-lead-events-box 
+                                                [events]="events$ | async" 
+                                                [outcomes]="outcomes$ | async" 
+                                                [user]="user$ | async" 
+                                                [lead]="selectedLead"
+                                                (newEventDialog)="newEventDialog($event)"
+                                                (editEventDialog)="editEventDialog($event)"></app-lead-events-box>
                                         </div>
                                     </div>
                                 </div>

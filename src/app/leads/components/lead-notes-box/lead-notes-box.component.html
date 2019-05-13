@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-card-actions>
     <div class="card-actions">
-    <button mat-flat-button class="note-add-button" color="primary" (click)="openDialog($event)">New</button>
+    <button *ngIf="lead.state != leadState.version" mat-flat-button class="note-add-button" color="primary" (click)="newNote($event)">New</button>
     </div>
     </mat-card-actions>
     <mat-card-content>
@@ -16,7 +16,7 @@
                     <mat-card-subtitle>{{note.date | date: 'MM/dd/yyyy hh:mm aaa'}}</mat-card-subtitle>
                 </div>
                 <mat-icon>speaker_notes</mat-icon>
-                <span *ngIf="user.role == 2" class="edit-note" matTooltip="Edit Note">
+                <span *ngIf="user.role == 2 && lead.state != leadState.version" (click)="editNote($event)" class="edit-note" matTooltip="Edit Note">
                     <mat-icon >edit</mat-icon>
                 </span>
             </mat-card-header>

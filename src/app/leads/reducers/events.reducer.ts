@@ -55,6 +55,10 @@ export const reducer = (
                 loading: false,
                 error: action.payload
             }
+        case fromEvent.UPDATE_EVENT:
+            return {
+                ...adapter.updateOne(action.payload, state), 
+            }
         default:
             return state;
     }

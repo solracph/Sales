@@ -13,7 +13,11 @@ export class EventsService {
     return this._http.get<any>(`${environment.apiUrl}events.json`);
   }
 
-  insertEvent(lead: LeadEvent){
-    return of(lead);
+  insertEvent(event: LeadEvent){
+    return of(event);
+  }
+
+  updateEvent(event: LeadEvent){
+    return of(event);
   }
 }

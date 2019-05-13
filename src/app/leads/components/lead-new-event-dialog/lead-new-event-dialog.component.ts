@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
+import { LeadEvent } from '../../models/lead-event.model';
 
 @Component({
   selector: 'app-lead-new-event-dialog',
@@ -18,13 +19,14 @@ export class LeadNewEventDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<LeadNewEventDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {}
 
   ngOnInit() {
+    console.log(this.data)
     this.eventForm = new FormGroup({
-      outcome: new FormControl('', [Validators.required]),
-      date: new FormControl('',[Validators.required]),
-      location: new FormControl('')
+      outcome: new FormControl(!!this.data.event ? this.data.event.outcome : '', [Validators.required]),
+      date: new FormControl(!!this.data.event ? new Date(this.data.event.date) : null,[Validators.required]),
+      location: new FormControl(!!this.data.event ? this.data.event.location: '')
     });
   }
 
@@ -32,16 +34,22 @@ export class LeadNewEventDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  addNewEvent(){
-    if(!this.eventForm.invalid)
-    {
-      this.dialogRef.close(this.eventForm.value);
+  onSubmit(){
+    if(!this.eventForm.invalid) {
+      if(!!this.data.event){
+        this.dialogRef.close({
+          ...this.eventForm.value,
+          eventId : this.data.event.eventId
+        });
+      } else {
+        this.dialogRef.close(this.eventForm.value);
+      }
+      
     }
   }
 
-   onAutocompleteSelected(result) {
-     this.location.setValue(result.formatted_address);
-    console.log('onAutocompleteSelected: ', result.formatted_address);
+  onAutocompleteSelected(result) {
+      this.location.setValue(result.formatted_address);
   }
 
 }

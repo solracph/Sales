@@ -29,9 +29,9 @@ export class EventEffects {
     insertEventIo$ = this.actions$.pipe(
       ofType<fromEvent.InsertEventIo>(fromEvent.INSERT_EVENT_IO),
       map(action => action.payload),
-      switchMap((note) => this.eventsService.insertEvent(note)
+      switchMap((event) => this.eventsService.insertEvent(event)
         .pipe(
-          map((note: LeadEvent) => new fromEvent.InsertEventIoSuccess(note)),
+          map((event: LeadEvent) => new fromEvent.InsertEventIoSuccess(event)),
           catchError(error => of(new fromEvent.InsertEventIoFail(error)))
         )
       ),
@@ -41,7 +41,26 @@ export class EventEffects {
     insertEventIoSuccess$ = this.actions$.pipe(
       ofType<fromEvent.InsertEventIoSuccess>(fromEvent.INSERT_EVENT_IO_SUCCESS),
       map(action => action.payload),
-        map((note) => new fromEvent.InsertEvent(note))
+        map((event) => new fromEvent.InsertEvent(event))
+    );
+
+    @Effect()
+    updateEventIo$ = this.actions$.pipe(
+      ofType<fromEvent.UpdateEventIo>(fromEvent.UPDATE_EVENT_IO),
+      map(action => action.payload),
+      switchMap((event) => this.eventsService.updateEvent(event)
+        .pipe(
+          map((event: LeadEvent) => new fromEvent.UpdateEventIoSuccess(event)),
+          catchError(error => of(new fromEvent.UpdateEventIoFail(error)))
+        )
+      ),
+    );
+
+    @Effect()
+    updateEventIoSuccess$ = this.actions$.pipe(
+      ofType<fromEvent.UpdateEventIoSuccess>(fromEvent.UPDATE_EVENT_IO_SUCCESS),
+      map(action => action.payload),
+        map((event) => new fromEvent.UpdateEvent({ id:event.eventId, changes: event }))
     );
 
 }

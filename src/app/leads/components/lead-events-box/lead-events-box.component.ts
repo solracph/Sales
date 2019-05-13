@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { LeadEvent } from '../../models/lead-event.model';
-import { Outcome } from '../../models';
+import { Outcome, Lead } from '../../models';
 import { LeadListsService } from '../../services/lead-lists.service';
 import { User } from '../../../account/models/user.model';
+import { LeadState } from '../../models/lead-state.enum';
 
 @Component({
     selector: 'app-lead-events-box',
@@ -14,7 +15,11 @@ export class LeadEventsBoxComponent implements OnInit {
     @Input() events: LeadEvent[];
     @Input() outcomes: Outcome[];
     @Input() user: User;
-    @Output() newEvent: EventEmitter<Event> = new EventEmitter();
+    @Input() lead: Lead;
+    @Output() newEventDialog: EventEmitter<Event> = new EventEmitter();
+    @Output() editEventDialog: EventEmitter<LeadEvent> = new EventEmitter();
+
+    public leadState = LeadState;
   
     constructor(
         public  listService : LeadListsService
@@ -23,8 +28,12 @@ export class LeadEventsBoxComponent implements OnInit {
     ngOnInit() {
     }
 
-    openDialog(event): void {
-        this.newEvent.emit(event);
+    newEvent(e) {
+        this.newEventDialog.emit(e);
+    }
+
+    editEvent(event : LeadEvent) {
+        this.editEventDialog.emit(event);
     }
 
     eventUrgency(date: Date){

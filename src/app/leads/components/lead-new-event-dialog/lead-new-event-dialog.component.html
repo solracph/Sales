@@ -1,4 +1,4 @@
-<form [formGroup]="eventForm" (ngSubmit)="addNewEvent()">
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
   <h1 mat-dialog-title>Outcome  <mat-icon>date_range</mat-icon></h1>
   <div mat-dialog-content>
         <div class="row m-1">
@@ -39,7 +39,8 @@
   </div>
   <div mat-dialog-actions>
     <button mat-flat-button (click)="onClose()">Close</button>
-    <button mat-flat-button color="primary" type="submit" >Add</button>
+    <button  *ngIf="!this.data.event"  mat-flat-button color="primary" type="submit" >Add</button>
+    <button  *ngIf="!!this.data.event"  mat-flat-button color="primary" type="submit" >Save</button>
   </div>
 </form>
 

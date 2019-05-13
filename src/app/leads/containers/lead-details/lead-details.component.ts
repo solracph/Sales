@@ -20,7 +20,7 @@ import { LeadNewEventDialogComponent } from '../../components/lead-new-event-dia
 import { LeadNote } from '../../models/lead-note.model';
 import { LoadNotes, InsertNoteIo } from '../../actions/notes.actions';
 import { LeadEvent } from '../../models/lead-event.model';
-import { LoadEvents, InsertEventIo } from '../../actions/event.actions';
+import { LoadEvents, InsertEventIo, UpdateEvent, UpdateEventIo } from '../../actions/event.actions';
 import { User } from '../../../account/models/user.model';
 
 @Component({
@@ -175,6 +175,17 @@ export class LeadDetailsComponent implements OnInit {
                         userName: this._user.name,
                     }
                 ))
+            }
+        })
+    }
+
+    editEventDialog(event : LeadEvent){
+       const dialogRef = this.dialog.open(LeadNewEventDialogComponent,{
+        data:  { outcomes: this.outcomes$, event }  
+        });
+        dialogRef.afterClosed().subscribe( (event : LeadEvent) => {
+            if(event){
+                this.store.dispatch(new UpdateEventIo(event))
             }
         })
     }

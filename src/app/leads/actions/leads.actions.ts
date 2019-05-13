@@ -87,27 +87,6 @@ export const SNACKBAR_CLOSE =  "[SnackBar] SNACKBAR CLOSE";
         readonly type = INSERT_LEAD_IO_FAIL;
         constructor(public payload: any) { }
     }
-
-    export class InsertLeadNote implements Action{
-        readonly type = INSERT_LEAD_NOTE;
-        constructor(public payload: Update<Lead> ) { }
-    }
-
-    export class InsertLeadNoteIo implements Action{
-        readonly type = INSERT_LEAD_NOTE_IO;
-        constructor(public payload: LeadNote) { }
-    }
-
-    export class InsertLeadNoteIoSuccess implements Action{
-        readonly type = INSERT_LEAD_NOTE_IO;
-        constructor(public payload: LeadNote) { }
-    }
-
-    export class InsertLeadNoteIoFail implements Action{
-        readonly type = INSERT_LEAD_NOTE_IO;
-        constructor(public payload: LeadNote) { }
-    }
-
     export class UpdateLead implements Action {
         readonly type = UPDATE_LEAD;
         constructor(public payload: Update<Lead>) { }
@@ -154,10 +133,6 @@ LoadLeads
 | InsertLeadIo
 | InsertLeadIoSuccess
 | InsertLeadIoFail
-| InsertLeadNote
-| InsertLeadNoteIo
-| InsertLeadNoteIoSuccess
-| InsertLeadNoteIoFail
 | UpsertLead
 | UpdateLead
 | UpdateLeadState
