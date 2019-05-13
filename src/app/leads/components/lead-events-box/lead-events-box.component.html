@@ -26,7 +26,7 @@
                         <mat-icon *ngIf="eventUrgency(event.date) == 'pasts' ">calendar_today</mat-icon>
                         <mat-icon *ngIf="eventUrgency(event.date) == 'oneday' || eventUrgency(event.date) == 'upcoming'" matBadge="!" matBadgeColor="warn">calendar_today</mat-icon>
                         <mat-icon *ngIf="eventUrgency(event.date) == 'twodays'" matBadge="!" >calendar_today</mat-icon>
-                        <span *ngIf="user.role == 2 && lead.state != leadState.version" (click)="editEvent(event)" class="edit-note" matTooltip="Edit Event">
+                        <span *ngIf="user.role == 2 && lead.state != leadState.version" (click)="editEvent(event)" class="edit-note" matTooltip="Edit">
                             <mat-icon >edit</mat-icon>
                         </span>
                     </mat-card-header>

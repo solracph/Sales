@@ -22,7 +22,6 @@ export class LeadNewEventDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.data)
     this.eventForm = new FormGroup({
       outcome: new FormControl(!!this.data.event ? this.data.event.outcome : '', [Validators.required]),
       date: new FormControl(!!this.data.event ? new Date(this.data.event.date) : null,[Validators.required]),

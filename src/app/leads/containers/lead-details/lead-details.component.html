@@ -60,7 +60,8 @@
                                                 [notes]="notes$ | async" 
                                                 [user]="user$ | async" 
                                                 [lead]="selectedLead"
-                                                (newNoteDialog)="newNoteDialog($event)"> </app-lead-notes-box>
+                                                (newNoteDialog)="newNoteDialog($event)"
+                                                (editNoteDialog)="editNoteDialog($event)"> </app-lead-notes-box>
                                         </div>
                                         <div class="col-xl-6">
                                             <app-lead-events-box 

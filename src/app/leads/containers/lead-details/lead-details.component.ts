@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material';
 import { LeadNewNoteDialogComponent } from '../../components/lead-new-note-dialog/lead-new-note-dialog.component';
 import { LeadNewEventDialogComponent } from '../../components/lead-new-event-dialog/lead-new-event-dialog.component';
 import { LeadNote } from '../../models/lead-note.model';
-import { LoadNotes, InsertNoteIo } from '../../actions/notes.actions';
+import { LoadNotes, InsertNoteIo, UpdateNote, UpdateNoteIo } from '../../actions/notes.actions';
 import { LeadEvent } from '../../models/lead-event.model';
 import { LoadEvents, InsertEventIo, UpdateEvent, UpdateEventIo } from '../../actions/event.actions';
 import { User } from '../../../account/models/user.model';
@@ -147,13 +147,13 @@ export class LeadDetailsComponent implements OnInit {
 
     newNoteDialog(): void {
         const dialogRef = this.dialog.open(LeadNewNoteDialogComponent);
-        dialogRef.afterClosed().subscribe((text: string ) => {
-            if(text){
+        dialogRef.afterClosed().subscribe(note  => {
+            if(note){
                 this.store.dispatch(new InsertNoteIo({  
                     noteId: uuid(), 
                     leadId: this._lead.leadId, 
                     versionId: this._lead.versionId,
-                    text: text, 
+                    text: note.text, 
                     date: new Date(), 
                     userName: this._user.name
                 }))
@@ -181,11 +181,22 @@ export class LeadDetailsComponent implements OnInit {
 
     editEventDialog(event : LeadEvent){
        const dialogRef = this.dialog.open(LeadNewEventDialogComponent,{
-        data:  { outcomes: this.outcomes$, event }  
+            data:  { outcomes: this.outcomes$, event }  
         });
         dialogRef.afterClosed().subscribe( (event : LeadEvent) => {
             if(event){
                 this.store.dispatch(new UpdateEventIo(event))
+            }
+        })
+    }
+
+    editNoteDialog(note: LeadNote){
+        const dialogRef = this.dialog.open(LeadNewNoteDialogComponent,{
+            data: note  
+        });
+        dialogRef.afterClosed().subscribe( (note : LeadNote) => {
+            if(note){
+                this.store.dispatch(new UpdateNoteIo(note))
             }
         })
     }

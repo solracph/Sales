@@ -44,4 +44,23 @@ export class NoteEffects {
         map((note) => new fromNote.InsertNote(note))
     );
 
+    @Effect()
+    updateNoteIo$ = this.actions$.pipe(
+      ofType<fromNote.UpdateNoteIo>(fromNote.UPDATE_NOTE_IO),
+      map(action => action.payload),
+      switchMap((note) => this.notesService.updateNote(note)
+        .pipe(
+          map((note: LeadNote) => new fromNote.UpdateNoteIoSuccess(note)),
+          catchError(error => of(new fromNote.UpdateNoteIoFail(error)))
+        )
+      ),
+    );
+
+    @Effect()
+    updateNoteIoSuccess$ = this.actions$.pipe(
+      ofType<fromNote.UpdateNoteIoSuccess>(fromNote.UPDATE_NOTE_IO_SUCCESS),
+      map(action => action.payload),
+        map((note) => new fromNote.UpdateNote({ id : note.noteId, changes: note}))
+    );
+
 }

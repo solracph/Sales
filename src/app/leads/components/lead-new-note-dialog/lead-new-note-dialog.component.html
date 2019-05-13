@@ -1,10 +1,12 @@
-<h1 mat-dialog-title>Note  <mat-icon>speaker_notes</mat-icon></h1>
-<div mat-dialog-content>
-  <mat-form-field>
-    <textarea matInput [(ngModel)]="data"></textarea>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-flat-button (click)="onClose()">Close</button>
-  <button mat-flat-button color="primary" [mat-dialog-close]="data">Add</button>
-</div>
+<form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>Note  <mat-icon>speaker_notes</mat-icon></h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <textarea matInput formControlName="text" id="text"></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-flat-button (click)="onClose()">Close</button>
+    <button mat-flat-button color="primary" type="submit">Add</button>
+  </div>
+</form>

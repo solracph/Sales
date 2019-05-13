@@ -15,7 +15,7 @@ export class LeadNotesBoxComponent implements OnInit {
     @Input() user: User;
     @Input() lead: Lead;
     @Output() newNoteDialog: EventEmitter<Event> = new EventEmitter();
-    @Output() editNoteDialog: EventEmitter<Event> = new EventEmitter();
+    @Output() editNoteDialog: EventEmitter<LeadNote> = new EventEmitter();
 
     public leadState = LeadState;
     
@@ -28,8 +28,8 @@ export class LeadNotesBoxComponent implements OnInit {
         this.newNoteDialog.emit(e);
     }
 
-    editNote(e){
-      this.editNoteDialog.emit(e);
+    editNote(note: LeadNote){
+      this.editNoteDialog.emit(note);
     }
 
 }

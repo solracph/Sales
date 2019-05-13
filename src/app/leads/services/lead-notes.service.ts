@@ -17,5 +17,7 @@ export class NotesService {
     return of(lead);
   }
 
-  
+  updateNote(lead: LeadNote){
+    return of(lead);
+  }
 }

@@ -54,6 +54,10 @@ export const reducer = (
                 loading: false,
                 error: action.payload
             }
+        case fromNote.UPDATE_NOTE:
+            return {
+                ...adapter.updateOne(action.payload, state), 
+            }
         default:
             return state;
     }

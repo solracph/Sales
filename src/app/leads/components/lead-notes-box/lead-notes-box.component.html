@@ -16,7 +16,7 @@
                     <mat-card-subtitle>{{note.date | date: 'MM/dd/yyyy hh:mm aaa'}}</mat-card-subtitle>
                 </div>
                 <mat-icon>speaker_notes</mat-icon>
-                <span *ngIf="user.role == 2 && lead.state != leadState.version" (click)="editNote($event)" class="edit-note" matTooltip="Edit Note">
+                <span *ngIf="user.role == 2 && lead.state != leadState.version" (click)="editNote(note)" class="edit-note" matTooltip="Edit">
                     <mat-icon >edit</mat-icon>
                 </span>
             </mat-card-header>
