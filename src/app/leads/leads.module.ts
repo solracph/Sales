@@ -31,6 +31,7 @@ import { EventEffects } from './effects/event.effects';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { LeadFormValidatorDirective } from './directives/lead-form-validator.directive';
 import { PhonePipe } from '../commons/pipes/phone.pipe';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { PhonePipe } from '../commons/pipes/phone.pipe';
     SharedModule,
     TextMaskModule,
     MatBadgeModule,
-    MatGoogleMapsAutocompleteModule
+    MatGoogleMapsAutocompleteModule,
+    AmazingTimePickerModule
   ],
   providers:[
     LeadListsService,
