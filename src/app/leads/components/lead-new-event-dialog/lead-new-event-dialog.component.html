@@ -47,8 +47,7 @@
   </div>
   <div mat-dialog-actions>
     <button mat-flat-button (click)="onClose()">Close</button>
-    <button  *ngIf="!this.data.event"  mat-flat-button color="primary" type="submit" >Add</button>
-    <button  *ngIf="!!this.data.event"  mat-flat-button color="primary" type="submit" >Save</button>
+    <button mat-flat-button color="primary" type="submit">{{!!this.data.event ? 'Save' : 'Add'}}</button>
   </div>
 </form>
 
