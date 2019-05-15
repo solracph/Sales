@@ -14,9 +14,7 @@ export class LeadNewNoteDialogComponent {
   constructor(
       public dialogRef: MatDialogRef<LeadNewNoteDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    console.log(data)
-  }
+  ) {}
 
   ngOnInit() {
     this.noteForm = new FormGroup({
