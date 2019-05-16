@@ -1,5 +1,5 @@
 <div class="row no-gutters lead-versions main-row">
-    <div class="col-xl-2" *ngIf="(user$ | async).role == 2">
+    <div class="col-xl-2" *ngIf="(user$ | async).role == 200">
         <div class="md-card">
             <div class="md-card-heading title-with-small-icon">
                 <mat-icon class="material-icons">list</mat-icon>
@@ -17,7 +17,7 @@
             </ng-container>
         </div>
     </div>
-    <div [class]="(user$ | async).role == 2 ? 'col-xl-10' : 'col-xl-12'">
+    <div [class]="'col-xl-12'">
         <div *ngIf="selectedLead$ | async; let selectedLead;">
             <div class="row">
                 <div class="col-xl-12">
