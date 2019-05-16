@@ -91,7 +91,7 @@ export class LeadFormComponent implements OnInit {
   }
 
   isDisable(){
-    return this.user.role != 2
+    return this.user.role != 2 && this.lead.state != 2
   }
 
   save(){ 
