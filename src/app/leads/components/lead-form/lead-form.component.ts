@@ -47,10 +47,10 @@ export class LeadFormComponent implements OnInit {
     })  
   }
 
-  /*ngOnChages(changes){
-    if(!!changes.user)
-    this.leadFormInitialization();
-  }*/
+  ngOnChanges(changes){
+    if(!!changes.lead)
+      this.leadFormInitialization();
+  }
 
   leadFormInitialization(){
     this.leadForm = new FormGroup({
@@ -91,7 +91,7 @@ export class LeadFormComponent implements OnInit {
   }
 
   isDisable(){
-    return this.user.role != 2 && this.lead.state != 2
+    return this.lead.state != 2
   }
 
   save(){ 

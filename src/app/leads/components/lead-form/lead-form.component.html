@@ -140,7 +140,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <mat-label>Reason</mat-label>
-                                        <mat-select formControlName="reason">
+                                        <mat-select formControlName="reason" [disabled]="isDisable()">
                                             <mat-option [value]="null" ></mat-option>
                                             <mat-option *ngFor="let reason of reasons" [value]="reason.id" >
                                                 {{ reason.description }}
@@ -154,7 +154,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field>
                                         <mat-label>Current Plan</mat-label>
-                                        <mat-select formControlName="currentPlan">
+                                        <mat-select formControlName="currentPlan" [disabled]="isDisable()">
                                             <mat-option [value]="null" ></mat-option>
                                             <mat-option *ngFor="let plan of plans" [value]="plan.id" >{{ plan.description }}</mat-option>
                                         </mat-select>
@@ -163,7 +163,7 @@
                                 <div class="col-md-3">
                                     <mat-form-field >
                                         <mat-label>Source</mat-label>
-                                        <mat-select formControlName="source">
+                                        <mat-select formControlName="source" [disabled]="isDisable()">
                                             <mat-option [value]="null" ></mat-option>
                                             <mat-option *ngFor="let source of sources" [value]="source.id" >{{ source.description }}</mat-option>
                                         </mat-select>
@@ -215,7 +215,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            <div class="row" *ngIf="lead.state == leadState.new || user.role == 2">
+                            <div class="row" *ngIf="lead.state == leadState.new">
                                 <div class="col-md-12 button-col" >
                                     <div class="button-row">
                                         <button mb-stroked-button class="mb-1 mr-1 btn btn-danger" type="button" (click)="cancel()" *ngIf="lead.state != leadState.version">Cancel</button>
