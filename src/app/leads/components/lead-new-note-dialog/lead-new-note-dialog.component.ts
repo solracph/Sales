@@ -39,6 +39,7 @@ export class LeadNewNoteDialogComponent {
   }
 
   onClose(): void {
+      this.noteForm.reset();
       this.dialogRef.close();
   }
 }

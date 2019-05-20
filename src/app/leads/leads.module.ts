@@ -32,6 +32,7 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
 import { LeadFormValidatorDirective } from './directives/lead-form-validator.directive';
 import { PhonePipe } from '../commons/pipes/phone.pipe';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { DateTimeService } from '../commons/utilities/date-time.service';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
     LeadGridService,
     LeadViewService,
     NotesService,
-    EventsService
+    EventsService,
+    DateTimeService
   ],
   entryComponents: [
     LeadNewNoteDialogComponent,

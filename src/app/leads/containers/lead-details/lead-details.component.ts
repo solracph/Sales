@@ -148,7 +148,7 @@ export class LeadDetailsComponent implements OnInit {
     newNoteDialog(): void {
         const dialogRef = this.dialog.open(LeadNewNoteDialogComponent);
         dialogRef.afterClosed().subscribe(note  => {
-            if(note){
+            if(note.text){
                 this.store.dispatch(new InsertNoteIo({  
                     noteId: uuid(), 
                     leadId: this._lead.leadId, 
